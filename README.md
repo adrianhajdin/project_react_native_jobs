@@ -1,5 +1,5 @@
 # Build and Deploy a React Native App | 2023 React Native Course Tutorial for Beginners
-![RN Course](https://i.ibb.co/3RqcgmW/RN-Course.png)
+![RN Course](https://i.ibb.co/VWMxgZz/File-cover-8.png)
 
 ## Introduction
 The most impressive websites in the world use 3D graphics and animations to bring their content to life. Learn how to build your own ThreeJS 3D Developer Portfolio today! 
