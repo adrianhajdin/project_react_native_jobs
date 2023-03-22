@@ -2,7 +2,7 @@
 ![RN Course](https://i.ibb.co/VWMxgZz/File-cover-8.png)
 
 ## Introduction
-The most impressive websites in the world use 3D graphics and animations to bring their content to life. Learn how to build your own ThreeJS 3D Developer Portfolio today! 
+The existence of React Native makes React one of the most valuable skills to have. Learn how to transform 75% of your knowledge from making websites into building mobile applications today!
 
 Alongside building this application, you'll also learn how to:
 - develop visually appealing UI/UX designs
