@@ -3,17 +3,17 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import styles from "./popularjobcard.style";
 import { checkImageURL } from "../../../../utils";
 
-const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
+const PopularJobCard = ({ bookInfo, selectedBook, handleCardPress }) => {
   return (
     <TouchableOpacity
-      style={styles.container(selectedJob, item)}
-      onPress={() => handleCardPress(item)}
+      style={styles.container(selectedBook, bookInfo)}
+      onPress={() => handleCardPress(bookInfo)}
     >
-      <TouchableOpacity style={styles.logoContainer(selectedJob, item)}>
+      <TouchableOpacity style={styles.logoContainer(selectedBook, bookInfo)}>
         <Image
           source={{
-            uri: checkImageURL(item?.employer_logo)
-              ? item.employer_logo
+            uri: checkImageURL(bookInfo?.imageLinks?.thumbnail)
+              ? bookInfo?.imageLinks?.thumbnail
               : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
           }}
           resizeMode='contain'
@@ -21,18 +21,17 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
         />
       </TouchableOpacity>
       <Text style={styles.companyName} numberOfLines={1}>
-        {item.employer_name}
+        {bookInfo?.volumeInfo?.authors?.[0]}
       </Text>
 
       <View style={styles.infoContainer}>
-        <Text style={styles.jobName(selectedJob, item)} numberOfLines={1}>
-          {item.job_title}
+        <Text style={styles.jobName(selectedBook, bookInfo)} numberOfLines={1}>
+          {bookInfo?.volumeInfo?.title}
         </Text>
         <View style={styles.infoWrapper}>
-          <Text style={styles.publisher(selectedJob, item)}>
-            {item?.job_publisher} -
+          <Text style={styles.publisher(selectedBook, bookInfo)}>
+            {bookInfo?.volumeInfo?.subtitle}
           </Text>
-          <Text style={styles.location}> {item.job_country}</Text>
         </View>
       </View>
     </TouchableOpacity>
