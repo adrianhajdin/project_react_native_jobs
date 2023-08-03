@@ -108,14 +108,14 @@ const JobDetails = () => {
                 companyName={data[0].employer_name}
                 location={data[0].job_country}
               />
-
+{/* 
               <JobTabs
                 tabs={tabs}
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
               />
 
-              {displayTabContent()}
+              {displayTabContent()} */}
             </View>
           )}
         </ScrollView>
