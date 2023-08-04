@@ -15,13 +15,15 @@ import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useFetch();
+  const title = "Atomic Habits";
+  const maxResults = 3;
+  const { data, isLoading, error } = useFetch( title, maxResults );
 
   const [selectedBook, setSelectedBook] = useState();
 
   const handleCardPress = (book) => {
-    router.push(`/book-details/${book.id}`);
-    setSelectedBook(book.id);
+    router.push(`/book-details/${book.volumeInfo.title}`);
+    setSelectedBook(book.volumeInfo.title);
   };
 
   return (

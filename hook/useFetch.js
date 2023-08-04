@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = () => {
+const useFetch = ( title, maxResults ) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -10,8 +10,8 @@ const useFetch = () => {
     method: "GET",
     url: 'https://www.googleapis.com/books/v1/volumes',
     params: { 
-      q: `intitle = 'Atomic Habits'`,
-      maxResults: 3,
+      q: `intitle = ${title}`,
+      maxResults: maxResults,
       key: 'AIzaSyDVnwYDP7eKPccg80tmjrzubotTLmiPDDU',
   }};
 
