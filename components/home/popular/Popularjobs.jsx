@@ -16,8 +16,11 @@ import useFetch from "../../../hook/useFetch";
 const Popularjobs = () => {
   const router = useRouter();
   const title = "Atomic Habits";
-  const maxResults = 3;
-  const { data, isLoading, error } = useFetch( title, maxResults );
+  const { data, isLoading, error } = useFetch("https://www.googleapis.com/books/v1/volumes", {
+    q: `intitle = ${title}`,
+    maxResults: 3,
+    key: 'AIzaSyDVnwYDP7eKPccg80tmjrzubotTLmiPDDU',
+  });
 
   const [selectedBook, setSelectedBook] = useState();
 
@@ -29,7 +32,7 @@ const Popularjobs = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Popular books</Text>
+        <Text style={styles.headerTitle}>Top Picks</Text>
         <TouchableOpacity>
           <Text style={styles.headerBtn}>Show all</Text>
         </TouchableOpacity>

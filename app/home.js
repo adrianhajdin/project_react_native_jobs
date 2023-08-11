@@ -8,11 +8,15 @@ import {
   Popularjobs,
   ScreenHeaderBtn,
   Welcome,
+  QuestionTest
 } from "../components";
+
 
 const Home = () => {
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("");
+
+  const showQues = true;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -30,6 +34,14 @@ const Home = () => {
         }}
       />
 
+      {showQues == true ? <View
+        style={{
+          flex: 1,
+          padding: SIZES.medium,
+        }}
+      >
+      <QuestionTest />
+      </View> : 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -48,9 +60,10 @@ const Home = () => {
           />
 
           <Popularjobs />
-          {/* <Nearbyjobs /> */}
+          <Nearbyjobs />
         </View>
       </ScrollView>
+      }
     </SafeAreaView>
   );
 };

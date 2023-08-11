@@ -1,19 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = ( title, maxResults ) => {
+const useFetch = (baseURL, query) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const options = {
     method: "GET",
-    url: 'https://www.googleapis.com/books/v1/volumes',
-    params: { 
-      q: `intitle = ${title}`,
-      maxResults: maxResults,
-      key: 'AIzaSyDVnwYDP7eKPccg80tmjrzubotTLmiPDDU',
-  }};
+    url: baseURL,
+    params: { ...query },
+  };
 
   const fetchData = async () => {
     setIsLoading(true);

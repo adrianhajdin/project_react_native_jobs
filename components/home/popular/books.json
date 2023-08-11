@@ -1,0 +1,36 @@
+{
+    "id" : "testBook",
+    "title" : "string",
+    "authors" : {
+        "author1" : "string",
+        "author2" : "string"
+    },
+    "publisher" : "string",
+    "publishedDate" : "string",
+    "description" : "string",
+    "isbn13" : "string",
+    "isbn10" : "string",
+    "pageCount" : 0,
+    "averageRating" : 1,
+    "ratingsCount" : 2,
+    "imageLinks" : {
+        "smallThumbnail" : "string",
+        "largeThumbnail" : "string"
+    },
+    "country" : "string",
+    "retailPrice" : {
+        "amount" : 0.00,
+        "currencyCode" : "string"
+    },
+    "buyLink" : "string",
+    "genre" : "string",
+    "weights" : {
+        "cat1" : 9.5,
+        "cat2" : 8.5,
+        "cat3" : 9.0,
+        "digestibility" : 0.4,
+        "bookLength": 9.4,
+        "mainstreamFamiliarity" : 4.6
+    }
+
+}

@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   }),
+  infoHeader: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+  },
   logoImage: {
     width: "70%",
     height: "70%",
@@ -33,6 +40,14 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginTop: SIZES.large,
   },
+  scoreContainer: (selectedBook, book) => ({
+    width: 50,
+    height: 50,
+    backgroundColor: selectedBook === book?.id ? "#FFF" : COLORS.white,
+    borderRadius: SIZES.medium,
+    justifyContent: "center",
+    alignItems: "center",
+  }),
   jobName: (selectedBook, book) => ({
     fontSize: SIZES.large,
     fontFamily: FONT.medium,

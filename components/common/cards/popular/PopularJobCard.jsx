@@ -9,6 +9,7 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
       style={styles.container(selectedBook, book)}
       onPress={() => handleCardPress(book)}
     >
+      <View style={styles.infoHeader}>
       <TouchableOpacity style={styles.logoContainer(selectedBook, book)}>
         <Image
           source={{
@@ -20,6 +21,11 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
           style={styles.logoImage}
         />
       </TouchableOpacity>
+      <TouchableOpacity style={styles.scoreContainer(selectedBook, book)}>
+          <Text>97</Text>
+      </TouchableOpacity>
+      </View>
+
       <Text style={styles.companyName} numberOfLines={1}>
         {book?.volumeInfo?.authors?.[0]}
       </Text>
