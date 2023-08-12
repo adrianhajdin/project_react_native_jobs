@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Button, ScrollView, Text, TextInput, View } from 'react-native';
 import { SimpleSurvey } from 'react-native-simple-survey';
 import { COLORS } from '../question/res/validColors';
+import {ButtonOutline} from 'react-native-ui-buttons';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
@@ -85,12 +86,16 @@ export default class SurveyScreen extends Component {
     renderPreviousButton(onPress, enabled) {
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-                <Button
-                    color={GREEN}
-                    onPress={onPress}
-                    disabled={!enabled}
-                    backgroundColor={GREEN}
+                <ButtonOutline
                     title={'Previous'}
+                    textStyle={enabled ? { fontWeight: 'bold' } : {color: 'lightgrey'}}
+                    disabled={!enabled}
+                    onPress={onPress}
+                    opacityReducer={3}
+                    useColor={'grey'}
+                    padding={10}
+                    textOpacityReducer={8}
+                    styles={{borderColor: GREEN, backgroundColor: GREEN}}
                 />
             </View>
         );
@@ -99,12 +104,16 @@ export default class SurveyScreen extends Component {
     renderNextButton(onPress, enabled) {
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-                <Button
-                    color={GREEN}
-                    onPress={onPress}
-                    disabled={!enabled}
-                    backgroundColor={GREEN}
+                <ButtonOutline
                     title={'Next'}
+                    disabled={!enabled}
+                    textStyle={enabled ? { fontWeight: 'bold' } : {color: 'lightgrey'}}
+                    onPress={onPress}
+                    opacityReducer={3}
+                    useColor={GREEN}
+                    padding={10}
+                    textOpacityReducer={8}
+                    styles={{borderColor: GREEN, backgroundColor: GREEN}}
                 />
             </View>
         );
@@ -113,11 +122,16 @@ export default class SurveyScreen extends Component {
     renderFinishedButton(onPress, enabled) {
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-                <Button
+                <ButtonOutline
                     title={'Finished'}
-                    onPress={onPress}
                     disabled={!enabled}
-                    color={GREEN}
+                    textStyle={{fontWeight: 'bold'}}
+                    onPress={onPress}
+                    opacityReducer={3}
+                    useColor={GREEN}
+                    padding={10}
+                    textOpacityReducer={8}
+                    styles={{borderColor: GREEN, backgroundColor: GREEN}}
                 />
             </View>
         );
@@ -129,11 +143,14 @@ export default class SurveyScreen extends Component {
                 key={`selection_button_view_${index}`}
                 style={{ marginTop: 5, marginBottom: 5, justifyContent: 'flex-start' }}
             >
-                <Button
+                <ButtonOutline
                     title={data.optionText}
                     onPress={onPress}
-                    color={isSelected ? GREEN : PURPLE}
-                    style={isSelected ? { fontWeight: 'bold' } : {}} 
+                    opacityReducer={3}
+                    useColor={isSelected ? GREEN : PURPLE}
+                    padding={5}
+                    textOpacityReducer={8}
+                    textStyle={ isSelected ? { fontWeight: 'bold' } : {color: 'black'}}
                     key={`button_${index}`}
                 />
             </View>
@@ -272,7 +289,11 @@ const styles = StyleSheet.create({
     },
     questionText: {
         marginBottom: 20,
-        fontSize: 20
+        fontSize: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
     textBox: {
         borderWidth: 1,
@@ -298,6 +319,10 @@ const styles = StyleSheet.create({
     infoText: {
         marginBottom: 20,
         fontSize: 20,
-        marginLeft: 10
+        marginLeft: 10,
+        marginRight: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
     },
 });
