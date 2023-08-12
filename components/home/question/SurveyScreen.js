@@ -3,6 +3,7 @@ import { StyleSheet, Button, ScrollView, Text, TextInput, View } from 'react-nat
 import { SimpleSurvey } from 'react-native-simple-survey';
 import { COLORS } from '../question/res/validColors';
 import {ButtonOutline} from 'react-native-ui-buttons';
+import { Icon } from 'react-native-vector-icons/MaterialIcons';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
@@ -150,8 +151,9 @@ export default class SurveyScreen extends Component {
                     useColor={isSelected ? GREEN : PURPLE}
                     padding={5}
                     textOpacityReducer={8}
-                    textStyle={ isSelected ? { fontWeight: 'bold' } : {color: 'black'}}
+                    textStyle={ isSelected ? { fontWeight: 'bold', textAlign: 'left', alignItems: 'flex-end'} : {color: 'black', textAlign: 'left', alignItems: 'flex-end'}}
                     key={`button_${index}`}
+                    materialIconLeft={isSelected ? 'radio-button-on' : 'radio-button-off'}
                 />
             </View>
         );
