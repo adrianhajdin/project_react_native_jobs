@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import { StyleSheet, Button, ScrollView, Text, TextInput, View } from 'react-native';
 import { SimpleSurvey } from 'react-native-simple-survey';
 import { COLORS } from '../question/res/validColors';
+import useFetch from '../../../hook/useFetch';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
+
+
+
+const survey = [
+    {
+        questionType: 'Info',
+        questionText: 'Loading'
+    }
+];
+
 
 export default class SurveyScreen extends Component {
     static navigationOptions = () => {
@@ -25,6 +36,8 @@ export default class SurveyScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { backgroundColor: PURPLE, answersSoFar: '' };
+
+
     }
 
     onSurveyFinished(answers) {
@@ -54,13 +67,14 @@ export default class SurveyScreen extends Component {
          *  separate NPM package, react-native-selection-group, which has additional features such as multi-selection.
          */
 
-        const infoQuestionsRemoved = [...answers];
+        // const infoQuestionsRemoved = [...answers];
 
-        // Convert from an array to a proper object. This won't work if you have duplicate questionIds
-        const answersAsObj = {};
-        for (const elem of infoQuestionsRemoved) { answersAsObj[elem.questionId] = elem.value; }
+        // // Convert from an array to a proper object. This won't work if you have duplicate questionIds
+        // const answersAsObj = {};
+        // for (const elem of infoQuestionsRemoved) { answersAsObj[elem.questionId] = elem.value; }
 
-        this.props.navigation.navigate('SurveyCompleted', { surveyAnswers: answersAsObj });
+        // this.props.navigation.navigate('SurveyCompleted', { surveyAnswers: answersAsObj });
+        this.props.router.push("home");
     }
 
     /**
@@ -192,9 +206,8 @@ export default class SurveyScreen extends Component {
 
     render() {
         return (
-            <View style={[styles.background, { backgroundColor: this.state.backgroundColor }]}>
-                <View style={styles.container}>
-                    <SimpleSurvey
+            <View>
+                <SimpleSurvey
                         ref={(s) => { this.surveyRef = s; }}
                         survey={this.props.survey}
                         renderSelector={this.renderButton.bind(this)}
@@ -211,15 +224,20 @@ export default class SurveyScreen extends Component {
                         renderNumericInput={this.renderNumericInput}
                         renderInfo={this.renderInfoText}
                     />
-                    
-                </View>
-                
-                <ScrollView style={styles.answersContainer}>
-                    <Text style={{textAlign:'center'}}>JSON output</Text>
-                    <Text>{this.state.answersSoFar}</Text>
-                </ScrollView>
-                
             </View>
+            // <View style={[styles.background, { backgroundColor: this.state.backgroundColor }]}>
+            //     <View style={styles.container}>
+            //     {this.props.isLoading ? (
+            //         <Text>No Data Available</Text>
+            //         ) : (
+                        
+            //     )}
+            //     </View>
+            //     {/* <ScrollView style={styles.answersContainer}>
+            //         <Text style={{textAlign:'center'}}>JSON output</Text>
+            //         <Text>{this.state.answersSoFar}</Text>
+            //     </ScrollView> */}
+            // </View>
         );
     }
 }

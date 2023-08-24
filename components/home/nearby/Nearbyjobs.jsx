@@ -12,8 +12,9 @@ import DropdownComponent from "./Dropdown";
 
 
 const Nearbyjobs = () => {
-  
-  const { data, isLoading, error } = useFetch("https://5fkjvn2s62.execute-api.us-east-2.amazonaws.com/default/getBooks", {
+  const genre = "Leadership Management"
+  const router = useRouter();
+  const { data, isLoading, error } = useFetch(`/getBooks/category/${genre}`, {
     cat: '342341554232322443332222',
     gen: '111',
   });
@@ -29,20 +30,18 @@ const Nearbyjobs = () => {
       </View>
       {/* <DropdownComponent /> */}
       <View style={styles.cardsContainer}>
-        <Text>This should show books in this category</Text>
         {isLoading ? (
           <ActivityIndicator size='large' color={COLORS.primary} />
         ) : error ? (
           <Text>Something went wrong </Text>
         ) : (
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <Text>{item.Title}</Text>
-            )}
-            contentContainerStyle={{ columnGap: SIZES.medium }}
-            horizontal
-          />
+          data?.map((book) => (
+            <NearbyJobCard
+              book={book}
+              key={book.id}
+              handleNavigate={() => router.push(`/book-details/${book.id}`)}
+            />
+          ))
         )}
       </View>
     </View>

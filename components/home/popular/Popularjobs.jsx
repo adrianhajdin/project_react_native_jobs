@@ -15,18 +15,16 @@ import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = () => {
   const router = useRouter();
-  const title = "Atomic Habits";
-  const { data, isLoading, error } = useFetch("https://www.googleapis.com/books/v1/volumes", {
-    q: `intitle = ${title}`,
-    maxResults: 3,
-    key: 'AIzaSyDVnwYDP7eKPccg80tmjrzubotTLmiPDDU',
+  const { data, isLoading, error } = useFetch("/getBooks/top", {
+    cat: "342341554232322443332222",
+    gen: "111",
   });
 
   const [selectedBook, setSelectedBook] = useState();
 
   const handleCardPress = (book) => {
-    router.push(`/book-details/${book.volumeInfo.title}`);
-    setSelectedBook(book.volumeInfo.title);
+    router.push(`/book-details/${book.id}`);
+    setSelectedBook(book.id);
   };
 
   return (

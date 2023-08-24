@@ -13,8 +13,8 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
       <TouchableOpacity style={styles.logoContainer(selectedBook, book)}>
         <Image
           source={{
-            uri: checkImageURL(book?.volumeInfo?.imageLinks?.thumbnail)
-              ? book?.volumeInfo?.imageLinks?.thumbnail
+            uri: checkImageURL(book.thumbnail)
+              ? book.thumbnail
               : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
           }}
           resizeMode='contain'
@@ -22,21 +22,23 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.scoreContainer(selectedBook, book)}>
-          <Text>97</Text>
+      <Text>
+        {Math.ceil(book.score[0])}
+      </Text>
       </TouchableOpacity>
       </View>
 
       <Text style={styles.companyName} numberOfLines={1}>
-        {book?.volumeInfo?.authors?.[0]}
+        {book.authors[0]}
       </Text>
 
       <View style={styles.infoContainer}>
         <Text style={styles.jobName(selectedBook, book)} numberOfLines={3}>
-          {book?.volumeInfo?.title}
+          {book.title}
         </Text>
         <View style={styles.infoWrapper}>
           <Text style={styles.publisher(selectedBook, book)}>
-            {book?.volumeInfo?.subtitle}
+            {book.subtitle}
           </Text>
         </View>
       </View>

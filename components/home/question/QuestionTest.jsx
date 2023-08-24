@@ -11,9 +11,11 @@ import { COLORS, SIZES } from "../../../constants"
 import useFetch from "../../../hook/useFetch";
 
 import SurveyScreen from "./SurveyScreen";
+import { useRouter } from "expo-router";
 
 const QuestionTest = () => {
-    const { data, isLoading, error } = useFetch("https://5fkjvn2s62.execute-api.us-east-2.amazonaws.com/default/questions");
+    const router = useRouter();
+    const { data, isLoading, error } = useFetch("/questions", {});
     
     const reformatQuestion = (question) => {
         return {
@@ -48,18 +50,19 @@ const QuestionTest = () => {
             ]
         }
       };
-      const newSurvey = data.map(reformatQuestion)
-
-
+  
   return (
     <View style={styles.cardsContainer}>
-        {isLoading ? (
-          <ActivityIndicator size='large' color={COLORS.primary} />
-        ) : error ? (
+        {error ? (
           <Text>Something went wrong</Text>
         ) : (
           <SurveyScreen 
-            survey={newSurvey}
+            router={router}
+            survey = {data.map(reformatQuestion) ?? {
+              questionType: 'Info',
+              questionText: 'Loading'
+          }}
+            isLoading = {isLoading}
           />
         )}
       </View>
