@@ -35,19 +35,21 @@ export default class SwiperComponent extends Component {
   render() {
     return (
       <Swiper style={styles.wrapper} showsButtons={false}>
-        <Slide />
-        <Slide />
-        <Slide />
-        {/* <View style={styles.slide1}>
-          <Text style={styles.text}>Hello Swiper</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Beautiful</Text>
-        </View>
-        <View style={styles.slide3}>
-          <Text style={styles.text}>And simple</Text>
-        </View> */}
-
+        <Slide 
+          heading={"We know that self improvemnt is hard."}
+          lottieFile={ require("./../../assets/lottie/meditation.json")}
+          description={"Give our app a go and see for yourself"}
+        />
+         <Slide 
+          heading={"We know that self improvemnt is hard."}
+          lottieFile={ require("./../../assets/lottie/read.json")}
+          description={"Give our app a go and see for yourself"}
+        />
+        <Slide 
+          heading={"We know that self improvemnt is hard."}
+          lottieFile={ require("./../../assets/lottie/weight.json")}
+          description={"Give our app a go and see for yourself"}
+        />
       </Swiper>
     )
   }

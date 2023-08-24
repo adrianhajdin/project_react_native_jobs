@@ -3,21 +3,21 @@ import { Text, View } from 'react-native';
 
 import LottieView from 'lottie-react-native';
 
-const Slide = () => {
+const Slide = ( { heading, lottieFile, description}) => {
   return (
     <View>
-    <Text>We know self improvement is hard.</Text>
+    <Text>{heading}</Text>
     <LottieView
         autoPlay
         loop
         style={{
           width: 200,
           height: 200,
-          backgroundColor: '#eee',
+          backgroundColor: '#ffffff',
         }}
-        source={require('./../../assets/lottie/meditation.json')}
+        source={lottieFile}
       />
-      <Text> Give our app a go and we know that you will find that perfect book</Text>
+      <Text>{description}</Text>
       </View>
   )
 }

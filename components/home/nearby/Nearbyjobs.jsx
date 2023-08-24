@@ -21,21 +21,18 @@ const Nearbyjobs = () => {
 
   return (
     <View style={styles.container}>
-      
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Popular in Personal Growth</Text>  
-        <TouchableOpacity>
-          <Text style={styles.headerBtn}>Show all</Text>
-        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Popular in</Text>  
+        <DropdownComponent />
       </View>
-      {/* <DropdownComponent /> */}
+      
       <View style={styles.cardsContainer}>
         {isLoading ? (
           <ActivityIndicator size='large' color={COLORS.primary} />
         ) : error ? (
           <Text>Something went wrong </Text>
         ) : (
-          data?.map((book) => (
+          data.slice(0,10)?.map((book) => (
             <NearbyJobCard
               book={book}
               key={book.id}
@@ -44,6 +41,12 @@ const Nearbyjobs = () => {
           ))
         )}
       </View>
+      <View style={styles.footer}>
+        <TouchableOpacity>
+            <Text style={styles.footerBtn}>Show all</Text>
+        </TouchableOpacity>
+      </View>
+      
     </View>
   );
 };

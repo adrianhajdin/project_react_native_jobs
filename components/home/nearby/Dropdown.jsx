@@ -4,7 +4,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 const data = [
-  { label: 'Item 1', value: '1' },
+  { label: 'Personal Growth', value: '1' },
   { label: 'Item 2', value: '2' },
   { label: 'Item 3', value: '3' },
   { label: 'Item 4', value: '4' },
@@ -21,14 +21,6 @@ const DropdownComponent = () => {
     return (
       <View style={styles.item}>
         <Text style={styles.textItem}>{item.label}</Text>
-        {item.value === value && (
-          <AntDesign
-            style={styles.icon}
-            color="black"
-            name="Safety"
-            size={20}
-          />
-        )}
       </View>
     );
   };
@@ -41,19 +33,14 @@ const DropdownComponent = () => {
       inputSearchStyle={styles.inputSearchStyle}
       iconStyle={styles.iconStyle}
       data={data}
-      search
       maxHeight={300}
       labelField="label"
       valueField="value"
       placeholder="Select item"
-      searchPlaceholder="Search..."
       value={value}
       onChange={item => {
         setValue(item.value);
       }}
-      renderLeftIcon={() => (
-        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-      )}
       renderItem={renderItem}
     />
   );
@@ -63,6 +50,7 @@ export default DropdownComponent;
 
 const styles = StyleSheet.create({
   dropdown: {
+    flex: 1,
     margin: 16,
     height: 50,
     backgroundColor: 'white',

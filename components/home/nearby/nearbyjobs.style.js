@@ -26,6 +26,17 @@ const styles = StyleSheet.create({
     marginTop: SIZES.medium,
     gap: SIZES.small,
   },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: SIZES.small,
+  },
+  footerBtn: {
+    fontSize: SIZES.medium,
+    fontFamily: FONT.medium,
+    color: COLORS.gray,
+  },
 });
 
 export default styles;
