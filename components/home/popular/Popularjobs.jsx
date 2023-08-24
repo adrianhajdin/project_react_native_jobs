@@ -15,22 +15,22 @@ import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = () => {
   const router = useRouter();
-  const { data, isLoading, error } = useFetch("search", {
-    query: "React developer",
-    num_pages: "1",
+  const { data, isLoading, error } = useFetch("/getBooks/top", {
+    cat: "342341554232322443332222",
+    gen: "111",
   });
 
-  const [selectedJob, setSelectedJob] = useState();
+  const [selectedBook, setSelectedBook] = useState();
 
-  const handleCardPress = (item) => {
-    router.push(`/job-details/${item.job_id}`);
-    setSelectedJob(item.job_id);
+  const handleCardPress = (book) => {
+    router.push(`/book-details/${book.id}`);
+    setSelectedBook(book.id);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Popular books</Text>
+        <Text style={styles.headerTitle}>Top Picks For You</Text>
         <TouchableOpacity>
           <Text style={styles.headerBtn}>Show all</Text>
         </TouchableOpacity>
@@ -46,12 +46,12 @@ const Popularjobs = () => {
             data={data}
             renderItem={({ item }) => (
               <PopularJobCard
-                item={item}
-                selectedJob={selectedJob}
+                book={item}
+                selectedBook={selectedBook}
                 handleCardPress={handleCardPress}
               />
             )}
-            keyExtractor={(item) => item.job_id}
+            keyExtractor={book => book.id}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
           />

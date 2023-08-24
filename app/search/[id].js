@@ -8,7 +8,7 @@ import { ScreenHeaderBtn, NearbyJobCard } from '../../components'
 import { COLORS, icons, SIZES } from '../../constants'
 import styles from '../../styles/search'
 
-const JobSearch = () => {
+const BookSearch = () => {
     const params = useSearchParams();
     const router = useRouter()
 
@@ -133,4 +133,4 @@ const JobSearch = () => {
     )
 }
 
-export default JobSearch
+export default BookSearch

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SafeAreaView, ScrollView, View } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { SafeAreaView, ScrollView, View, Button } from "react-native";
+import { Stack, useRouter, Link } from "expo-router";
 
 import { COLORS, icons, images, SIZES } from "../constants";
 import {
@@ -8,7 +8,9 @@ import {
   Popularjobs,
   ScreenHeaderBtn,
   Welcome,
+  QuestionTest
 } from "../components";
+
 
 const Home = () => {
   const router = useRouter()
@@ -29,7 +31,6 @@ const Home = () => {
           headerTitle: "",
         }}
       />
-
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -46,7 +47,10 @@ const Home = () => {
               }
             }}
           />
-
+          <Button
+            title="Hero"
+            onPress={() => router.push("hero")}
+          />
           <Popularjobs />
           <Nearbyjobs />
         </View>
