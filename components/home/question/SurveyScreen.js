@@ -156,16 +156,16 @@ export default class SurveyScreen extends Component {
         return (
             <View
                 key={`selection_button_view_${index}`}
-                style={{ marginTop: 5, marginBottom: 5, justifyContent: 'flex-start' }}
+                style={{ marginTop: 5, marginBottom: 15, justifyContent: 'flex-start' }}
             >
                 <ButtonOutline
                     title={data.optionText}
                     onPress={onPress}
                     opacityReducer={3}
-                    useColor={isSelected ? GREEN : PURPLE}
-                    padding={5}
+                    useColor={isSelected ? 'grey' : '#EEEEEE'}
+                    padding={10}
                     textOpacityReducer={8}
-                    textStyle={ isSelected ? { fontWeight: 'bold', textAlign: 'left', alignItems: 'flex-end'} : {color: 'black', textAlign: 'left', alignItems: 'flex-end'}}
+                    textStyle={ isSelected ? { fontWeight: 'bold', textAlign: 'left', alignItems: 'flex-end', padding: 5} : {color: 'black', textAlign: 'left', alignItems: 'flex-end'}}
                     key={`button_${index}`}
                     materialIconLeft={isSelected ? 'radio-button-on' : 'radio-button-off'}
                 />
@@ -274,24 +274,24 @@ const styles = StyleSheet.create({
     },
     answersContainer: {
         width: '90%',
-        maxHeight: '20%',
-        marginTop: 50,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        marginBottom: 20,
+        maxHeight: '30%',
+        marginTop: 60,
+        paddingHorizontal: 30,
+        paddingVertical: 20,
+        marginBottom: 30,
         backgroundColor: 'white',
         elevation: 20,
-        borderRadius: 10,
+        borderRadius: 0,
     },
     surveyContainer: {
         width: 'auto',
-        alignSelf: 'center',
+        alignSelf: 'flex-start',
         backgroundColor: 'white',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
-        alignContent: 'center',
+        alignContent: 'flex-start',
         padding: 5,
         flexGrow: 0,
     },
@@ -308,11 +308,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     questionText: {
-        marginBottom: 20,
-        fontSize: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
+        marginBottom: 30,
+        paddingTop: 20,
+        paddingLeft: 5,
+        fontSize: 30,
+        alignItems: 'flex-start',
+        justifyContent: 'left',
+        textAlign: 'left',
         fontWeight: 'bold',
     },
     textBox: {
@@ -341,8 +343,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 10,
         marginRight: 10,
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        textAlign: 'center'
+        textAlign: 'flex-start'
     },
 });

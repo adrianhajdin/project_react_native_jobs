@@ -75,13 +75,14 @@ const BookDetails = () => {
                 bookLogo={book.thumbnail}
                 title={book.title}
                 subtitle={book.subtitle}
-                price={book.price}
+                price={book.buyLink}
+                moreInfo={book.averageRating}
               />
             </View>
           )}
         </ScrollView>
 
-        <JobFooter url={book?.buyLink ?? 'https://careers.google.com/jobs/results/'} />
+        <JobFooter url={book?.buyLink ?? 'https://books.google.com/'} />
       </>
     </SafeAreaView>
   );

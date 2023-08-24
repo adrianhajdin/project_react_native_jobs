@@ -5,7 +5,7 @@ import styles from "./company.style";
 import { icons } from "../../../constants";
 import { checkImageURL } from "../../../utils";
 
-const Book = ({ bookLogo, title, subtitle, price }) => {
+const Book = ({ bookLogo, title, subtitle, price, moreInfo }) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoBox}>
@@ -33,6 +33,10 @@ const Book = ({ bookLogo, title, subtitle, price }) => {
           />
           <Text style={styles.locationName}>{price}</Text>
         </View>
+      </View>
+
+      <View style={styles.companyInfoBox}>
+        <Text style={styles.companyName}>{moreInfo}</Text>
       </View>
     </View>
   );
