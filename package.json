@@ -34,6 +34,9 @@
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-web": "~0.18.11",
     "lottie-react-native": "5.1.4"
+    "react-native-ui-buttons": "^2.1.1",
+    "react-native-vector-icons": "^10.0.0",
+    "react-native-web": "~0.18.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
