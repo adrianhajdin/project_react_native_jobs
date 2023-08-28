@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./nearbyjobcard.style";
 import { checkImageURL } from "../../../../utils";
+import CircularProgressBar from "../../../progressbar/CircularProgressBar";
 
 const NearbyJobCard = ({ book, handleNavigate }) => {
   return (
@@ -19,12 +20,13 @@ const NearbyJobCard = ({ book, handleNavigate }) => {
       </TouchableOpacity>
 
       <View style={styles.textContainer}>
-        <Text style={styles.jobName} numberOfLines={1}>
+        <Text style={styles.jobName} numberOfLines={2}>
           {book.title}
         </Text>
-
-        <Text style={styles.jobType}>{book.price}</Text>
       </View>
+      <CircularProgressBar 
+        percentage={Math.ceil(book.score[0])}
+      />
     </TouchableOpacity>
   );
 };

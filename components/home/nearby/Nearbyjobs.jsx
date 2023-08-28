@@ -14,16 +14,25 @@ import DropdownComponent from "./Dropdown";
 const Nearbyjobs = () => {
   const genre = "Leadership Management"
   const router = useRouter();
+
   const { data, isLoading, error } = useFetch(`/getBooks/category/${genre}`, {
     cat: '342341554232322443332222',
     gen: '111',
   });
 
+  const handleGenreChange = (genre) => {
+    //recall API using genre
+  };
+
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Popular in</Text>  
-        <DropdownComponent />
+        <DropdownComponent 
+          handleGenreChange={handleGenreChange()}
+        />
       </View>
       
       <View style={styles.cardsContainer}>

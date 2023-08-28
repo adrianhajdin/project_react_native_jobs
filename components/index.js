@@ -19,6 +19,9 @@ import NearbyJobCard from "./common/cards/nearby/NearbyJobCard";
 //hero
 import SwiperComponent from "../app/hero/Hero";
 
+//progress
+import CircularProgressBar from "./progressbar/CircularProgressBar";
+
 
 
 export {
@@ -33,5 +36,6 @@ export {
   Specifics,
   NearbyJobCard,
   QuestionTest,
-  SwiperComponent
+  SwiperComponent,
+  CircularProgressBar,
 };

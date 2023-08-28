@@ -37,17 +37,17 @@ export default class SwiperComponent extends Component {
       <Swiper style={styles.wrapper} showsButtons={false}>
         <Slide 
           heading={"We know that self improvemnt is hard."}
-          lottieFile={ require("./../../assets/lottie/meditation.json")}
+          lottieFile={ require("../../assets/lottie/meditation.json")}
           description={"Give our app a go and see for yourself"}
         />
          <Slide 
           heading={"We know that self improvemnt is hard."}
-          lottieFile={ require("./../../assets/lottie/read.json")}
+          lottieFile={ require("../../assets/lottie/read.json")}
           description={"Give our app a go and see for yourself"}
         />
         <Slide 
           heading={"We know that self improvemnt is hard."}
-          lottieFile={ require("./../../assets/lottie/weight.json")}
+          lottieFile={ require("../../assets/lottie/weight.json")}
           description={"Give our app a go and see for yourself"}
         />
       </Swiper>

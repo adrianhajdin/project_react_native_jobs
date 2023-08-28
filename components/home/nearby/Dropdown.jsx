@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
 
 const data = [
-  { label: 'Personal Growth', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-  { label: 'Item 8', value: '8' },
+  { label: 'Personal Growth', value: 'Personal Growth' },
+  { label: 'Leadership/Management', value: 'Leadership Management' },
+  { label: 'Creativity', value: 'Creativity' },
+  { label: 'Finance/Wealth', value: 'Finance Wealth' },
+  { label: 'Communication/Relationships', value: 'Communication Relationships' },
+  { label: 'Health/Wellness', value: 'Health Wellness' },
+  { label: 'Mindfulness', value: 'Mindfulness' },
+  { label: 'Spirituality', value: 'Spirituality' },
 ];
 
-const DropdownComponent = () => {
+const DropdownComponent = ({handleGenreChange}) => {
   const [value, setValue] = useState(null);
 
   const renderItem = item => {
@@ -40,6 +39,8 @@ const DropdownComponent = () => {
       value={value}
       onChange={item => {
         setValue(item.value);
+        handleGenreChange(item.value);
+        console.log(item);
       }}
       renderItem={renderItem}
     />

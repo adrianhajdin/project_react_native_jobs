@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./popularjobcard.style";
 import { checkImageURL } from "../../../../utils";
+import { CircularProgressBar } from "../../../../components";
 
 const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
   return (
@@ -22,9 +23,12 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.scoreContainer(selectedBook, book)}>
-      <Text>
+      {/* <Text>
         {Math.ceil(book.score[0])}
-      </Text>
+      </Text> */}
+      <CircularProgressBar 
+        percentage={Math.ceil(book.score[0])}
+      />
       </TouchableOpacity>
       </View>
 
@@ -33,11 +37,11 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
       </Text>
 
       <View style={styles.infoContainer}>
-        <Text style={styles.jobName(selectedBook, book)} numberOfLines={3}>
+        <Text style={styles.jobName(selectedBook, book)} numberOfLines={2}>
           {book.title}
         </Text>
         <View style={styles.infoWrapper}>
-          <Text style={styles.publisher(selectedBook, book)}>
+          <Text style={styles.publisher(selectedBook, book)} numberOfLines={2}>
             {book.subtitle}
           </Text>
         </View>
