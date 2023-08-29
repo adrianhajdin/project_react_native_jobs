@@ -16,9 +16,9 @@ import {
   JobTabs,
   ScreenHeaderBtn,
   Specifics,
-} from "../../components";
-import { COLORS, icons, SIZES } from "../../constants";
-import useFetch from "../../hook/useFetch";
+} from "../../../../components";
+import { COLORS, icons, SIZES } from "../../../../constants";
+import useFetch from "../../../../hook/useFetch";
 
 const BookDetails = () => {
   const params = useSearchParams();
@@ -72,10 +72,19 @@ const BookDetails = () => {
           ) : (
             <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
               <Book
+                score={book.score}
                 bookLogo={book.thumbnail}
                 title={book.title}
                 subtitle={book.subtitle}
-                price={book.price}
+                authors={book.authors}
+                rating={book.averageRating}
+                description={book.description}
+                genre={book.genre}
+                pageCount={book.pageCount}
+                isbn={book.isbn13}
+                publisher={book.publisher}
+                publishedDate={book.publishedDate}
+                country={book.country}
               />
             </View>
           )}

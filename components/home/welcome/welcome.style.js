@@ -40,12 +40,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.medium,
   },
   searchBtn: {
-    width: 50,
+    width: "100%",
     height: "100%",
     backgroundColor: COLORS.tertiary,
     borderRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
   },
   searchBtnImage: {
     width: "50%",

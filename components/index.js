@@ -17,7 +17,7 @@ import Specifics from "./jobdetails/specifics/Specifics";
 import NearbyJobCard from "./common/cards/nearby/NearbyJobCard";
 
 //hero
-import SwiperComponent from "../app/hero/Hero";
+import SwiperComponent from "./hero/Hero";
 
 //progress
 import CircularProgressBar from "./progressbar/CircularProgressBar";

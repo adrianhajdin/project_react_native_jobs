@@ -43,6 +43,28 @@ export default function Layout() {
             }}
         ></Drawer.Screen>
 
+        <Drawer.Screen
+            name="about"
+            options={{
+                drawerLabel: "About Us",
+                title: "About Us",
+                drawerIcon: ({size, color})=> {
+                    return <Ionicons name="md-people" size={size} color={color}/>
+                },
+            }}
+        ></Drawer.Screen>
+
+        <Drawer.Screen
+            name="favorites"
+            options={{
+                drawerLabel: "Favorites",
+                title: "Favorites",
+                drawerIcon: ({size, color})=> {
+                    return <Ionicons name="md-heart" size={size} color={color}/>
+                },
+            }}
+        ></Drawer.Screen>
+
 
     </Drawer>;
 }

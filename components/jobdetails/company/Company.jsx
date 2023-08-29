@@ -5,9 +5,10 @@ import styles from "./company.style";
 import { icons } from "../../../constants";
 import { checkImageURL } from "../../../utils";
 
-const Book = ({ bookLogo, title, subtitle, price }) => {
+const Book = ({ score, bookLogo, title, subtitle, authors, rating, description, genre, pageCount, isbn, publisher, publishedDate, country }) => {
   return (
     <View style={styles.container}>
+      <Text>{score}</Text>
       <View style={styles.logoBox}>
         <Image
           source={{
@@ -25,15 +26,17 @@ const Book = ({ bookLogo, title, subtitle, price }) => {
 
       <View style={styles.companyInfoBox}>
         <Text style={styles.companyName}>{subtitle} / </Text>
-        <View style={styles.locationBox}>
-          <Image
-            source={icons.location}
-            resizeMode='contain'
-            style={styles.locationImage}
-          />
-          <Text style={styles.locationName}>{price}</Text>
-        </View>
+        
       </View>
+      <Text>Authors: {authors}</Text>
+      <Text numberOfLines={3}>Description: {description}</Text>
+      <Text>Genres: {genre}</Text>
+      <Text>Rating: {rating}</Text>
+
+      <Text>pageCount: {pageCount}</Text>
+      <Text>ISBN: {isbn}</Text>
+      <Text>Publisher/Date: {publisher} {publishedDate}</Text>
+      <Text>Country: {country}</Text>
     </View>
   );
 };

@@ -23,7 +23,7 @@ const Popularjobs = () => {
   const [selectedBook, setSelectedBook] = useState();
 
   const handleCardPress = (book) => {
-    router.push(`/book-details/${book.id}`);
+    router.push(`(drawer)/home/book-details/${book.id}`);
     setSelectedBook(book.id);
   };
 

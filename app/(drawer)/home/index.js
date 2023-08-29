@@ -38,12 +38,8 @@ const Page = () => {
           }}
         >
           <Welcome
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
             handleClick={() => {
-              if (searchTerm) {
-                router.push(`/search/${searchTerm}`)
-              }
+              router.push('(drawer)/home/search/test')
             }}
           />
           <Button

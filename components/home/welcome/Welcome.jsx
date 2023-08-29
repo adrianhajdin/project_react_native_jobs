@@ -12,31 +12,23 @@ import { useRouter } from "expo-router";
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../constants";
 
-const jobTypes = ['Personal Growth', 'Leadership/Management', 'Creativity', 'Finance/Wealth', 'Communication/Relationships',
+const genres = ['Personal Growth', 'Leadership/Management', 'Creativity', 'Finance/Wealth', 'Communication/Relationships',
 'Health/Wellness', 'Mindfulness', 'Spirituality'];
 
-const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
+const Welcome = ({ handleClick }) => {
   const router = useRouter();
-  const [activeJobType, setActiveJobType] = useState("Full-time");
+  const [genre, setGenre] = useState("Personal Growth");
 
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.userName}>Hello</Text>
+        <Text style={styles.userName}>Hello Ashok</Text>
         <Text style={styles.welcomeMessage}>Find your perfect book</Text>
       </View>
 
       <View style={styles.searchContainer}>
-        <View style={styles.searchWrapper}>
-          <TextInput
-            style={styles.searchInput}
-            value={searchTerm}
-            onChangeText={(text) => setSearchTerm(text)}
-            placeholder='What are you looking for?'
-          />
-        </View>
-
         <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
+          <Text>Search for your book...WIP</Text>
           <Image
             source={icons.search}
             resizeMode='contain'
@@ -47,16 +39,16 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
 
       <View style={styles.tabsContainer}>
         <FlatList
-          data={jobTypes}
+          data={genres}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={styles.tab(activeJobType, item)}
+              style={styles.tab(genre, item)}
               onPress={() => {
-                setActiveJobType(item);
-                router.push(`/search/${item}`);
+                setGenre(item);
+                router.push(`(drawer)/home/all/${item.replace(/\//g, " ")}`);
               }}
             >
-              <Text style={styles.tabText(activeJobType, item)}>{item}</Text>
+              <Text style={styles.tabText(genre, item)}>{item}</Text>
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item}
