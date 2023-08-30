@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     marginTop: SIZES.medium,
+    paddingLeft: 10,
   },
 });
 

@@ -18,7 +18,7 @@ const Footer = ({ url }) => {
         style={styles.applyBtn}
         onPress={() => Linking.openURL(url)}
       >
-        <Text style={styles.applyBtnText}>Apply for job</Text>
+        <Text style={styles.applyBtnText}>Buy this book</Text>
       </TouchableOpacity>
     </View>
   );

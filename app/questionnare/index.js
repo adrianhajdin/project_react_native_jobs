@@ -22,7 +22,7 @@ const Questionnare = () => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+    <SafeAreaView style={{ flex: 1, paddingLeft: 10, backgroundColor: COLORS.lightWhite }}>
       <QuestionTest />
 
       <View>

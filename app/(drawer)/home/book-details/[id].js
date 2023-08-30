@@ -90,7 +90,7 @@ const BookDetails = () => {
           )}
         </ScrollView>
 
-        <JobFooter url={book?.buyLink ?? 'https://careers.google.com/jobs/results/'} />
+        <JobFooter url={book?.buyLink ?? 'https://books.google.com/'} />
       </>
     </SafeAreaView>
   );
