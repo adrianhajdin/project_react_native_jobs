@@ -8,6 +8,7 @@ import useFetch from '../../../hook/useFetch';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
+const ORANGE = 'rgba(246,190,66,1)';
 
 
 
@@ -125,10 +126,10 @@ export default class SurveyScreen extends Component {
                     textStyle={enabled ? { fontWeight: 'bold' } : {color: 'lightgrey'}}
                     onPress={onPress}
                     opacityReducer={3}
-                    useColor={GREEN}
+                    useColor={ORANGE}
                     padding={10}
                     textOpacityReducer={8}
-                    styles={{borderColor: GREEN, backgroundColor: GREEN}}
+                    styles={{borderColor: ORANGE, backgroundColor: ORANGE}}
                 />
             </View>
         );
@@ -143,10 +144,10 @@ export default class SurveyScreen extends Component {
                     textStyle={{fontWeight: 'bold'}}
                     onPress={onPress}
                     opacityReducer={3}
-                    useColor={GREEN}
+                    useColor={ORANGE}
                     padding={10}
                     textOpacityReducer={8}
-                    styles={{borderColor: GREEN, backgroundColor: GREEN}}
+                    styles={{borderColor: ORANGE, backgroundColor: ORANGE}}
                 />
             </View>
         );
