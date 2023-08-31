@@ -1,5 +1,10 @@
 {
   "expo": {
+    "ios": {
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
     "splash": {
       "image": "assets/images/splash.png"
     },

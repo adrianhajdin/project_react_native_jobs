@@ -19,6 +19,8 @@ const Page = () => {
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("");
 
+  //need to call secure store again, and load screen
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Screen options={{
