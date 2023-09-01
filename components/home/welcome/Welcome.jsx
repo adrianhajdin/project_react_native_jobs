@@ -18,14 +18,14 @@ import { height } from "deprecated-react-native-prop-types/DeprecatedImagePropTy
 const genres = ['Personal Growth', 'Leadership/Management', 'Creativity', 'Finance/Wealth', 'Communication/Relationships',
 'Health/Wellness', 'Mindfulness', 'Spirituality'];
 
-const Welcome = ({ handleClick, cat, gen }) => {
+const Welcome = ({ handleClick, cat, gen, name}) => {
   const router = useRouter();
   const [genre, setGenre] = useState("Personal Growth");
 
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.userName}>Hello Ashok</Text>
+        <Text style={styles.userName}>Hello {name}</Text>
         <Text style={styles.welcomeMessage}>Find your perfect book</Text>
       </View>
 

@@ -22,9 +22,9 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const params = useLocalSearchParams();
-  const { cat, gen } = params;
+  const { cat, gen, name } = params;
 
-  const showQues = false;
+  const showQues = true;
   const testData = false;
   const test_cat = "342341554232322443332222";
   const test_gen = "111";
@@ -45,13 +45,9 @@ const Page = () => {
 
   if (cat != null && gen != null) { // if questionnare data recieved
     save("data", (cat + gen));
-  } 
-  
-  if (showQues) { // if we want to show questionnare and restart
+  } else if (showQues) { // if we want to show questionnare and restart
     save("data", "");
-  }
-
-  if (testData) {
+  } else if (testData) {
     save("data", `${test_cat} ${test_gen}`); // if we would just like to see app working
   }
   
@@ -104,16 +100,17 @@ const Page = () => {
             handleClick={() => {
               router.push('(drawer)/home/search/test')
             }}
-            cat={promiseValue.split(" ")[0]}
-            gen={promiseValue.split(" ")[1]}
+            cat={cat}
+            gen={gen}
+            name={name}
           />
           <Popularjobs 
-            cat={promiseValue.split(" ")[0]}
-            gen={promiseValue.split(" ")[1]}
+            cat={cat}
+            gen={gen}
           />
           <Nearbyjobs 
-            cat={promiseValue.split(" ")[0]}
-            gen={promiseValue.split(" ")[1]}
+            cat={cat}
+            gen={gen}
           />
         </View>
       </ScrollView>

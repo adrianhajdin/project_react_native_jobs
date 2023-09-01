@@ -40,7 +40,6 @@ export default class SurveyScreen extends Component {
         super(props);
         this.state = { backgroundColor: PURPLE, answersSoFar: '' };
 
-
     }
 
     onSurveyFinished(answers) {
@@ -69,19 +68,25 @@ export default class SurveyScreen extends Component {
          *  This flexibility makes SelectionGroup an incredibly powerful component on its own. If needed it is a 
          *  separate NPM package, react-native-selection-group, which has additional features such as multi-selection.
          */
-
-        const infoQuestionsRemoved = [...answers];
-
-        // Convert from an array to a proper object. This won't work if you have duplicate questionIds
-        const answersAsObj = {};
-        for (const elem of infoQuestionsRemoved) { answersAsObj[elem.questionId] = elem.value.value; }
-        const data = answersAsObj.join("");
+        console.log(answers);
+        const name = answers[0].value
+        let data = "";
+        for (const elem of answers.slice(1)) { data = data.concat(elem.value.value); }
+        console.log(data.substring(data.length - 3));
+        console.log(name);
         
 
+        // const infoQuestionsRemoved = [...answers];
+
+        // // Convert from an array to a proper object. This won't work if you have duplicate questionIds
+        // const answersAsObj = {};
+        // for (const elem of infoQuestionsRemoved) { answersAsObj[elem.questionId] = elem.value; }
+        // console.log(answersAsObj);
+        // const data = answersAsObj.join("");
 
         this.props.router.push({
             pathname: `(drawer)/home`,
-            params: {cat: data.substring(0, 27), gen: data.substring(data.length - 3)}
+            params: {cat: data.substring(0, 27), gen: data.substring(data.length - 3), name: name}
         });
         
     }
@@ -320,7 +325,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         fontSize: 30,
         alignItems: 'flex-start',
-        justifyContent: 'left',
+        justifyContent: 'center',
         textAlign: 'left',
         fontWeight: 'bold',
     },
