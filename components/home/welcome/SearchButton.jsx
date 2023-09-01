@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
+import { COLORS } from '../../../constants';
 
 const SearchButton = ({ onPress }) => {
   return (
@@ -15,7 +16,7 @@ const SearchButton = ({ onPress }) => {
 const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: COLORS.tertiary,
     borderRadius: 25, // Rounded corners to make it pill-shaped
     paddingHorizontal: 20,
     paddingVertical: 10,

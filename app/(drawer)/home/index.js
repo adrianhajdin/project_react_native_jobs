@@ -86,10 +86,12 @@ if (showQues) { // if we want to show questionnare and restart
     return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Screen options={{
-        headerStyle: { backgroundColor: COLORS.lightWhite },
+        headerStyle: { backgroundColor: COLORS.tertiary },
         headerShadowVisible: false,
         headerLeft: () => (
-          <DrawerToggleButton />
+          <DrawerToggleButton 
+            tintColor={COLORS.lightWhite}
+          />
         ),
         title: "",
       }}
@@ -103,7 +105,10 @@ if (showQues) { // if we want to show questionnare and restart
         >
           <Welcome
             handleClick={() => {
-              router.push('(drawer)/home/search/test')
+              router.push({
+                pathname: "(drawer)/home/search",
+                params: {cat: cat, gen: gen}
+              });
             }}
             cat={cat}
             gen={gen}

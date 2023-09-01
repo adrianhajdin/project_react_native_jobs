@@ -33,12 +33,12 @@ export default function Layout() {
         ></Drawer.Screen>
 
         <Drawer.Screen
-            name="settings"
+            name="favorites"
             options={{
-                drawerLabel: "Settings",
-                title: "Settings",
+                drawerLabel: "Favorites",
+                title: "Favorites",
                 drawerIcon: ({size, color})=> {
-                    return <Ionicons name="md-settings" size={size} color={color}/>
+                    return <Ionicons name="md-heart" size={size} color={color}/>
                 },
             }}
         ></Drawer.Screen>
@@ -54,16 +54,7 @@ export default function Layout() {
             }}
         ></Drawer.Screen>
 
-        <Drawer.Screen
-            name="favorites"
-            options={{
-                drawerLabel: "Favorites",
-                title: "Favorites",
-                drawerIcon: ({size, color})=> {
-                    return <Ionicons name="md-heart" size={size} color={color}/>
-                },
-            }}
-        ></Drawer.Screen>
+        
 
 
     </Drawer>;

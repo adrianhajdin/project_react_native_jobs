@@ -30,7 +30,9 @@ const Welcome = ({ handleClick, cat, gen, name}) => {
       </View>
 
       <View style={styles.searchContainer}>
-        <SearchButton />
+        <SearchButton 
+          onPress={handleClick}
+        />
         {/* <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
           <Text>Search for your book...WIP</Text>
           <Image

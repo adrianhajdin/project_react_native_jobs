@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View, StyleSheet} from 'react-native';
 
 import LottieView from 'lottie-react-native';
+import { COLORS } from '../../constants';
 
 const Slide = ( { heading, lottieFile, description}) => {
   return (
@@ -27,13 +28,13 @@ const styles = StyleSheet.create({
   baseText: {
     fontWeight: 'bold',
     fontSize: 30,
-    color: 'orange',
+    color: COLORS.tertiary,
     paddingLeft: 10,
     paddingTop: 10,
   },
   lowerText: {
     fontSize: 20,
-    color: 'orange',
+    color: COLORS.tertiary,
     paddingLeft: 10,
     paddingTop: 10,
   },
