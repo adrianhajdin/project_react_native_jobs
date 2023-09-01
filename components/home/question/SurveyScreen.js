@@ -5,6 +5,7 @@ import { COLORS } from '../question/res/validColors';
 import {ButtonOutline} from 'react-native-ui-buttons';
 import { Icon } from 'react-native-vector-icons/MaterialIcons';
 import useFetch from '../../../hook/useFetch';
+import * as SecureStore from 'expo-secure-store';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
@@ -18,6 +19,10 @@ const survey = [
         questionText: 'Loading'
     }
 ];
+
+async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+}
 
 
 export default class SurveyScreen extends Component {
@@ -68,13 +73,11 @@ export default class SurveyScreen extends Component {
          *  This flexibility makes SelectionGroup an incredibly powerful component on its own. If needed it is a 
          *  separate NPM package, react-native-selection-group, which has additional features such as multi-selection.
          */
-        console.log(answers);
         const name = answers[0].value
         let data = "";
         for (const elem of answers.slice(1)) { data = data.concat(elem.value.value); }
-        console.log(data.substring(data.length - 3));
-        console.log(name);
-        
+        save("data", `${name}*${data.substring(0, 24)}${data.substring(24)}`);
+        this.props.router.push("(drawer)/home");
 
         // const infoQuestionsRemoved = [...answers];
 
@@ -84,10 +87,6 @@ export default class SurveyScreen extends Component {
         // console.log(answersAsObj);
         // const data = answersAsObj.join("");
 
-        this.props.router.push({
-            pathname: `(drawer)/home`,
-            params: {cat: data.substring(0, 27), gen: data.substring(data.length - 3), name: name}
-        });
         
     }
 

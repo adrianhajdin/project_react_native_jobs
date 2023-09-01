@@ -13,6 +13,12 @@
       "bundler": "metro"
     },
     "name": "jobsift",
-    "slug": "jobsift"
+    "slug": "readai",
+    "extra": {
+      "eas": {
+        "projectId": "b8d8bacc-2b56-44fe-909a-419ec3f1819a"
+      }
+    },
+    "owner": "asaravan"
   }
 }

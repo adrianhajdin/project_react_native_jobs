@@ -21,13 +21,24 @@ const Page = () => {
   const [promiseValue, setPromiseValue] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const params = useLocalSearchParams();
-  const { cat, gen, name } = params;
-
-  const showQues = true;
+  const [cat, setCat] = useState("");
+  const [gen, setGen] = useState("");
+  const [name, setName] = useState("");
+  
+  // TESTING
+  const showQues = false;
   const testData = false;
-  const test_cat = "342341554232322443332222";
-  const test_gen = "111";
+
+  async function save(key, value) { // only used for test cases
+    await SecureStore.setItemAsync(key, value);
+}
+
+if (showQues) { // if we want to show questionnare and restart
+  save("data", "");
+} else if (testData) {
+  save("data","Reader*34234155423232244333111"); // if we would just like to see app working
+}
+// TESTING
 
   async function getValueFor(key) {
     let result = await SecureStore.getItemAsync(key);
@@ -39,17 +50,7 @@ const Page = () => {
     return result;
   }
 
-  async function save(key, value) {
-      await SecureStore.setItemAsync(key, value);
-  }
-
-  if (cat != null && gen != null) { // if questionnare data recieved
-    save("data", (cat + gen));
-  } else if (showQues) { // if we want to show questionnare and restart
-    save("data", "");
-  } else if (testData) {
-    save("data", `${test_cat} ${test_gen}`); // if we would just like to see app working
-  }
+  
   
 
   useEffect(() => {
@@ -57,6 +58,10 @@ const Page = () => {
     getValueFor("data")
     .then((value) => {
         setPromiseValue(value);
+        const [name, data] = value.split("*");
+        setCat(data.substring(0,24));
+        setGen(data.substring(24))
+        setName(name);
         setIsLoading(false);
     })
     .catch((error) => {
@@ -77,7 +82,7 @@ const Page = () => {
 
   if (promiseValue === "") {
       router.push("hero");
-  } else { 
+  } else {
     return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Screen options={{
