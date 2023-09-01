@@ -62,48 +62,32 @@ const BookDetails = () => {
             <CircularProgressBar 
               percentage={Math.ceil(book.score[0])}
             />
-            <View style={styles.logoBox}>
-              <Image
-                source={{
-                  uri: checkImageURL(book.bookLogo)
-                    ? book.bookLogo
-                    : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
-                }}
-                style={styles.logoImage}
-              />
+            <Text>This book is a {Math.ceil(book.score[0])}% match for you!</Text>
+            <View style={styles.container}>
+              <Text>Authors: {book.authors.join(", ")}</Text>
+              <Text style={{color: 'blue', textDecorationLine: 'underline'}}
+              onPress={() => Linking.openURL(`https://www.google.com/search?q=${book.authors[0]}`)}>
+              (Learn More)
+              </Text>
             </View>
-
-            <View style={styles.jobTitleBox}>
-              <Text style={styles.jobTitle}>{book.title}</Text>
-            </View>
-
-            <View style={styles.companyInfoBox}>
-              <Text style={styles.companyName}>{book.subtitle}</Text>
-            </View>
-            <Text>Authors: {book.authors.join(", ")}</Text>
-            <Text style={{color: 'blue'}}
-            onPress={() => Linking.openURL(`https://www.google.com/search?q=${book.authors[0]}`)}>
-            Click here to learn more about the author!
-            </Text>
-            <Text>Genres: {book.genre}</Text>
-            <Text>pageCount: {book.pageCount}</Text>
+            <Text>Genre: {book.genre}</Text>
+            <Text>Number of Pages: {book.pageCount}</Text>
             <Text>ISBN: {book.isbn}</Text>
             <Text>Publisher/Date: {book.publisher} {book.publishedDate}</Text>
-            <Text>Country: {book.country}</Text>
           </View>
         );
 
       case "Ratings/Reviews":
         return (
           <View style={styles.container}>
-            <Text>Rating: {book.rating}</Text>
+            <Text>General Rating: {book.rating}</Text>
             <Stars />
           </View>
         );
 
       case "Description":
         return (
-          <Text>Description: {book.description}</Text>
+          <Text style={{padding:10}}>Description: {book.description}</Text>
         );
 
       default:

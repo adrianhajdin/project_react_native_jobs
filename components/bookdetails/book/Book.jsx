@@ -24,7 +24,7 @@ const Book = ({ score, bookLogo, title, subtitle, authors, rating, description, 
     </View>
 
     <View style={styles.companyInfoBox}>
-      <Text style={styles.companyName}>{subtitle} / </Text>
+      <Text style={styles.companyName}>{subtitle  }</Text>
       <View style={styles.locationBox}>
         <Image
           source={icons.location}
@@ -34,7 +34,7 @@ const Book = ({ score, bookLogo, title, subtitle, authors, rating, description, 
         <Text style={styles.locationName}>{country}</Text>
       </View>
     </View>
-  </View>
+    </View>
   );
 };
 
