@@ -12,7 +12,6 @@ import {
   SwiperComponent
 } from "../../components"
 import RoundButton from "../../components/hero/RoundButton";
-import styles from "../../components/jobdetails/footer/footer.style";
 
 
 const Hero = () => {
