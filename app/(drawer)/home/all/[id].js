@@ -66,33 +66,33 @@ const AllBooks = () => {
                         </View>
                     </>
                 )}
-                ListFooterComponent={() => (
-                    <View style={styles.footerContainer}>
-                        <TouchableOpacity
-                            style={styles.paginationButton}
-                            onPress={() => handlePagination('left')}
-                        >
-                            <Image
-                                source={icons.chevronLeft}
-                                style={styles.paginationImage}
-                                resizeMode="contain"
-                            />
-                        </TouchableOpacity>
-                        <View style={styles.paginationTextBox}>
-                            <Text style={styles.paginationText}>1</Text>
-                        </View>
-                        <TouchableOpacity
-                            style={styles.paginationButton}
-                            onPress={() => handlePagination('right')}
-                        >
-                            <Image
-                                source={icons.chevronRight}
-                                style={styles.paginationImage}
-                                resizeMode="contain"
-                            />
-                        </TouchableOpacity>
-                    </View>
-                )}
+                // ListFooterComponent={() => (
+                //     <View style={styles.footerContainer}>
+                //         <TouchableOpacity
+                //             style={styles.paginationButton}
+                //             onPress={() => handlePagination('left')}
+                //         >
+                //             <Image
+                //                 source={icons.chevronLeft}
+                //                 style={styles.paginationImage}
+                //                 resizeMode="contain"
+                //             />
+                //         </TouchableOpacity>
+                //         <View style={styles.paginationTextBox}>
+                //             <Text style={styles.paginationText}>1</Text>
+                //         </View>
+                //         <TouchableOpacity
+                //             style={styles.paginationButton}
+                //             onPress={() => handlePagination('right')}
+                //         >
+                //             <Image
+                //                 source={icons.chevronRight}
+                //                 style={styles.paginationImage}
+                //                 resizeMode="contain"
+                //             />
+                //         </TouchableOpacity>
+                //     </View>
+                // )}
             />
         </SafeAreaView>
     )

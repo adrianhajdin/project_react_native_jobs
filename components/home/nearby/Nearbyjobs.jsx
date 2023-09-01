@@ -8,20 +8,20 @@ import { COLORS, SIZES } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
 import useFetch from "../../../hook/useFetch";
 import DropdownComponent from "./Dropdown";
+import useGenreFetch from "../../../hook/useGenreFetch";
 
 
 const Nearbyjobs = ( { cat, gen} ) => {
 
   const router = useRouter();
-  const [endpoint, setEndpoint] = useState("/getBooks/category/Personal Growth")
+  const [genre, setGenre] = useState("Personal Growth")
 
-  const handleGenreChange = (genre) => { // need to fix to call current endpoitn, use params?
-    console.log(`called! ${genre}`);
-    setEndpoint(`/getBooks/category/${genre}`);
+  const handleGenreChange = (genre) => { // need to fix to call current endpoint, use params?
+    setGenre(genre);
     refetch();
   };
 
-  const { data, isLoading, error, refetch } = useFetch(endpoint, {
+  const { data, isLoading, error, refetch} = useGenreFetch(`/getBooks/category/${genre}`, {
     cat: cat,
     gen: gen,
   });

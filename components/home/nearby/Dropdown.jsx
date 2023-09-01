@@ -14,8 +14,7 @@ const data = [
 ];
 
 const DropdownComponent = ({handleGenreChange}) => {
-  const [value, setValue] = useState(null);
-
+  
   const renderItem = item => {
     return (
       <View style={styles.item}>
@@ -38,7 +37,6 @@ const DropdownComponent = ({handleGenreChange}) => {
       placeholder="Select item"
       value="Personal Growth"
       onChange={item => {
-        setValue(item.value);
         handleGenreChange(item.value);
         console.log(item);
       }}
