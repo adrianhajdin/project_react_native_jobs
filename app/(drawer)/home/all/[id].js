@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, Image, TouchableOpacity, View } from 'react-native'
-import { Stack, useRouter, useSearchParams } from 'expo-router'
+import { Stack, useRouter, useSearchParams, useLocalSearchParams } from 'expo-router'
 import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
 import useFetch from '../../../../hook/useFetch';
@@ -13,9 +13,12 @@ const AllBooks = () => {
     const params = useSearchParams();
     const router = useRouter()
 
+    const quesParams = useLocalSearchParams();
+    const { cat, gen } = quesParams;
+
     const { data, isLoading, error } = useFetch(`/getBooks/${params.id}`, {
-        cat: "342341554232322443332222",
-        gen: "111",
+        cat: cat,
+        gen: gen,
       });
 
     return (
@@ -40,7 +43,10 @@ const AllBooks = () => {
                 renderItem={({ item }) => (
                     <NearbyJobCard
                         book={item}
-                        handleNavigate={() => router.push(`(drawer)/home/book-details/${item.id}`)}
+                        handleNavigate={() => router.push({
+                            pathname: `(drawer)/home/book-details/${item.id}`,
+                            params: {cat: cat, gen: gen}
+                        })}
                     />
                 )}
                 keyExtractor={(book) => book.id}

@@ -1,4 +1,4 @@
-import { Stack, useRouter, useSearchParams } from "expo-router";
+import { Stack, useRouter, useSearchParams, useLocalSearchParams } from "expo-router";
 import { useCallback, useState } from "react";
 import {
   View,
@@ -23,9 +23,12 @@ import useFetch from "../../../../hook/useFetch";
 const BookDetails = () => {
   const params = useSearchParams();
   const router = useRouter();
+  const quesParams = useLocalSearchParams();
+  const { cat, gen } = quesParams;
+
   const { data, isLoading, error, refetch } = useFetch(`/getBooks/${params.id}`, {
-    cat: "342341554232322443332222",
-    gen: "111",
+    cat: cat,
+    gen: gen,
   });
   const book = data[0];
 

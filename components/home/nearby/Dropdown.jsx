@@ -36,7 +36,7 @@ const DropdownComponent = ({handleGenreChange}) => {
       labelField="label"
       valueField="value"
       placeholder="Select item"
-      value={value}
+      value="Personal Growth"
       onChange={item => {
         setValue(item.value);
         handleGenreChange(item.value);

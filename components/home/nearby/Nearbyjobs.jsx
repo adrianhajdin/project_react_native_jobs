@@ -10,20 +10,20 @@ import useFetch from "../../../hook/useFetch";
 import DropdownComponent from "./Dropdown";
 
 
-const Nearbyjobs = () => {
+const Nearbyjobs = ( { cat, gen} ) => {
 
   const router = useRouter();
   const [endpoint, setEndpoint] = useState("/getBooks/category/Personal Growth")
 
-  const handleGenreChange = (genre) => {
+  const handleGenreChange = (genre) => { // need to fix to call current endpoitn, use params?
     console.log(`called! ${genre}`);
     setEndpoint(`/getBooks/category/${genre}`);
     refetch();
   };
 
   const { data, isLoading, error, refetch } = useFetch(endpoint, {
-    cat: '342341554232322443332222',
-    gen: '111',
+    cat: cat,
+    gen: gen,
   });
 
 
@@ -46,13 +46,23 @@ const Nearbyjobs = () => {
             <NearbyJobCard
               book={book}
               key={book.id}
-              handleNavigate={() => router.push(`(drawer)/home/book-details/${book.id}`)}
+              handleNavigate={() => router.push({
+                pathname: `(drawer)/home/book-details/${book.id}`,
+                params: {cat: cat, gen: gen}
+            })}
             />
           ))
         )}
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            router.push({
+              pathname: `(drawer)/home/all/Personal Growth`, // need to fix to show current genre
+              params: {cat: cat, gen: gen}
+            });
+          }}
+        >
             <Text style={styles.footerBtn}>Show all</Text>
         </TouchableOpacity>
       </View>

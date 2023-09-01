@@ -13,17 +13,22 @@ import { COLORS, SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import useFetch from "../../../hook/useFetch";
 
-const Popularjobs = () => {
+const Popularjobs = ({ cat, gen }) => {
+  console.log(cat);
+  console.log(gen);
   const router = useRouter();
   const { data, isLoading, error } = useFetch("/getBooks/top", {
-    cat: "342341554232322443332222",
-    gen: "111",
+    cat: cat,
+    gen: gen,
   });
 
   const [selectedBook, setSelectedBook] = useState();
 
   const handleCardPress = (book) => {
-    router.push(`(drawer)/home/book-details/${book.id}`);
+    router.push({
+      pathname: `(drawer)/home/book-details/${book.id}`,
+      params: {cat: cat, gen: gen}
+    });
     setSelectedBook(book.id);
   };
 
@@ -31,7 +36,14 @@ const Popularjobs = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Top Picks For You</Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            router.push({
+              pathname: "(drawer)/home/all/top",
+              params: {cat: cat, gen: gen}
+            });
+        }}
+        >
           <Text style={styles.headerBtn}>Show all</Text>
         </TouchableOpacity>
       </View>

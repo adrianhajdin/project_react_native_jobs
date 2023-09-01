@@ -70,14 +70,20 @@ export default class SurveyScreen extends Component {
          *  separate NPM package, react-native-selection-group, which has additional features such as multi-selection.
          */
 
-        // const infoQuestionsRemoved = [...answers];
+        const infoQuestionsRemoved = [...answers];
 
-        // // Convert from an array to a proper object. This won't work if you have duplicate questionIds
-        // const answersAsObj = {};
-        // for (const elem of infoQuestionsRemoved) { answersAsObj[elem.questionId] = elem.value; }
+        // Convert from an array to a proper object. This won't work if you have duplicate questionIds
+        const answersAsObj = {};
+        for (const elem of infoQuestionsRemoved) { answersAsObj[elem.questionId] = elem.value.value; }
+        const data = answersAsObj.join("");
+        
 
-        // this.props.navigation.navigate('SurveyCompleted', { surveyAnswers: answersAsObj });
-        this.props.router.push("home");
+
+        this.props.router.push({
+            pathname: `(drawer)/home`,
+            params: {cat: data.substring(0, 27), gen: data.substring(data.length - 3)}
+        });
+        
     }
 
     /**

@@ -12,10 +12,13 @@ import { useRouter } from "expo-router";
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../constants";
 
+import SearchButton from "./SearchButton";
+import { height } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
+
 const genres = ['Personal Growth', 'Leadership/Management', 'Creativity', 'Finance/Wealth', 'Communication/Relationships',
 'Health/Wellness', 'Mindfulness', 'Spirituality'];
 
-const Welcome = ({ handleClick }) => {
+const Welcome = ({ handleClick, cat, gen }) => {
   const router = useRouter();
   const [genre, setGenre] = useState("Personal Growth");
 
@@ -27,14 +30,15 @@ const Welcome = ({ handleClick }) => {
       </View>
 
       <View style={styles.searchContainer}>
-        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
+        <SearchButton />
+        {/* <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
           <Text>Search for your book...WIP</Text>
           <Image
             source={icons.search}
             resizeMode='contain'
             style={styles.searchBtnImage}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <View style={styles.tabsContainer}>
@@ -45,7 +49,10 @@ const Welcome = ({ handleClick }) => {
               style={styles.tab(genre, item)}
               onPress={() => {
                 setGenre(item);
-                router.push(`(drawer)/home/all/${item.replace(/\//g, " ")}`);
+                router.push({
+                  pathname: `(drawer)/home/all/${item.replace(/\//g, " ")}`,
+                  params: {cat: cat, gen: gen}
+                });
               }}
             >
               <Text style={styles.tabText(genre, item)}>{item}</Text>
