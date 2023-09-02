@@ -24,15 +24,15 @@ const Book = ({ score, bookLogo, title, subtitle, authors, rating, description, 
     </View>
 
     <View style={styles.companyInfoBox}>
-      <Text style={styles.companyName}>{subtitle  }</Text>
-      <View style={styles.locationBox}>
+      <Text style={styles.companyName}>{subtitle}</Text>
+      {/* <View style={styles.locationBox}>
         <Image
           source={icons.location}
           resizeMode='contain'
           style={styles.locationImage}
         />
         <Text style={styles.locationName}>{country}</Text>
-      </View>
+      </View> */}
     </View>
     </View>
   );

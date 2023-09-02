@@ -8,13 +8,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: SIZES.small,
+    padding: SIZES.large,
     backgroundColor: "#FFF",
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
   },
-  likeBtn: {
+  likeBtn: (favorite) => ({
     width: 55,
     height: 55,
     borderWidth: 1,
@@ -22,12 +22,13 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
-  },
-  likeBtnImage: {
+    backgroundColor: favorite ? COLORS.tertiary : COLORS.lightWhite,
+  }),
+  likeBtnImage: (favorite) => ({
     width: "40%",
     height: "40%",
-    tintColor: COLORS.tertiary,
-  },
+    tintColor: favorite ? COLORS.lightWhite : COLORS.tertiary,
+  }),
   applyBtn: {
     flex: 1,
     backgroundColor: COLORS.tertiary,

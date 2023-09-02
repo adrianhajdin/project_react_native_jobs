@@ -16,7 +16,7 @@ const AllBooks = () => {
     const quesParams = useLocalSearchParams();
     const { cat, gen } = quesParams;
 
-    const { data, isLoading, error } = useFetch(`/getBooks/${params.id}`, {
+    const { data, isLoading, error } = useFetch(`/getBooks/${params.id === "top" ? "top" : `category/${params.id}`}`, {
         cat: cat,
         gen: gen,
       });
@@ -25,7 +25,7 @@ const AllBooks = () => {
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <Stack.Screen
                 options={{
-                    headerStyle: { backgroundColor: COLORS.lightWhite },
+                    headerStyle: { backgroundColor: COLORS.tertiary},
                     headerShadowVisible: false,
                     headerLeft: () => (
                         <ScreenHeaderBtn

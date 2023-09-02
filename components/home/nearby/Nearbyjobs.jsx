@@ -58,7 +58,7 @@ const Nearbyjobs = ( { cat, gen} ) => {
         <TouchableOpacity
           onPress={() => {
             router.push({
-              pathname: `(drawer)/home/all/Personal Growth`, // need to fix to show current genre
+              pathname: `(drawer)/home/all/${genre}`, // where else did this call get made
               params: {cat: cat, gen: gen}
             });
           }}

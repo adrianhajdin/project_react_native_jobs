@@ -55,7 +55,7 @@ const Popularjobs = ({ cat, gen }) => {
           <Text>Something went wrong</Text>
         ) : (
           <FlatList
-            data={data}
+            data={data.slice(0,10)}
             renderItem={({ item }) => (
               <PopularJobCard
                 book={item}

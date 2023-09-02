@@ -48,6 +48,21 @@ const BookDetails = () => {
 
 
 
+
+
+  const [favorite, setFavorite] = useState(false); // if results show book to be favorite, then set
+
+  const handleBtnPress = (id, favorite) => { 
+   
+    if (favorite) { // if favorite is true, then we are unliking. This is for deletion
+
+      setFavorite(false); // chaning updated value
+    } else { // if favorite is false, then we are liking, this is adding
+
+      setFavorite(true); // chaning updated value
+    }
+  }
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     refetch()
@@ -99,7 +114,7 @@ const BookDetails = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerStyle: { backgroundColor: COLORS.tertiary },
           headerShadowVisible: false,
           headerBackVisible: false,
           headerLeft: () => (
@@ -156,7 +171,13 @@ const BookDetails = () => {
           )}
         </ScrollView>
 
-        <JobFooter url={(book?.buyLink === "N/A") ? 'https://books.google.com/':book?.buyLink} />
+        <JobFooter 
+          url={(book?.buyLink === "N/A") ? `https://www.google.com/search?tbm=bks&q=${encodeURIComponent(book?.title)}` : book?.buyLink}
+          id={book?.id} // need for passing back
+          favorite={favorite} //
+          handleBtnPress={handleBtnPress}
+        
+        />
       </>
     </SafeAreaView>
   );
