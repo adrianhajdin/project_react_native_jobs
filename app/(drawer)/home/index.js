@@ -29,7 +29,7 @@ const Page = () => {
   const showQues = false;
   const testData = false;
 
-  async function save(key, value) { // only used for test cases
+async function save(key, value) { // only used for test cases
     await SecureStore.setItemAsync(key, value);
 }
 
@@ -42,11 +42,6 @@ if (showQues) { // if we want to show questionnare and restart
 
   async function getValueFor(key) {
     let result = await SecureStore.getItemAsync(key);
-    if (result) {
-      console.log("🔐 Here's your value 🔐 \n" + result);
-    } else {
-      console.log('No values stored under that key.');
-    }
     return result;
   }
 

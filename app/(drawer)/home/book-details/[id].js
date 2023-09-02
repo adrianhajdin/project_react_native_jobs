@@ -1,5 +1,5 @@
 import { Stack, useRouter, useSearchParams, useLocalSearchParams } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -27,7 +27,7 @@ import { checkImageURL } from "../../../../utils";
 import Stars from "../../../../components/bookdetails/stars/Stars";
 import CircularProgressBar from "../../../../components/progressbar/CircularProgressBar";
 
-
+import * as SecureStore from 'expo-secure-store';
 
 const tabs = ["General Info", "Ratings/Reviews", "Description"];
 
@@ -35,6 +35,12 @@ const BookDetails = () => {
   const params = useSearchParams();
   const router = useRouter();
   const quesParams = useLocalSearchParams();
+
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [favorite, setFavorite] = useState(false); // if results show book to be favorite, then set
+  const [favoriteIds, setFavoriteIds] = useState([]);
+
   const { cat, gen } = quesParams;
 
   const { data, isLoading, error, refetch } = useFetch(`/getBooks/${params.id}`, {
@@ -43,22 +49,41 @@ const BookDetails = () => {
   });
   const book = data[0];
 
-  const [activeTab, setActiveTab] = useState(tabs[0]);
-  const [refreshing, setRefreshing] = useState(false);
+  async function save(key, value) { // used to update if favorite
+    await SecureStore.setItemAsync(key, value);
+  }
 
+  async function getValueFor(key) { // used to get current favorites
+    let result = await SecureStore.getItemAsync(key);
+    return result;
+  }
 
-
-
-
-  const [favorite, setFavorite] = useState(false); // if results show book to be favorite, then set
+  useEffect(() => {
+    // Assuming `yourPromiseFunction` is the function that returns your Promise
+    getValueFor("favorites")
+    .then((value) => {
+        const rawData = value.split(" ")
+        setFavoriteIds(rawData);
+        setFavorite(rawData.includes(book?.id))
+    })
+    .catch((error) => {
+        console.error("An error occurred:", error);
+    });
+  }, []);
 
   const handleBtnPress = (id, favorite) => { 
-   
     if (favorite) { // if favorite is true, then we are unliking. This is for deletion
-
+      if (favoriteIds.includes(id)) {
+        const index = favoriteIds.indexOf(id);
+        if (index !== -1) {
+          save("favorites", (favoriteIds.splice(index, 1)).join(" "))
+        }
+      }
       setFavorite(false); // chaning updated value
     } else { // if favorite is false, then we are liking, this is adding
-
+      if (!favoriteIds.includes(id)) { // don't add if already in there
+        save("favorites", [...favoriteIds, id].join(" "))
+      }
       setFavorite(true); // chaning updated value
     }
   }

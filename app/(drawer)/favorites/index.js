@@ -4,13 +4,33 @@ import { DrawerToggleButton } from '@react-navigation/drawer';
 import { COLORS, icons, images, SIZES } from "../../../constants";
 import useFetch from "../../../hook/useFetch";
 import styles from "../../../styles/search";
-import { useRouter } from "expo-router";
+import { useRouter} from "expo-router";
+import { useState, useEffect } from "react";
 import { NearbyJobCard } from "../../../components";
 import { Ionicons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
+import * as SecureStore from 'expo-secure-store';
 
 export default function FavoritesPage() {
 
   const router = useRouter();
+
+  const [favorites, setFavorites] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [cat, setCat] = useState("");
+  const [gen, setGen] = useState("");
+
+
+  // TESTING
+  const testData = false;
+
+  async function save(key, value) { // only used for test cases
+      await SecureStore.setItemAsync(key, value);
+  }
+
+  if (testData) {
+    save("favorites", "uNMjeFMorPgC Xh2rEAAAQBAJ R2cqDAAAQBAJ"); // if we would just like to see app working
+  }
+// TESTING
 
   // BOTH these handled at book details? (SAVE)
   //method to save each new book to favorites
@@ -29,15 +49,47 @@ export default function FavoritesPage() {
   // call API to get all data
   // filter through data to only display APIs needed (similar to seacrch fucntion, set new variable?)
 
+  async function getValueFor(key) { // used to get current favorites
+    let result = await SecureStore.getItemAsync(key);
+    return result;
+  }
 
+  useEffect(() => {
+    // Assuming `yourPromiseFunction` is the function that returns your Promise
+    getValueFor("data")
+    .then((value) => {
+        const data = value.split("*")[1];
+        setCat(data.substring(0,24));
+        setGen(data.substring(24))
+        setIsLoading(false);
+    })
+    .catch((error) => {
+        console.error("An error occurred:", error);
+        setIsLoading(false);
+    });
+  }, []);
 
-
-
-
-  const { data, isLoading, error } = useFetch("/getBooks/top", {
-    cat: "34234155423232244333",
-    gen: "111",
+  useEffect(() => {
+    // Assuming `yourPromiseFunction` is the function that returns your Promise
+    getValueFor("favorites")
+    .then((rawData) => {
+        setFavorites(rawData.split(" "));
+        setIsLoading(false);
+    })
+    .catch((error) => {
+        console.error("An error occurred:", error);
+        setIsLoading(false);
+    });
+  }, []);
+  
+  const { data, apiIsLoading, error } = useFetch("/getBooks", {
+    cat: cat,
+    gen: gen,
   });
+  
+  useEffect(() => {
+    setIsLoading(apiIsLoading);
+  }, [apiIsLoading]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -60,7 +112,7 @@ export default function FavoritesPage() {
           }}
         >
           <FlatList
-              data={data}
+              data={data.filter(item => favorites.includes(item.id))}
               renderItem={({ item }) => (
                     <NearbyJobCard
                         book={item}
