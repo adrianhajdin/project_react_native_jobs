@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, SafeAreaView , ActivityIndicator, Platform} from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
 import useFetch from "../../../../hook/useFetch";
@@ -15,14 +15,17 @@ const Search = () => {
     const { cat, gen } = quesParams;
 
 	const router = useRouter();
+	const [searchData, setSearchData] = useState([]);
+	const [searchValue, setSearchValue] = useState("");
 
 	const { data, isLoading, error } = useFetch("/getBooks", {
 		cat: cat,
 		gen: gen,
 	});
 
-	const [searchData, setSearchData] = useState(data);
-	const [searchValue, setSearchValue] = useState("");
+	useEffect(() => {
+        setSearchData(data);
+    }, [data]);
 
 	const searchFilterFunction = (text) => {
 		// Check if searched text is not blank
@@ -46,11 +49,29 @@ const Search = () => {
 		}
 	  };
 
+	  const renderHeader = () => {
+        return (
+            <>
+                <View style={styles.container}>
+                    <Text style={styles.searchTitle}>Search Books</Text>
+                    <Text style={styles.noOfSearchedJobs}>All Categories</Text>
+                </View>
+                <View style={styles.loaderContainer}>
+                    {isLoading ? (
+                        <ActivityIndicator size='large' color={COLORS.primary} />
+                    ) : error && (
+                        <Text>Oops something went wrong</Text>
+                    )}
+                </View>
+            </>
+        );
+    };
+
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
 		<Stack.Screen
 			options={{
-				headerStyle: { backgroundColor: COLORS.lightWhite },
+				headerStyle: { backgroundColor: COLORS.tertiary },
 				headerShadowVisible: false,
 				headerLeft: () => (
 					<ScreenHeaderBtn
@@ -87,21 +108,7 @@ const Search = () => {
 			)}
 			keyExtractor={(book) => book.id}
 			contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
-			ListHeaderComponent={() => (
-				<>
-					<View style={styles.container}>
-						<Text style={styles.searchTitle}>Search Books</Text>
-						<Text style={styles.noOfSearchedJobs}>All Categories</Text>
-					</View>
-					<View style={styles.loaderContainer}>
-						{isLoading ? (
-							<ActivityIndicator size='large' color={COLORS.primary} />
-						) : error && (
-							<Text>Oops something went wrong</Text>
-						)}
-					</View>
-				</>
-			)}
+			ListHeaderComponent={renderHeader}
 		/>
 	</SafeAreaView>
 	);
