@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, View, ActivityIndicator } from "react-native";
+import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button } from "react-native";
 import { Stack, useRouter, Link, useLocalSearchParams } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 
@@ -13,6 +13,7 @@ import {
 } from "../../../components";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
+import { MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 
 
 
@@ -20,6 +21,7 @@ const Page = () => {
   const router = useRouter();
   const [promiseValue, setPromiseValue] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [cat, setCat] = useState("");
   const [gen, setGen] = useState("");
@@ -88,6 +90,15 @@ if (showQues) { // if we want to show questionnare and restart
             tintColor={COLORS.lightWhite}
           />
         ),
+        headerRight: () => (
+          <AntDesign 
+          name="questioncircleo" 
+          size={24} 
+          color={COLORS.lightWhite} 
+          style={{padding: 10}} 
+          onPress={() => setModalVisible(true)}
+          />
+        ),
         title: "",
       }}
       />
@@ -109,6 +120,46 @@ if (showQues) { // if we want to show questionnare and restart
             gen={gen}
             name={name}
           />
+          <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                setModalVisible(!modalVisible);
+              }}
+            ><View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{
+                  width: "85%",
+                  backgroundColor: COLORS.tertiary,  // <-- set background color
+                  padding: 40,
+                  borderRadius: 10,
+                  // Add shadow style for iOS
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  // Add shadow style for Android
+                  elevation: 5,
+                }}>
+                  <TouchableOpacity
+                    style={{
+                      position: 'absolute',
+                      right: 10,
+                      top: 10,
+                    }}
+                    onPress={() => setModalVisible(false)}
+                  ><AntDesign name="close" size={24} color={COLORS.lightWhite} /></TouchableOpacity>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Feather name="bar-chart-2" size={24} color={COLORS.primary} style={{marginRight: 5}} />
+                    <Text style={{ color: COLORS.primary, fontSize: 20 }}>How We Use Your Data</Text>
+                  </View>
+                  <Text style={{ color: COLORS.lightWhite, marginTop: 10 }}>ReadAI only asks the questions most relevant to maximize your self improvement journey. To learn more visit our privacy policy here.</Text>
+                </View>
+              </View>
+          </Modal>
           <Popularjobs 
             cat={cat}
             gen={gen}

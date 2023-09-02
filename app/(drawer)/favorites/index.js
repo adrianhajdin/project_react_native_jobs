@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, ScrollView, FlatList, ActivityIndicator } from "react-native";
+import { Text, View, SafeAreaView, ScrollView, FlatList, ActivityIndicator, RefreshControl } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import { COLORS, icons, images, SIZES } from "../../../constants";
@@ -18,6 +18,7 @@ export default function FavoritesPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [cat, setCat] = useState("");
   const [gen, setGen] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
 
 
   // TESTING
@@ -30,29 +31,32 @@ export default function FavoritesPage() {
   if (testData) {
     save("favorites", "uNMjeFMorPgC Xh2rEAAAQBAJ R2cqDAAAQBAJ"); // if we would just like to see app working
   }
-// TESTING
+  // TESTING
 
-  // BOTH these handled at book details? (SAVE)
-  //method to save each new book to favorites
-  // as well as method to clean up favorites
-
-  // handle UI with both of these methods
-
-  // Method 1
-  // onPress --> call save function (if it is the add, just add)
-  //Method 2 
-  // onpress --> call delte function, removing it and reuploading the value. If not in item, then just do nothing 
-
-  //LOAD
-  // need to load from "favorites"
-  // unpack values, splitting by " "
-  // call API to get all data
-  // filter through data to only display APIs needed (similar to seacrch fucntion, set new variable?)
 
   async function getValueFor(key) { // used to get current favorites
     let result = await SecureStore.getItemAsync(key);
     return result;
   }
+
+  const loadFavorites = () => {
+    getValueFor("favorites")
+      .then((rawData) => {
+        setFavorites(rawData ? rawData.split(" ") : []);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
+        setIsLoading(false);
+      });
+  };
+
+  const loadData = () => {
+    setRefreshing(true);
+    // Fetch favorites
+    loadFavorites();
+    setRefreshing(false);
+  };
 
   useEffect(() => {
     // Assuming `yourPromiseFunction` is the function that returns your Promise
@@ -67,19 +71,9 @@ export default function FavoritesPage() {
         console.error("An error occurred:", error);
         setIsLoading(false);
     });
-  }, []);
 
-  useEffect(() => {
-    // Assuming `yourPromiseFunction` is the function that returns your Promise
-    getValueFor("favorites")
-    .then((rawData) => {
-        setFavorites(rawData.split(" "));
-        setIsLoading(false);
-    })
-    .catch((error) => {
-        console.error("An error occurred:", error);
-        setIsLoading(false);
-    });
+     // Fetch favorites initially
+     loadFavorites();
   }, []);
   
   const { data, apiIsLoading, error } = useFetch("/getBooks", {
@@ -104,7 +98,12 @@ export default function FavoritesPage() {
         title: "",
       }}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+        }
+      >
         <View
           style={{
             flex: 1,

@@ -28,6 +28,8 @@ import Stars from "../../../../components/bookdetails/stars/Stars";
 import CircularProgressBar from "../../../../components/progressbar/CircularProgressBar";
 
 import * as SecureStore from 'expo-secure-store';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const tabs = ["General Info", "Ratings/Reviews", "Description"];
 
@@ -49,9 +51,9 @@ const BookDetails = () => {
   });
   const book = data[0];
 
-  async function save(key, value) { // used to update if favorite
-    await SecureStore.setItemAsync(key, value);
-  }
+  const saveFavorites = async (ids) => {
+    await SecureStore.setItemAsync('favorites', ids.join(" "));
+  };
 
   async function getValueFor(key) { // used to get current favorites
     let result = await SecureStore.getItemAsync(key);
@@ -59,34 +61,30 @@ const BookDetails = () => {
   }
 
   useEffect(() => {
-    // Assuming `yourPromiseFunction` is the function that returns your Promise
-    getValueFor("favorites")
-    .then((value) => {
-        const rawData = value.split(" ")
+    const fetchData = async () => {
+      try {
+        const value = await getValueFor("favorites");
+        const rawData = value ? value.split(" ") : [];
         setFavoriteIds(rawData);
-        setFavorite(rawData.includes(book?.id))
-    })
-    .catch((error) => {
+        setFavorite(rawData.includes(book?.id.toString()));
+      } catch (error) {
         console.error("An error occurred:", error);
-    });
-  }, []);
+      }
+    };
+    fetchData();
+  }, [book?.id]);
 
-  const handleBtnPress = (id, favorite) => { 
-    if (favorite) { // if favorite is true, then we are unliking. This is for deletion
-      if (favoriteIds.includes(id)) {
-        const index = favoriteIds.indexOf(id);
-        if (index !== -1) {
-          save("favorites", (favoriteIds.splice(index, 1)).join(" "))
-        }
-      }
-      setFavorite(false); // chaning updated value
-    } else { // if favorite is false, then we are liking, this is adding
-      if (!favoriteIds.includes(id)) { // don't add if already in there
-        save("favorites", [...favoriteIds, id].join(" "))
-      }
-      setFavorite(true); // chaning updated value
+  const handleBtnPress = useCallback( async (id, favorite) => { 
+    let updatedFavorites = [...favoriteIds];
+    if (favorite) {
+      updatedFavorites = updatedFavorites.filter(favId => favId !== id.toString());
+    } else {
+      updatedFavorites.push(id.toString());
     }
-  }
+    await saveFavorites(updatedFavorites);
+    setFavoriteIds(updatedFavorites);
+    setFavorite(!favorite);
+  }, [favoriteIds]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -143,33 +141,36 @@ const BookDetails = () => {
           headerShadowVisible: false,
           headerBackVisible: false,
           headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.left}
-              dimension='60%'
-              handlePress={() => router.back()}
-            />
+            <TouchableOpacity
+              onPress={() => router.back()}
+            ><Ionicons name="arrow-back" size={24} color={COLORS.lightWhite} style={{padding: 10}} /></TouchableOpacity>
           ),
           headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.share} dimension='60%' />
+            <TouchableOpacity
+              onPress={() => router.back()}
+            ><AntDesign name="sharealt" size={24} color={COLORS.lightWhite} style={{padding: 10}} /></TouchableOpacity>  
           ),
           headerTitle: "",
         }}
       />
-
+  
       <>
-        <ScrollView showsVerticalScrollIndicator={false}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
+            <ActivityIndicator size="large" color={COLORS.primary} />
           ) : error ? (
             <Text>Something went wrong</Text>
-          ) : (typeof book === "undefined") ? (
+          ) : typeof book === "undefined" ? (
             <Text>No data available</Text>
           ) : (
+            
             <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
-              <Book // here is the screen that will show up on every tab -- remove props that you don't want (so just keep title)
+              <Book
                 score={book.score}
                 bookLogo={book.thumbnail}
                 title={book.title}
@@ -184,28 +185,27 @@ const BookDetails = () => {
                 publishedDate={book.publishedDate}
                 country={book.country}
               />
-
-              <JobTabs
-                tabs={tabs}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-
+              <JobTabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
               {displayTabContent()}
             </View>
           )}
         </ScrollView>
-
-        <JobFooter 
-          url={(book?.buyLink === "N/A") ? `https://www.google.com/search?tbm=bks&q=${encodeURIComponent(book?.title)}` : book?.buyLink}
-          id={book?.id} // need for passing back
-          favorite={favorite} //
+        <JobFooter
+          url={
+            book?.buyLink === "N/A"
+              ? `https://www.google.com/search?tbm=bks&q=${encodeURIComponent(
+                  book?.title
+                )}`
+              : book?.buyLink
+          }
+          id={book?.id}
+          favorite={favorite}
           handleBtnPress={handleBtnPress}
-        
         />
       </>
     </SafeAreaView>
   );
+  
 };
 
 export default BookDetails;

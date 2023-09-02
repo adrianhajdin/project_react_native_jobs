@@ -9,6 +9,8 @@ import { ScreenHeaderBtn, NearbyJobCard } from '../../../../components';
 import { COLORS, icons, SIZES } from '../../../../constants';
 import styles from '../../../../styles/search';
 
+import { Ionicons } from '@expo/vector-icons';
+
 const AllBooks = () => {
     const params = useSearchParams();
     const router = useRouter()
@@ -28,11 +30,10 @@ const AllBooks = () => {
                     headerStyle: { backgroundColor: COLORS.tertiary},
                     headerShadowVisible: false,
                     headerLeft: () => (
-                        <ScreenHeaderBtn
-                            iconUrl={icons.left}
-                            dimension='60%'
-                            handlePress={() => router.back()}
-                        />
+                        <TouchableOpacity
+						onPress={() => router.back()}
+					><Ionicons name="arrow-back" size={24} color={COLORS.lightWhite} style={{padding: 10}} />
+					</TouchableOpacity>
                     ),
                     headerTitle: "",
                 }}

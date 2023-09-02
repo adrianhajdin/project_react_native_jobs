@@ -14,21 +14,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
-  likeBtn: (favorite) => ({
+  likeBtn: {
     width: 55,
     height: 55,
     borderWidth: 1,
     borderColor: "#F37453",
     borderRadius: SIZES.medium,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: favorite ? COLORS.tertiary : COLORS.lightWhite,
-  }),
-  likeBtnImage: (favorite) => ({
+    alignItems: "center"
+  },
+  likeBtnImage: {
     width: "40%",
-    height: "40%",
-    tintColor: favorite ? COLORS.lightWhite : COLORS.tertiary,
-  }),
+    height: "40%"
+  },
   applyBtn: {
     flex: 1,
     backgroundColor: COLORS.tertiary,
