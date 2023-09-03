@@ -31,7 +31,41 @@ import * as SecureStore from 'expo-secure-store';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+import { StyleSheet } from "react-native";
+
 const tabs = ["General Info", "Ratings/Reviews", "Description"];
+
+const tabStyles = StyleSheet.create({
+  container: {
+    padding: 20,
+    backgroundColor: COLORS.lightWhite,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: COLORS.darkGray,
+  },
+  text: {
+    fontSize: 16,
+    marginVertical: 5,
+    color: COLORS.darkGray,
+  },
+  linkText: {
+    color: COLORS.primary,
+    textDecorationLine: 'underline',
+  },
+  section: {
+    marginVertical: 10,
+  },
+  progressBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  progressBarText: {
+    marginLeft: 10,
+  },
+});
 
 const BookDetails = () => {
   const params = useSearchParams();
@@ -96,36 +130,50 @@ const BookDetails = () => {
     switch (activeTab) {
       case "General Info":
         return (
-          <View style={styles.container}>
-            <CircularProgressBar 
-              percentage={Math.ceil(book.score[0])}
-            />
-            <Text>This book is a {Math.ceil(book.score[0])}% match for you!</Text>
-            <View style={styles.container}>
-              <Text>Authors: {book.authors.join(", ")}</Text>
-              <Text style={{color: 'blue', textDecorationLine: 'underline'}}
-              onPress={() => Linking.openURL(`https://www.google.com/search?q=${book.authors[0]}`)}>
-              (Learn More)
+          <View style={tabStyles.container}>
+            <View style={tabStyles.progressBarContainer}>
+              <CircularProgressBar
+                percentage={Math.ceil(book.score[0])}
+              />
+              <Text style={tabStyles.progressBarText}>
+                This book is a {Math.ceil(book.score[0])}% match for you!
               </Text>
             </View>
-            <Text>Genre: {book.genre}</Text>
-            <Text>Number of Pages: {book.pageCount}</Text>
-            <Text>ISBN: {book.isbn}</Text>
-            <Text>Publisher/Date: {book.publisher} {book.publishedDate}</Text>
+
+            <View style={tabStyles.section}>
+              <Text style={tabStyles.header}>Authors</Text>
+              <Text style={tabStyles.text}>{book.authors.join(", ")}</Text>
+              <Text
+                style={tabStyles.linkText}
+                onPress={() => Linking.openURL(`https://www.google.com/search?q=${book.authors[0]}`)}
+              >
+                (Learn More)
+              </Text>
+            </View>
+
+            <View style={tabStyles.section}>
+              <Text style={tabStyles.header}>Details</Text>
+              <Text style={tabStyles.text}>Genre: {book.genre}</Text>
+              <Text style={tabStyles.text}>Number of Pages: {book.pageCount}</Text>
+              <Text style={tabStyles.text}>ISBN: {book.isbn}</Text>
+              <Text style={tabStyles.text}>Publisher/Date: {book.publisher} {book.publishedDate}</Text>
+            </View>
           </View>
         );
 
       case "Ratings/Reviews":
         return (
-          <View style={styles.container}>
-            <Text>General Rating: {book.rating}</Text>
+          <View style={tabStyles.container}>
+            <Text style={tabStyles.header}>General Rating: {book.rating}</Text>
             <Stars />
           </View>
         );
 
       case "Description":
         return (
-          <Text style={{padding:10}}>Description: {book.description}</Text>
+          <View style={tabStyles.container}>
+            <Text style={tabStyles.text}>Description: {book.description}</Text>
+          </View>
         );
 
       default:
