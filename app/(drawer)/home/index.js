@@ -83,7 +83,7 @@ if (showQues) { // if we want to show questionnare and restart
     return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Screen options={{
-        headerStyle: { backgroundColor: COLORS.tertiary },
+        headerStyle: { backgroundColor: COLORS.secondary },
         headerShadowVisible: false,
         headerLeft: () => (
           <DrawerToggleButton 
@@ -130,7 +130,7 @@ if (showQues) { // if we want to show questionnare and restart
             ><View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                 <View style={{
                   width: "85%",
-                  backgroundColor: COLORS.tertiary,  // <-- set background color
+                  backgroundColor: COLORS.secondary,  // <-- set background color
                   padding: 40,
                   borderRadius: 10,
                   // Add shadow style for iOS
@@ -153,8 +153,7 @@ if (showQues) { // if we want to show questionnare and restart
                     onPress={() => setModalVisible(false)}
                   ><AntDesign name="close" size={24} color={COLORS.lightWhite} /></TouchableOpacity>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Feather name="bar-chart-2" size={24} color={COLORS.primary} style={{marginRight: 5}} />
-                    <Text style={{ color: COLORS.primary, fontSize: 20 }}>How We Use Your Data</Text>
+                    <Text style={{ color: COLORS.lightWhite, fontSize: 20 }}>How We Use Your Data</Text>
                   </View>
                   <Text style={{ color: COLORS.lightWhite, marginTop: 10 }}>ReadAI only asks the questions most relevant to maximize your self improvement journey. To learn more visit our privacy policy here.</Text>
                 </View>

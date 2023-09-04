@@ -12,7 +12,7 @@ import {
   SwiperComponent
 } from "../../components"
 import RoundButton from "../../components/hero/RoundButton";
-
+import { Drawer } from "expo-router/drawer";
 
 const Hero = () => {
   const router = useRouter();
@@ -23,15 +23,22 @@ const Hero = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
-        <Stack.Screen
+        <Drawer.Screen
         options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerStyle: { backgroundColor: COLORS.tertiary },
           headerShadowVisible: false,
           headerTitle: "",
         }}
       />
+      <View
+          style={{
+            flex: 1,
+            padding: SIZES.medium,
+          }}
+        >
       <SwiperComponent/>
       <RoundButton onPress={handlePress} />
+      </View>
     </SafeAreaView>
   );
 };

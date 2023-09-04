@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { COLORS } from '../../constants';
 
 const RoundButton = ({ onPress }) => {
   return (
@@ -11,7 +12,7 @@ const RoundButton = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: 'orange',
+    backgroundColor: COLORS.tertiary,
     borderRadius: 25, // Rounded corners to make it pill-shaped
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonText: {
-    color: 'white',
+    color: COLORS.lightWhite,
     fontSize: 16,
   },
 });

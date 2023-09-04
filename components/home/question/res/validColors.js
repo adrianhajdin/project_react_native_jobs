@@ -1,4 +1,4 @@
-export const COLORS = [
+export const QCOLORS = [
     'aliceblue',
     'antiquewhite',
     'aqua',

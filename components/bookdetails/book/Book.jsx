@@ -2,8 +2,10 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 
 import styles from "./book.style";
-import { icons } from "../../../constants";
+import { COLORS, icons } from "../../../constants";
 import { checkImageURL } from "../../../utils";
+
+
 
 const Book = ({ score, bookLogo, title, subtitle, authors, rating, description, genre, pageCount, isbn, publisher, publishedDate, country }) => { // chnage to only show title or whatever you think looks good (remove unused props)
   return (
@@ -24,7 +26,7 @@ const Book = ({ score, bookLogo, title, subtitle, authors, rating, description, 
     </View>
 
     <View style={styles.companyInfoBox}>
-      <Text style={styles.companyName}>{subtitle}</Text>
+      <Text style={styles.companyName}>{subtitle === "N/A" ? "" : subtitle}</Text>
       {/* <View style={styles.locationBox}>
         <Image
           source={icons.location}

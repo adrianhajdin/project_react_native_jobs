@@ -40,6 +40,7 @@
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "~3.20.0",
     "react-native-simple-survey": "^3.1.2",
+    "react-native-stars": "^1.2.2",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-ui-buttons": "^2.1.1",
     "react-native-vector-icons": "^10.0.0",

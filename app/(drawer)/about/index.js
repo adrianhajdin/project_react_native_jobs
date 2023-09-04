@@ -1,21 +1,29 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, Linking, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Linking, TouchableOpacity, SafeAreaView } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import { Avatar, Button, Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import { COLORS, FONT } from '../../../constants';
+
 
 // const AnimatedIcon = Animatable.createAnimatableComponent(Icon);
 
 const AboutPage = () => {
   return (
-    <View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Screen options={{
-        headerShown: true,
-        headerLeft: () => <DrawerToggleButton />,
+        headerStyle: { backgroundColor: COLORS.secondary },
+        headerShadowVisible: false,
+        headerLeft: () => (
+          <DrawerToggleButton 
+            tintColor={COLORS.lightWhite}
+          />
+        ),
+        title: "",
       }}
       />
-      <ScrollView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <Text style={styles.title}>About Us</Text>
 
       {/* <Animatable.Image
@@ -99,7 +107,7 @@ const AboutPage = () => {
         }
       />
     </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

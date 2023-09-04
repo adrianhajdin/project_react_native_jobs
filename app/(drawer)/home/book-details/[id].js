@@ -19,7 +19,7 @@ import {
   ScreenHeaderBtn,
   Specifics,
 } from "../../../../components";
-import { COLORS, icons, SIZES } from "../../../../constants";
+import { COLORS, icons, SIZES, FONT } from "../../../../constants";
 import useFetch from "../../../../hook/useFetch";
 
 import styles from "../../../../components/bookdetails/book/book.style";
@@ -29,7 +29,9 @@ import CircularProgressBar from "../../../../components/progressbar/CircularProg
 
 import * as SecureStore from 'expo-secure-store';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+
+import { Rating } from "react-native-elements";
 
 import { StyleSheet } from "react-native";
 
@@ -64,6 +66,17 @@ const tabStyles = StyleSheet.create({
   },
   progressBarText: {
     marginLeft: 10,
+  },
+  tab: {
+    paddingVertical: SIZES.small / 2,
+    paddingHorizontal: SIZES.small,
+    borderRadius: SIZES.medium,
+    borderWidth: 1,
+    borderColor: COLORS.secondary,
+  },
+  tabText: {
+    fontFamily: FONT.medium,
+    color: COLORS.secondary,
   },
 });
 
@@ -136,26 +149,35 @@ const BookDetails = () => {
                 percentage={Math.ceil(book.score[0])}
               />
               <Text style={tabStyles.progressBarText}>
-                This book is a {Math.ceil(book.score[0])}% match for you!
+                This book is a {Math.floor(book.score[0])}% match for you!
               </Text>
             </View>
 
             <View style={tabStyles.section}>
               <Text style={tabStyles.header}>Authors</Text>
-              <Text style={tabStyles.text}>{book.authors.join(", ")}</Text>
-              <Text
-                style={tabStyles.linkText}
-                onPress={() => Linking.openURL(`https://www.google.com/search?q=${book.authors[0]}`)}
-              >
-                (Learn More)
-              </Text>
+                  <FlatList
+                    data={book.authors}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        style={tabStyles.tab}
+                        onPress={
+                          () => Linking.openURL(`https://www.google.com/search?q=${item}`)
+                        }
+                      >
+                        <Text style={tabStyles.tabText}>{item}</Text>
+                      </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item}
+                    contentContainerStyle={{ columnGap: SIZES.small }}
+                    horizontal
+                  />
             </View>
 
             <View style={tabStyles.section}>
               <Text style={tabStyles.header}>Details</Text>
-              <Text style={tabStyles.text}>Genre: {book.genre}</Text>
+              <Text style={tabStyles.text}>Genres: {book.genre.join(", ")}</Text>
               <Text style={tabStyles.text}>Number of Pages: {book.pageCount}</Text>
-              <Text style={tabStyles.text}>ISBN: {book.isbn}</Text>
+              <Text style={tabStyles.text}>ISBN: {book.isbn13}</Text>
               <Text style={tabStyles.text}>Publisher/Date: {book.publisher} {book.publishedDate}</Text>
             </View>
           </View>
@@ -185,7 +207,7 @@ const BookDetails = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: COLORS.tertiary },
+          headerStyle: { backgroundColor: COLORS.secondary },
           headerShadowVisible: false,
           headerBackVisible: false,
           headerLeft: () => (

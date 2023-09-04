@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
   baseText: {
     fontWeight: 'bold',
     fontSize: 30,
-    color: COLORS.tertiary,
+    color: COLORS.primary,
     paddingLeft: 10,
     paddingTop: 10,
   },
   lowerText: {
     fontSize: 20,
-    color: COLORS.tertiary,
+    color: COLORS.primary,
     paddingLeft: 10,
     paddingTop: 10,
   },

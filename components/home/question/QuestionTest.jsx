@@ -21,7 +21,7 @@ const infoSurvey = [
   },
   {
       questionType: 'Info',
-      questionText: 'We will be asking you some personal questions in order to tailor our selection of books.'
+      questionText: 'We will be asking you some personal questions in order to personalize our selection of books.'
   },
   {
       questionType: 'TextInput',
@@ -31,7 +31,7 @@ const infoSurvey = [
   },
   {
       questionType: 'Info',
-      questionText: 'Next, we will be asking you about Personal Growth.'
+      questionText: 'First, we will be asking you about Personal Growth.'
   },
   {
       questionType: 'Info',
@@ -51,7 +51,7 @@ const infoSurvey = [
   },
   {
       questionType: 'Info',
-      questionText: 'Afterwards, we\'ll move on to Health/Wellness.'
+      questionText: 'Now, we\'ll move on to Health/Wellness.'
   },
   {
       questionType: 'Info',
@@ -136,6 +136,7 @@ const QuestionTest = () => {
               questionText: 'Loading'
           }}
             isLoading = {isLoading}
+            
           />
         )}
       </View>

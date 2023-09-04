@@ -88,7 +88,7 @@ export default function FavoritesPage() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Screen options={{
-        headerStyle: { backgroundColor: COLORS.tertiary },
+        headerStyle: { backgroundColor: COLORS.secondary },
         headerShadowVisible: false,
         headerLeft: () => (
           <DrawerToggleButton 

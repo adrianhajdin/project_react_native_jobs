@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Button, ScrollView, Text, TextInput, View } from 'react-native';
 import { SimpleSurvey } from 'react-native-simple-survey';
-import { COLORS } from '../question/res/validColors';
-import {ButtonOutline} from 'react-native-ui-buttons';
+import { QCOLORS } from '../question/res/validColors';
+import {ButtonOutline, ButtonSolid} from 'react-native-ui-buttons';
 import { Icon } from 'react-native-vector-icons/MaterialIcons';
 import useFetch from '../../../hook/useFetch';
 import * as SecureStore from 'expo-secure-store';
+import { COLORS, FONT } from '../../../constants';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
@@ -99,7 +100,7 @@ export default class SurveyScreen extends Component {
         this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers(), 2) });
         switch (answer.questionId) {
             case 'favoriteColor': {
-                if (COLORS.includes(answer.value.toLowerCase())) {
+                if (QCOLORS.includes(answer.value.toLowerCase())) {
                     this.setState({ backgroundColor: answer.value.toLowerCase() });
                 }
                 break;
@@ -112,16 +113,15 @@ export default class SurveyScreen extends Component {
     renderPreviousButton(onPress, enabled) {
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-                <ButtonOutline
+                <ButtonSolid
                     title={'Previous'}
-                    textStyle={enabled ? { fontWeight: 'bold' } : {color: 'lightgrey'}}
+                    textStyle={enabled ? { fontWeight: 'bold', fontFamily: FONT.bold } : {color: COLORS.secondary,  fontFamily: FONT.medium}}
                     disabled={!enabled}
                     onPress={onPress}
                     opacityReducer={3}
-                    useColor={'grey'}
+                    useColor={COLORS.tertiary}
                     padding={10}
                     textOpacityReducer={8}
-                    styles={{borderColor: GREEN, backgroundColor: GREEN}}
                 />
             </View>
         );
@@ -129,17 +129,16 @@ export default class SurveyScreen extends Component {
 
     renderNextButton(onPress, enabled) {
         return (
-            <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-                <ButtonOutline
+            <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
+                <ButtonSolid
                     title={'Next'}
                     disabled={!enabled}
-                    textStyle={enabled ? { fontWeight: 'bold' } : {color: 'lightgrey'}}
+                    textStyle={enabled ? { fontWeight: 'bold' } : {color: COLORS.primary}}
                     onPress={onPress}
                     opacityReducer={3}
-                    useColor={ORANGE}
+                    useColor={COLORS.tertiary}
                     padding={10}
                     textOpacityReducer={8}
-                    styles={{borderColor: ORANGE, backgroundColor: ORANGE}}
                 />
             </View>
         );
