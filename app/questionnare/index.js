@@ -12,33 +12,18 @@ import {
 } from "../../components";
 import { FlatList, ActivityIndicator, Text} from "react-native";
 import useFetch from "../../hook/useFetch";
+import { Drawer } from "expo-router/drawer";
 
 const Questionnare = () => {
-  const { data, isLoading, error } = useFetch("/questions", {});
-  console.log(data);
-
-  const renderItem = ({ item }) => (
-    <Text>{item.Question}</Text>
-  );
-
-  return (
-    <SafeAreaView style={{ flex: 1, paddingLeft: 10, backgroundColor: COLORS.lightWhite }}>
+  return ( // change to white once ready
+    <SafeAreaView style={{ flex: 1, padding: 10, backgroundColor: COLORS.gray2 }}> 
+      <Drawer.Screen options={{
+        headerStyle: { backgroundColor: COLORS.secondary },
+        headerShadowVisible: false,
+        title: "",
+      }}
+      />
       <QuestionTest />
-
-      <View>
-        {isLoading ? (
-          <ActivityIndicator size='large' color={COLORS.primary} />
-        ) : error ? (
-          <Text>Something went wrong </Text>
-        ) : (
-          <FlatList
-            data={data.items}
-            renderItem={renderItem}
-            keyExtractor={item => item.Topic}
-            vertical
-          />
-        )}
-      </View>
     </SafeAreaView>
   );
 };

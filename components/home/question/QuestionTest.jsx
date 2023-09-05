@@ -21,11 +21,11 @@ const infoSurvey = [
   },
   {
       questionType: 'Info',
-      questionText: 'We will be asking you some personal questions in order to personalize our selection of books.'
+      questionText: 'We will be asking you some questions in order to personalize our selection of books.'
   },
   {
       questionType: 'TextInput',
-      questionText: 'Firstly, could you please provide us with your name?',
+      questionText: 'Name',
       questionId: 'name',
       placeholderText: 'Enter your name here',
   },

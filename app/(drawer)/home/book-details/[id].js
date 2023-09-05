@@ -186,7 +186,7 @@ const BookDetails = () => {
       case "Ratings/Reviews":
         return (
           <View style={tabStyles.container}>
-            <Text style={tabStyles.header}>General Rating: {book.rating}</Text>
+            <Text style={tabStyles.header}>General Rating: {book.averageRating === "N/A" ? "Unknown" : book.averageRating}</Text>
             <Stars />
           </View>
         );
@@ -247,6 +247,7 @@ const BookDetails = () => {
                 subtitle={book.subtitle}
                 authors={book.authors}
                 rating={book.averageRating}
+                ratingsCount={book.ratingsCount}
                 description={book.description}
                 genre={book.genre}
                 pageCount={book.pageCount}

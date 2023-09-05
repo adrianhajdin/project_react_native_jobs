@@ -6,20 +6,12 @@ import {ButtonOutline, ButtonSolid} from 'react-native-ui-buttons';
 import { Icon } from 'react-native-vector-icons/MaterialIcons';
 import useFetch from '../../../hook/useFetch';
 import * as SecureStore from 'expo-secure-store';
-import { COLORS, FONT } from '../../../constants';
+import { COLORS, FONT, SIZES } from '../../../constants';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
 const ORANGE = 'rgba(246,190,66,1)';
 
-
-
-const survey = [
-    {
-        questionType: 'Info',
-        questionText: 'Loading'
-    }
-];
 
 async function save(key, value) {
     await SecureStore.setItemAsync(key, value);
@@ -235,7 +227,7 @@ export default class SurveyScreen extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{paddingRight: 10}}>
                 <SimpleSurvey
                         ref={(s) => { this.surveyRef = s; }}
                         survey={this.props.survey}
@@ -277,7 +269,6 @@ const styles = StyleSheet.create({
         maxWidth: '90%',
         alignItems: 'stretch',
         justifyContent: 'center',
-        
         elevation: 20,
         borderRadius: 10,
         flex: 1, 
@@ -289,14 +280,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         paddingVertical: 20,
         marginBottom: 30,
-        backgroundColor: 'white',
+        backgroundColor: COLORS.lightWhite,
         elevation: 20,
         borderRadius: 0,
     },
     surveyContainer: {
-        width: 'auto',
+        width: '100%',
+        height: '100%',
         alignSelf: 'flex-start',
-        backgroundColor: 'white',
+        backgroundColor: COLORS.lightWhite,
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
         borderTopLeftRadius: 5,
@@ -307,7 +299,7 @@ const styles = StyleSheet.create({
     },
     selectionGroupContainer: {
         flexDirection: 'column',
-        backgroundColor: 'white',
+        backgroundColor: COLORS.lightWhite,
         alignContent: 'flex-end',
     },
     background: {
@@ -321,18 +313,18 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         paddingTop: 20,
         paddingLeft: 5,
-        fontSize: 30,
+        fontSize: SIZES.xxLarge,
+        fontFamily: FONT.bold,
         alignItems: 'flex-start',
         justifyContent: 'center',
         textAlign: 'left',
-        fontWeight: 'bold',
     },
-    textBox: {
+    textBox: { // name
         borderWidth: 1,
+        fontFamily: FONT.medium,
         borderColor: 'rgba(204,204,204,1)',
-        backgroundColor: 'white',
+        backgroundColor: COLORS.lightWhite,
         borderRadius: 10,
-        
         padding: 10,
         textAlignVertical: 'top',
         marginLeft: 10,
@@ -350,7 +342,8 @@ const styles = StyleSheet.create({
     },
     infoText: {
         marginBottom: 20,
-        fontSize: 20,
+        fontFamily: FONT.medium,
+        fontSize: SIZES.xLarge,
         marginLeft: 10,
         marginRight: 10,
         alignItems: 'flex-start',
