@@ -3,7 +3,8 @@
     "ios": {
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "com.asaravan.readai"
     },
     "splash": {
       "image": "assets/images/splash.png"
@@ -12,13 +13,17 @@
     "web": {
       "bundler": "metro"
     },
-    "name": "jobsift",
+    "name": "ReadAI",
     "slug": "readai",
     "extra": {
       "eas": {
         "projectId": "b8d8bacc-2b56-44fe-909a-419ec3f1819a"
       }
     },
-    "owner": "asaravan"
+    "owner": "asaravan",
+    "android": {
+      "package": "com.asaravan.readai"
+    },
+    "icon": "assets/images/logo2.png"
   }
 }
