@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.medium,
   },
   applyBtnText: {
-    fontSize: SIZES.medium,
+    height: 55,
+    fontSize: SIZES.xxLarge,
     color: COLORS.white,
     fontFamily: FONT.bold,
   },
