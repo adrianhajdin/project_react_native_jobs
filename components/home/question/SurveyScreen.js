@@ -12,7 +12,9 @@ import Header from './Header';
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
 const ORANGE = 'rgba(246,190,66,1)';
+
 const tertiary = 'rgb(255, 119, 84)';
+const secondary = 'rgb(62, 75, 148)'
 
 const topics = ["Welcome", "Intro", "Name",
     'Personal Growth', 'Personal Growth', 'Personal Growth', 'Personal Growth', 
@@ -121,6 +123,11 @@ export default class SurveyScreen extends Component {
     }
 
     renderPreviousButton(onPress, enabled) {
+        const { topicIndex } = this.state;
+        if (topicIndex === 0) {
+            return null;
+        }
+
         const handlePress = () => {
             if (onPress) {
                 onPress(); // Call the original onPress function
@@ -128,22 +135,24 @@ export default class SurveyScreen extends Component {
             
             this.setState(prevState => ({
                 topicIndex: prevState.topicIndex - 1,
-              }));
+            }));
         };
+    
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-                <ButtonSolid
-                    title={'Previous'}
-                    textStyle={enabled ? { fontWeight: 'bold', fontFamily: FONT.bold } : {color: COLORS.lightWhite,  fontFamily: FONT.medium}}
-                    disabled={!enabled}
-                    onPress={handlePress}
-                    opacityReducer={5}
-                    useColor={tertiary}
-                    padding={10}
-                />
-            </View>
+            <ButtonSolid
+                title={'Previous'}
+                textStyle={enabled ? { fontWeight: 'bold', fontFamily: FONT.bold } : {color: COLORS.lightWhite,  fontFamily: FONT.medium}}
+                disabled={!enabled}
+                onPress={handlePress}
+                opacityReducer={5}
+                useColor={tertiary}
+                padding={10}
+            />
+        </View>
         );
     }
+    
 
     renderNextButton(onPress, enabled) {
         const handlePress = () => {
@@ -174,16 +183,14 @@ export default class SurveyScreen extends Component {
     renderFinishedButton(onPress, enabled) {
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
-                <ButtonOutline
+                <ButtonSolid
                     title={'Finished'}
+                    textStyle={enabled ? { fontWeight: 'bold', fontFamily: FONT.bold } : {color: COLORS.lightWhite,  fontFamily: FONT.medium}}
                     disabled={!enabled}
-                    textStyle={{fontWeight: 'bold'}}
                     onPress={onPress}
-                    opacityReducer={3}
-                    useColor={ORANGE}
+                    opacityReducer={5}
+                    useColor={secondary}
                     padding={10}
-                    textOpacityReducer={8}
-                    styles={{borderColor: ORANGE, backgroundColor: ORANGE}}
                 />
             </View>
         );
@@ -254,11 +261,12 @@ export default class SurveyScreen extends Component {
 
     renderInfoText(infoText) {
         return (
-            <View style={{ marginLeft: 10, marginRight: 10 }}>
+            <View style={{justifyContent: 'center', alignItems: 'center', marginLeft: 10, marginRight: 10, paddingTop: 200}}>
                 <Text style={styles.infoText}>{infoText}</Text>
             </View>
         );
     }
+    
 
     render() {
         const { topicIndex } = this.state;
@@ -387,6 +395,5 @@ const styles = StyleSheet.create({
         marginRight: 10,
         alignItems: 'flex-start',
         justifyContent: 'center',
-        textAlign: 'flex-start'
     },
 });

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button } from "react-native";
+import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button, Linking } from "react-native";
 import { Stack, useRouter, Link, useLocalSearchParams } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 
@@ -155,7 +155,10 @@ if (showQues) { // if we want to show questionnare and restart
                   <View style={{flexDirection: "row", alignItems: "center"}}>
                     <Text style={{ color: COLORS.lightWhite, fontSize: 20 }}>How We Use Your Data</Text>
                   </View>
-                  <Text style={{ color: COLORS.lightWhite, marginTop: 10 }}>ReadAI only asks the questions most relevant to maximize your self improvement journey. To learn more visit our privacy policy here.</Text>
+                  <Text style={{ color: COLORS.lightWhite, marginTop: 10 }}>
+                    ReadAI only asks the questions most relevant to maximize your self-improvement journey. To learn more visit our privacy policy <Text style={{ color: COLORS.tertiary, textDecorationLine: 'underline' }} onPress={() => Linking.openURL('https://www.termsfeed.com/live/9b007a78-2d35-4e2d-bf53-d8dd2c5af8d3')}>here</Text>
+                    .
+                  </Text>
                 </View>
               </View>
           </Modal>

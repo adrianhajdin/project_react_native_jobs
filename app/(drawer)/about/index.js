@@ -4,7 +4,7 @@ import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import { Avatar, Button, Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
-import { COLORS, FONT } from '../../../constants';
+import { COLORS, FONT, SIZES } from '../../../constants';
 
 
 // const AnimatedIcon = Animatable.createAnimatableComponent(Icon);
@@ -24,7 +24,23 @@ const AboutPage = () => {
       }}
       />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      <View
+          style={{
+            flex: 1,
+            padding: SIZES.medium,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
       <Text style={styles.title}>About Us</Text>
+      <Avatar
+            rounded
+            size="xlarge"
+            source={require('../../../assets/images/logo2.png')}
+      />
+      <View>
+      
+      </View>
 
       {/* <Animatable.Image
         animation="bounceIn"
@@ -34,7 +50,7 @@ const AboutPage = () => {
       /> */}
 
       <View style={styles.section}>
-        <Text style={styles.subtitle}>Who We Are</Text>
+        <Text style={styles.subheading}>Who We Are</Text>
         <Text style={styles.text}>
           We are Om Rajpal and Ashok Saravanan, the co-founders of Read-AI. We are passionate about personal growth and lifelong learning.
         </Text>
@@ -42,13 +58,15 @@ const AboutPage = () => {
 
       {/* Om Rajpal Section */}
       <View style={styles.section}>
+        <View>
         <Text style={styles.subtitle}>Om Rajpal</Text>
+      </View>
         <View style={styles.profileContainer}>
-          <Avatar
+          {/* <Avatar
             rounded
             size="large"
             source={require('../../../assets/images/splash.png')}
-          />
+          /> */}
           <Text style={styles.text}>
             Om is a software engineer with a love for technology and books. His passion for personal development led him to the idea of Read-AI.
           </Text>
@@ -67,11 +85,11 @@ const AboutPage = () => {
       <View style={styles.section}>
         <Text style={styles.subtitle}>Ashok Saravanan</Text>
         <View style={styles.profileContainer}>
-          <Avatar
+          {/* <Avatar
             rounded
             size="large"
             source={require('../../../assets/images/splash.png')}
-          />
+          /> */}
           <Text style={styles.text}>
             Ashok is an avid reader and a data scientist. He believes that everyone can achieve greater heights through self-learning and continuous improvement.
           </Text>
@@ -88,7 +106,7 @@ const AboutPage = () => {
 
       {/* Why Read-AI Section */}
       <View style={styles.section}>
-        <Text style={styles.subtitle}>Why Read-AI?</Text>
+        <Text style={styles.subheading}>Why Read-AI?</Text>
         <Text style={styles.text}>
           We started Read-AI to help people discover books for personal growth in a truly personalized manner.
         </Text>
@@ -96,16 +114,20 @@ const AboutPage = () => {
 
       {/* Contact Us */}
       <Button
-        title="Contact Us"
-        onPress={() => Linking.openURL('mailto:support@readai.com')}
+        title=" Contact Us"
+        onPress={() => Linking.openURL('mailto:readai.company@gmail.com')}
+        color={COLORS.tertiary}
         icon={
           <Icon
             name="email"
             type="material"
             color="white"
+            iconStyle={{fontFamily: FONT.medium, fontSize: SIZES.medium}}
           />
         }
+        style={{padding: 20}}
       />
+      </View>
     </ScrollView>
     </SafeAreaView>
   );
@@ -117,8 +139,9 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#f5f5f5',
   },
-  title: {
-    fontSize: 32,
+  title: { //here
+    fontSize: SIZES.xxLarge,
+    fontFamily: FONT.bold,
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 20,
@@ -128,16 +151,24 @@ const styles = StyleSheet.create({
     height: 150,
     alignSelf: 'center',
   },
-  subtitle: {
-    fontSize: 24,
+  subheading: { // here
+    fontSize: SIZES.xLarge,
+    fontFamily: FONT.bold,
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  subtitle: { // here
+    fontSize: SIZES.large,
+    fontFamily: FONT.medium,
     fontWeight: 'bold',
     marginTop: 20,
   },
   section: {
     marginVertical: 10,
   },
-  text: {
-    fontSize: 16,
+  text: { // here
+    fontSize: SIZES.medium,
+    fontFamily: FONT.regular,
     lineHeight: 24,
     marginVertical: 10,
   },
