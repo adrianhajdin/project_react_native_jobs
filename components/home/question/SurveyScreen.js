@@ -7,10 +7,27 @@ import { Icon } from 'react-native-vector-icons/MaterialIcons';
 import useFetch from '../../../hook/useFetch';
 import * as SecureStore from 'expo-secure-store';
 import { COLORS, FONT, SIZES } from '../../../constants';
+import Header from './Header';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
 const ORANGE = 'rgba(246,190,66,1)';
+const tertiary = 'rgb(255, 119, 84)';
+
+const topics = ["Welcome", "Intro", "Name",
+    'Personal Growth', 'Personal Growth', 'Personal Growth', 'Personal Growth', 
+    'Leadership/Management', 'Leadership/Management', 'Leadership/Management', 'Leadership/Management', 
+    'Creativity', 'Creativity', 'Creativity', 'Creativity', 
+    'Finance/Wealth', 'Finance/Wealth', 'Finance/Wealth', 'Finance/Wealth', 
+    'Communication/Relationships', 'Communication/Relationships','Communication/Relationships','Communication/Relationships',
+    'Health/Wellness', 'Health/Wellness', 'Health/Wellness', 'Health/Wellness', 
+    'Mindfulness', 'Mindfulness', 'Mindfulness', 'Mindfulness', 
+    'Spirituality', 'Spirituality', 'Spirituality', 'Spirituality',
+    'General', 'General', 'General', 'General', 
+    'Thank You'
+ ]
+
+
 
 
 async function save(key, value) {
@@ -36,7 +53,7 @@ export default class SurveyScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { backgroundColor: PURPLE, answersSoFar: '' };
+        this.state = { backgroundColor: PURPLE, answersSoFar: '', topicIndex: 0};
 
     }
 
@@ -89,6 +106,7 @@ export default class SurveyScreen extends Component {
      *  is restricted (age, geo-fencing) from your app.
      */
     onAnswerSubmitted(answer) {
+        this.topicIndex++;
         this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers(), 2) });
         switch (answer.questionId) {
             case 'favoriteColor': {
@@ -103,35 +121,52 @@ export default class SurveyScreen extends Component {
     }
 
     renderPreviousButton(onPress, enabled) {
+        const handlePress = () => {
+            if (onPress) {
+                onPress(); // Call the original onPress function
+            }
+            
+            this.setState(prevState => ({
+                topicIndex: prevState.topicIndex - 1,
+              }));
+        };
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
                 <ButtonSolid
                     title={'Previous'}
-                    textStyle={enabled ? { fontWeight: 'bold', fontFamily: FONT.bold } : {color: COLORS.secondary,  fontFamily: FONT.medium}}
+                    textStyle={enabled ? { fontWeight: 'bold', fontFamily: FONT.bold } : {color: COLORS.lightWhite,  fontFamily: FONT.medium}}
                     disabled={!enabled}
-                    onPress={onPress}
-                    opacityReducer={3}
-                    useColor={COLORS.tertiary}
+                    onPress={handlePress}
+                    opacityReducer={5}
+                    useColor={tertiary}
                     padding={10}
-                    textOpacityReducer={8}
                 />
             </View>
         );
     }
 
     renderNextButton(onPress, enabled) {
+        const handlePress = () => {
+            if (onPress) {
+                onPress(); // Call the original onPress function
+            }
+            
+            this.setState(prevState => ({
+                topicIndex: prevState.topicIndex + 1,
+              }));
+        };
         return (
             <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10}}>
                 <ButtonSolid
                     title={'Next'}
+                    textStyle={enabled ? { fontWeight: 'bold', fontFamily: FONT.bold } : {color: COLORS.lightWhite,  fontFamily: FONT.medium}}
                     disabled={!enabled}
-                    textStyle={enabled ? { fontWeight: 'bold' } : {color: COLORS.primary}}
-                    onPress={onPress}
-                    opacityReducer={3}
-                    useColor={COLORS.tertiary}
+                    onPress={handlePress}
+                    opacityReducer={5}
+                    useColor={tertiary}
                     padding={10}
-                    textOpacityReducer={8}
                 />
+
             </View>
         );
     }
@@ -164,10 +199,10 @@ export default class SurveyScreen extends Component {
                     title={data.optionText}
                     onPress={onPress}
                     opacityReducer={3}
-                    useColor={isSelected ? 'grey' : '#EEEEEE'}
+                    useColor={isSelected ? COLORS.secondary : COLORS.primary}
                     padding={10}
                     textOpacityReducer={8}
-                    textStyle={ isSelected ? { fontWeight: 'bold', textAlign: 'left', alignItems: 'flex-end', padding: 5} : {color: 'black', textAlign: 'left', alignItems: 'flex-end'}}
+                    textStyle={ isSelected ? {fontFamily: FONT.bold, textAlign: 'left', alignItems: 'flex-end', padding: 5} : {color: COLORS.primary, fontFamily: FONT.regular, textAlign: 'left', alignItems: 'flex-end'}}
                     key={`button_${index}`}
                     materialIconLeft={isSelected ? 'radio-button-on' : 'radio-button-off'}
                 />
@@ -226,8 +261,11 @@ export default class SurveyScreen extends Component {
     }
 
     render() {
+        const { topicIndex } = this.state;
         return (
-            <View style={{paddingRight: 10}}>
+            <View>
+            <View style={{paddingRight: 10, justifyContent: 3}}>
+            <Header topic={topics[topicIndex]}/>
                 <SimpleSurvey
                         ref={(s) => { this.surveyRef = s; }}
                         survey={this.props.survey}
@@ -245,6 +283,7 @@ export default class SurveyScreen extends Component {
                         renderNumericInput={this.renderNumericInput}
                         renderInfo={this.renderInfoText}
                     />
+            </View>
             </View>
             // <View style={[styles.background, { backgroundColor: this.state.backgroundColor }]}>
             //     <View style={styles.container}>
