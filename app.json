@@ -1,6 +1,7 @@
 {
   "expo": {
     "ios": {
+      "buildNumber" : "2",
       "config": {
         "usesNonExemptEncryption": false
       },

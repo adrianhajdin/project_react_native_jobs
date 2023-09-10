@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { FONT, SIZES } from '../../constants';
 
-const CircularProgressBar = ({ percentage }) => {
+const CircularProgressBar = ({ percentage, size, big }) => {
   const fillValue = useRef(new Animated.Value(0)).current;
   
   useEffect(() => {
@@ -16,15 +17,15 @@ const CircularProgressBar = ({ percentage }) => {
 
   return (
     <AnimatedCircularProgress
-      size={60}
-      width={7}
+      size={size ?? 60}
+      width={big ? 15 : 7}
       fill={fillValue}  // using animated value
       tintColor="#1BCC32"
       backgroundColor="transparent"
       lineCap="round">
       {
         (fill) => (
-          <Text>
+          <Text style={{fontSize: big ? SIZES.xxLarge : SIZES.medium, fontFamily: big ? FONT.medium : FONT.regular}}>
             { Math.round((fill / 100) * 99) + "%" }
           </Text>
         )

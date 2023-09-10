@@ -27,15 +27,17 @@ import { checkImageURL } from "../../../../utils";
 import Stars from "../../../../components/bookdetails/stars/Stars";
 import CircularProgressBar from "../../../../components/progressbar/CircularProgressBar";
 
+import Score from "../../../../components/bookdetails/score/Score";
+
 import * as SecureStore from 'expo-secure-store';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import { Rating } from "react-native-elements";
 
 import { StyleSheet } from "react-native";
 
-const tabs = ["General Info", "Ratings/Reviews", "Description"];
+const tabs = ["General Info", "Score", "Description"];
 
 const tabStyles = StyleSheet.create({
   container: {
@@ -79,6 +81,51 @@ const tabStyles = StyleSheet.create({
     color: COLORS.secondary,
   },
 });
+
+const searchStyles = StyleSheet.create({
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+    borderRadius: 25, // Rounded corners to make it pill-shaped
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: COLORS.lightWhite,
+    fontSize: 16,
+    marginLeft: 10,
+  },icon: {
+    marginRight: 10, // Add some margin to the right of the icon
+  },
+});
+
+const getIcon = (category) => {
+  switch (category) {
+    case 'Personal Growth':
+      return <FontAwesome5 name="running" size={24} color={COLORS.lightWhite} />;
+    case 'Leadership Management':
+      return <Ionicons name="people" size={24} color={COLORS.lightWhite} />;
+    case 'Creativity':
+      return <MaterialCommunityIcons name="drawing-box" size={24} color={COLORS.lightWhite} />;
+    case 'Finance Wealth':
+      return <MaterialCommunityIcons name="account-cash" size={24} color={COLORS.lightWhite} />;
+    case 'Communication Relationships':
+      return <MaterialCommunityIcons name="account-heart" size={24} color={COLORS.lightWhite} />;
+    case 'Health Wellness':
+      return <FontAwesome5 name="apple-alt" size={24} color={COLORS.lightWhite} />;
+    case 'Mindfulness':
+      return <MaterialCommunityIcons name="meditation" size={24} color={COLORS.lightWhite} />;
+    case 'Spirituality':
+      return <FontAwesome5 name="peace" size={24} color={COLORS.lightWhite} />;
+    default:
+      return null;
+  }
+};
 
 const BookDetails = () => {
   const params = useSearchParams();
@@ -144,14 +191,7 @@ const BookDetails = () => {
       case "General Info":
         return (
           <View style={tabStyles.container}>
-            <View style={tabStyles.progressBarContainer}>
-              <CircularProgressBar
-                percentage={Math.ceil(book.score[0])}
-              />
-              <Text style={tabStyles.progressBarText}>
-                This book is a {Math.floor(book.score[0])}% match for you!
-              </Text>
-            </View>
+            
 
             <View style={tabStyles.section}>
               <Text style={tabStyles.header}>Authors</Text>
@@ -173,22 +213,46 @@ const BookDetails = () => {
                   />
             </View>
 
+            
+
+            <View style={tabStyles.section}>
+              <Text style={tabStyles.header}>Genres</Text>
+                  <FlatList
+                    data={book.genre}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity 
+                        style={searchStyles.buttonContainer} 
+                        onPress={() => {
+                          router.push({
+                            pathname: `(drawer)/home/all/${item}`,
+                            params: {cat: cat, gen: gen}
+                          });
+                        }}
+                      >
+                        {getIcon(item)}
+                        <Text style={searchStyles.buttonText}>{item}</Text>
+                      </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item}
+                    contentContainerStyle={{ columnGap: SIZES.small }}
+                    horizontal
+                  />
+            </View>
+                  
             <View style={tabStyles.section}>
               <Text style={tabStyles.header}>Details</Text>
-              <Text style={tabStyles.text}>Genres: {book.genre.join(", ")}</Text>
-              <Text style={tabStyles.text}>Number of Pages: {book.pageCount}</Text>
-              <Text style={tabStyles.text}>ISBN: {book.isbn13}</Text>
-              <Text style={tabStyles.text}>Publisher/Date: {book.publisher} {book.publishedDate}</Text>
+              <Text style={tabStyles.text}>Number of Pages: {book.pageCount === 0 ? "Unknown" : book.pageCount}</Text>
+              <Text style={tabStyles.text}>ISBN: {book.isbn13 === "N/A" ? "Unknown" : book.isbn13}</Text>
+              <Text style={tabStyles.text}>Publisher/Date: {book.publisher  === "N/A" ? "Unknown" : book.publisher} {book.publishedDate  === "N/A" ? "Unknown" : book.publishedDate}</Text>
             </View>
           </View>
         );
 
-      case "Ratings/Reviews":
+      case "Score":
         return (
-          <View style={tabStyles.container}>
-            <Text style={tabStyles.header}>General Rating: {book.averageRating === "N/A" ? "Unknown" : book.averageRating}</Text>
-            <Stars />
-          </View>
+          <Score 
+            score={Math.ceil(book.score[0])}
+          />
         );
 
       case "Description":

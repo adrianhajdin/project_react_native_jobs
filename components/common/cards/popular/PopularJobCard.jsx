@@ -12,15 +12,15 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
     >
       <View style={styles.infoHeader}>
       <TouchableOpacity style={styles.logoContainer(selectedBook, book)}>
-        <Image
-          source={{
-            uri: checkImageURL(book.thumbnail)
-              ? book.thumbnail
-              : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
-          }}
-          resizeMode='contain'
-          style={styles.logoImage}
-        />
+      <Image
+        source={
+          checkImageURL(book.thumbnail)
+          ? { uri: book.thumbnail }
+          : require('../../../../assets/images/logo2.png')
+          }
+        resizeMode='contain'
+        style={styles.logoImage}
+      />
       </TouchableOpacity>
       <TouchableOpacity style={styles.scoreContainer(selectedBook, book)}>
       {/* <Text>

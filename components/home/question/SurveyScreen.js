@@ -272,8 +272,8 @@ export default class SurveyScreen extends Component {
         const { topicIndex } = this.state;
         return (
             <View>
-            <View style={{paddingRight: 10, justifyContent: 3}}>
-            <Header topic={topics[topicIndex]}/>
+            <ScrollView style={{paddingRight: 10}}>
+                <Header topic={topics[topicIndex]}/>
                 <SimpleSurvey
                         ref={(s) => { this.surveyRef = s; }}
                         survey={this.props.survey}
@@ -291,7 +291,7 @@ export default class SurveyScreen extends Component {
                         renderNumericInput={this.renderNumericInput}
                         renderInfo={this.renderInfoText}
                     />
-            </View>
+            </ScrollView>
             </View>
             // <View style={[styles.background, { backgroundColor: this.state.backgroundColor }]}>
             //     <View style={styles.container}>

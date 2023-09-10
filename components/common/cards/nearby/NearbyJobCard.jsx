@@ -8,15 +8,15 @@ const NearbyJobCard = ({ book, handleNavigate }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleNavigate}>
       <TouchableOpacity style={styles.logoContainer}>
-        <Image
-          source={{
-            uri: checkImageURL(book.thumbnail)
-              ? book.thumbnail
-              : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
-          }}
-          resizeMode='contain'
-          style={styles.logImage}
-        />
+      <Image
+        source={
+          checkImageURL(book.thumbnail)
+          ? { uri: book.thumbnail }
+          : require('../../../../assets/images/logo2.png')
+          }
+        resizeMode='contain'
+        style={styles.logImage}
+      />
       </TouchableOpacity>
 
       <View style={styles.textContainer}>
