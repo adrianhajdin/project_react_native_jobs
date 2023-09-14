@@ -11,14 +11,8 @@ import Book from "./bookdetails/book/Book";
 import { default as JobTabs } from "./bookdetails/tabs/Tabs";
 import { default as JobFooter } from "./bookdetails/footer/Footer";
 
-// common
-import NearbyJobCard from "./common/cards/nearby/NearbyJobCard";
-
 //hero
 import SwiperComponent from "./hero/Hero";
-
-//progress
-import CircularProgressBar from "./progressbar/CircularProgressBar";
 
 
 
@@ -30,8 +24,6 @@ export {
   Book,
   JobTabs,
   JobFooter,
-  NearbyJobCard,
   QuestionTest,
   SwiperComponent,
-  CircularProgressBar,
 };

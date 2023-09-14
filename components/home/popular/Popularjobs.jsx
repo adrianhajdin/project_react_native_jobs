@@ -14,8 +14,6 @@ import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = ({ cat, gen }) => {
-  console.log(cat);
-  console.log(gen);
   const router = useRouter();
   const { data, isLoading, error } = useFetch("/getBooks/top", {
     cat: cat,

@@ -1,25 +1,52 @@
-import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { FONT, SIZES } from '../../constants';
 
 const CircularProgressBar = ({ percentage, size, big }) => {
-  const fillValue = useRef(new Animated.Value(0)).current;
-  
+  const [fillValue, setFillValue] = useState(0);
+
   useEffect(() => {
-    Animated.timing(fillValue, {
-      toValue: percentage,
-      duration: 600,  // 2 seconds, but can be adjusted
-      easing: Easing.bounce,  // bounce effect
-      useNativeDriver: false,  // this needs to be false for react-native-circular-progress
-    }).start();
+    // Initialize the animation
+    let start = Date.now();
+    let from = fillValue;
+    let to = percentage;
+
+    if (from === to) {
+      return;
+    }
+
+    // Animate over 600 ms
+    let duration = 600;
+
+    let animate = () => {
+      let now = Date.now();
+      let currentTime = now - start;
+      let progress = Math.min(currentTime / duration, 1);
+
+      let easeOutBounce = (progress) => {
+        // Implement or import an easeOutBounce function
+        // This is just a placeholder
+        return progress;
+      };
+
+      let currentFill = easeOutBounce(progress) * (to - from) + from;
+
+      setFillValue(currentFill);
+
+      if (currentFill < to) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
   }, [percentage]);
 
   return (
     <AnimatedCircularProgress
       size={size ?? 60}
       width={big ? 15 : 7}
-      fill={fillValue}  // using animated value
+      fill={fillValue} // use non-animated state value
       tintColor="#1BCC32"
       backgroundColor="transparent"
       lineCap="round">

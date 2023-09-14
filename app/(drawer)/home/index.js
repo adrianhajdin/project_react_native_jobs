@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button, Linking } from "react-native";
-import { Stack, useRouter, Link, useLocalSearchParams } from "expo-router";
+import { Stack, useRouter, Link, useLocalSearchParams, Redirect } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 
 import { COLORS, icons, images, SIZES } from "../../../constants";
@@ -28,7 +28,7 @@ const Page = () => {
   const [name, setName] = useState("");
   
   // TESTING
-  const showQues = false;
+  const showQues = true;
   const testData = false;
 
 async function save(key, value) { // only used for test cases
@@ -56,8 +56,8 @@ if (showQues) { // if we want to show questionnare and restart
     .then((value) => {
         setPromiseValue(value);
         const [name, data] = value.split("*");
-        setCat(data.substring(0,24));
-        setGen(data.substring(24))
+        setCat(data?.substring(0,24));
+        setGen(data?.substring(24))
         setName(name);
         setIsLoading(false);
     })
@@ -76,32 +76,32 @@ if (showQues) { // if we want to show questionnare and restart
     );
   }
 
-
-  if (promiseValue === "") {
-      router.push("hero");
-  } else {
     return (
+    promiseValue === "" ? 
+    <Redirect href="/hero" /> : 
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-      <Drawer.Screen options={{
-        headerStyle: { backgroundColor: COLORS.secondary },
-        headerShadowVisible: false,
-        headerLeft: () => (
-          <DrawerToggleButton 
-            tintColor={COLORS.lightWhite}
-          />
-        ),
-        headerRight: () => (
-          <AntDesign 
-          name="questioncircleo" 
-          size={24} 
-          color={COLORS.lightWhite} 
-          style={{padding: 10}} 
-          onPress={() => setModalVisible(true)}
-          />
-        ),
-        title: "",
-      }}
-      />
+      <View>
+        <Drawer.Screen options={{
+          headerStyle: { backgroundColor: COLORS.secondary },
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <DrawerToggleButton 
+              tintColor={COLORS.lightWhite}
+            />
+          ),
+          headerRight: () => (
+            <AntDesign 
+            name="questioncircleo" 
+            size={24} 
+            color={COLORS.lightWhite} 
+            style={{padding: 10}} 
+            onPress={() => setModalVisible(true)}
+            />
+          ),
+          title: "",
+        }}
+        />
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -174,6 +174,5 @@ if (showQues) { // if we want to show questionnare and restart
       </ScrollView>
     </SafeAreaView>
   )};
-};
 
 export default Page;

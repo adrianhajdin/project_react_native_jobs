@@ -23,7 +23,8 @@
     },
     "owner": "asaravan",
     "android": {
-      "package": "com.asaravan.readai"
+      "package": "com.asaravan.readai",
+      "versionCode": 2
     },
     "icon": "assets/images/logo2.png"
   }

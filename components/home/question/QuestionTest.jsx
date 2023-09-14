@@ -124,23 +124,20 @@ const QuestionTest = () => {
       }
       combinedSurvey.push(infoSurvey[infoSurvey.length - 1])
 
-  return (
-    <View style={styles.cardsContainer}>
-        {error ? (
-          <Text>Something went wrong</Text>
-        ) : (
-          <SurveyScreen 
-            router={router}
-            survey = {combinedSurvey ?? {
-              questionType: 'Info',
-              questionText: 'Loading'
-          }}
-            isLoading = {isLoading}
-            
-          />
-        )}
-      </View>
-  )
+      return (
+        <View style={styles.cardsContainer}>
+          {error ? (
+            <Text>Something went wrong</Text>
+          ) : isLoading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <SurveyScreen 
+              router={router}
+              survey={combinedSurvey}
+            />
+          )}
+        </View>
+      );
 }
 
 export default QuestionTest;

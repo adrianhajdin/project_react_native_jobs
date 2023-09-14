@@ -5,7 +5,7 @@ import { Text, SafeAreaView } from 'react-native';
 import axios from 'axios';
 import useFetch from '../../../../hook/useFetch';
 
-import { ScreenHeaderBtn, NearbyJobCard } from '../../../../components';
+import NearbyJobCard from '../../../../components/common/cards/nearby/NearbyJobCard';
 import { COLORS, icons, SIZES } from '../../../../constants';
 import styles from '../../../../styles/search';
 

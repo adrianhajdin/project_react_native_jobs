@@ -6,7 +6,7 @@ import useFetch from "../../../hook/useFetch";
 import styles from "../../../styles/search";
 import { useRouter} from "expo-router";
 import { useState, useEffect } from "react";
-import { NearbyJobCard } from "../../../components";
+import NearbyJobCard from "../../../components/common/cards/nearby/NearbyJobCard";
 import { Ionicons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
 import * as SecureStore from 'expo-secure-store';
 
@@ -87,61 +87,52 @@ export default function FavoritesPage() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-      <Drawer.Screen options={{
-        headerStyle: { backgroundColor: COLORS.secondary },
-        headerShadowVisible: false,
-        headerLeft: () => (
-          <DrawerToggleButton 
-            tintColor={COLORS.lightWhite}
-          />
-        ),
-        title: "",
-      }}
+      <Drawer.Screen
+        options={{
+          headerStyle: { backgroundColor: COLORS.secondary },
+          headerShadowVisible: false,
+          headerLeft: () => <DrawerToggleButton tintColor={COLORS.lightWhite} />,
+          title: '',
+        }}
       />
-      <ScrollView 
-        showsVerticalScrollIndicator={false}
+      <FlatList
+        data={data.filter((item) => favorites.includes(item.id))}
+        renderItem={({ item }) => (
+          <NearbyJobCard
+            book={item}
+            handleNavigate={() =>
+              router.push({
+                pathname: `(drawer)/home/book-details/${item.id}`,
+                params: { cat: cat, gen: gen },
+              })
+            }
+          />
+        )}
+        keyExtractor={(book) => book.id}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadData} />
         }
-      >
-        <View
-          style={{
-            flex: 1,
-            padding: SIZES.medium,
-          }}
-        >
-          <FlatList
-              data={data.filter(item => favorites.includes(item.id))}
-              renderItem={({ item }) => (
-                    <NearbyJobCard
-                        book={item}
-                        handleNavigate={() => router.push({
-                            pathname: `(drawer)/home/book-details/${item.id}`,
-                            params: {cat: cat, gen: gen}
-                        })}
-                    />
-                )}
-                keyExtractor={(book) => book.id}
-                contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
-                ListHeaderComponent={() => (
-                    <>
-                        <View style={styles.container}>
-                            <Ionicons name="heart" size={50} color={COLORS.primary} style={styles.icon} />
-                            <Text style={styles.searchTitle}>Favorites</Text>
-                            <Text style={styles.noOfSearchedJobs}>All Books</Text>
-                        </View>
-                        <View style={styles.loaderContainer}>
-                            {isLoading ? (
-                                <ActivityIndicator size='large' color={COLORS.primary} />
-                            ) : error && (
-                                <Text>Oops something went wrong</Text>
-                            )}
-                        </View>
-                    </>
-                )}
-            />
-        </View>
-      </ScrollView>
+        contentContainerStyle={{ padding: SIZES.medium }}
+        ListHeaderComponent={() => (
+          <>
+            <View style={styles.container}>
+              <Ionicons
+                name='heart'
+                size={50}
+                color={COLORS.primary}
+                style={styles.icon}
+              />
+              <Text style={styles.searchTitle}>Favorites</Text>
+              <Text style={styles.noOfSearchedJobs}>All Books</Text>
+            </View>
+            <View style={styles.loaderContainer}>
+              {isLoading ? (
+                <ActivityIndicator size='large' color={COLORS.primary} />
+              ) : error && <Text>Oops something went wrong</Text>}
+            </View>
+          </>
+        )}
+      />
     </SafeAreaView>
   );
 }

@@ -3,7 +3,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.17.11",
@@ -26,6 +27,7 @@
     "expo-updates": "~0.16.4",
     "lodash": "^4.17.21",
     "lottie-react-native": "5.1.4",
+    "patch-package": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.8",

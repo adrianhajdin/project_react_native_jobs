@@ -4,9 +4,8 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useState } from "react";
 
 import styles from "./nearbyjobs.style";
-import { COLORS, SIZES } from "../../../constants";
+import { COLORS } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
-import useFetch from "../../../hook/useFetch";
 import DropdownComponent from "./Dropdown";
 import useGenreFetch from "../../../hook/useGenreFetch";
 
