@@ -28,7 +28,7 @@ const Page = () => {
   const [name, setName] = useState("");
   
   // TESTING
-  const showQues = true;
+  const showQues = false;
   const testData = false;
 
 async function save(key, value) { // only used for test cases
