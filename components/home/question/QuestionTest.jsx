@@ -111,7 +111,6 @@ const QuestionTest = () => {
       };
     
     const dataSurvey = data.map(reformatQuestion);
-  
 
     let combinedSurvey = [];
       let start = infoSurvey.slice(0, 3);
@@ -125,18 +124,12 @@ const QuestionTest = () => {
       combinedSurvey.push(infoSurvey[infoSurvey.length - 1])
 
       return (
-        <View style={styles.cardsContainer}>
-          {error ? (
-            <Text>Something went wrong</Text>
-          ) : isLoading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : (
-            <SurveyScreen 
+        <SurveyScreen 
               router={router}
               survey={combinedSurvey}
-            />
-          )}
-        </View>
+              isLoading={isLoading}
+              error={error}
+        />
       );
 }
 

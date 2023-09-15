@@ -8,7 +8,7 @@ import {
   Popularjobs,
   ScreenHeaderBtn,
   Welcome,
-  QuestionTest,
+  Question,
 } from "../../components";
 import { FlatList, ActivityIndicator, Text} from "react-native";
 import useFetch from "../../hook/useFetch";
@@ -18,7 +18,7 @@ import Header from "../../components/home/question/Header";
 const Questionnare = () => {
   return ( // change to white once ready
     <SafeAreaView style={{ flex: 1, padding: 10, backgroundColor: COLORS.lightWhite }}> 
-      <QuestionTest />
+      <Question />
     </SafeAreaView>
   );
 };

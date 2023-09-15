@@ -4,7 +4,7 @@ import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn";
 import Welcome from "./home/welcome/Welcome";
 import Nearbyjobs from "./home/nearby/Nearbyjobs";
 import Popularjobs from "./home/popular/Popularjobs";
-import QuestionTest from "./home/question/QuestionTest";
+import Question from "./home/question/Question";
 
 // job details screen
 import Book from "./bookdetails/book/Book";
@@ -24,6 +24,6 @@ export {
   Book,
   JobTabs,
   JobFooter,
-  QuestionTest,
+  Question,
   SwiperComponent,
 };

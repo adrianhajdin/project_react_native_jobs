@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Button, ScrollView, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Button, ScrollView, Text, TextInput, View, ActivityIndicator } from 'react-native';
 import { SimpleSurvey } from 'react-native-simple-survey';
 import { QCOLORS } from '../question/res/validColors';
 import {ButtonOutline, ButtonSolid} from 'react-native-ui-buttons';
@@ -270,13 +270,23 @@ export default class SurveyScreen extends Component {
 
     render() {
         const { topicIndex } = this.state;
+        const { survey, isLoading, error} = this.props;
+
+        if (isLoading) {
+            return <ActivityIndicator size='large' color={COLORS.primary} />;
+        }
+          
+        if (error) {
+            return <Text>Something went wrong</Text>;
+        }
+
         return (
             <View>
-            <ScrollView style={{paddingRight: 10}}>
+            <ScrollView style={{paddingRight: 10, paddingLeft: 10}}>
                 <Header topic={topics[topicIndex]}/>
                 <SimpleSurvey
                         ref={(s) => { this.surveyRef = s; }}
-                        survey={this.props.survey}
+                        survey={survey}
                         renderSelector={this.renderButton.bind(this)}
                         containerStyle={styles.surveyContainer}
                         selectionGroupContainerStyle={styles.selectionGroupContainer}
