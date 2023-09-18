@@ -32,7 +32,7 @@ const Book = ({ score, bookLogo, title, subtitle, authors, rating, ratingsCount,
     <StarRating
       disabled={true} // Setting this to true makes it read-only
       maxStars={5}
-      rating={rating} // Initial rating of 3.5 stars
+      rating={rating === "N/A" ? 0 : rating} // Initial rating of 3.5 stars
       halfStarEnabled={true} // Enables half-star functionality
       emptyStar={rating === "N/A" ? "" : 'star-outline'} // Name of the empty star icon
       fullStar={'star'} // Name of the full star icon

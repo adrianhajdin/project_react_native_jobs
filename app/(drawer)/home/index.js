@@ -55,7 +55,7 @@ if (showQues) { // if we want to show questionnare and restart
     getValueFor("data")
     .then((value) => {
         setPromiseValue(value);
-        const [name, data] = value.split("*");
+        const [name, data] = value === null ? ["Reader", "34234155423232244333111"] : value.split("*");
         setCat(data?.substring(0,24));
         setGen(data?.substring(24))
         setName(name);
@@ -65,7 +65,7 @@ if (showQues) { // if we want to show questionnare and restart
         console.error("An error occurred:", error);
         setIsLoading(false);
     });
-  }, []);
+  }, [promiseValue]);
 
 
   if (isLoading) {
@@ -77,7 +77,7 @@ if (showQues) { // if we want to show questionnare and restart
   }
 
     return (
-    promiseValue === "" ? 
+    promiseValue === null ? 
     <Redirect href="/hero" /> : 
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <View>
