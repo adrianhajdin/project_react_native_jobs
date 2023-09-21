@@ -302,7 +302,7 @@ const BookDetails = () => {
             <Text>No data available</Text>
           ) : (
             
-            <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
+            <View style={{ padding: SIZES.medium, paddingBottom: 100}}>
               <Book
                 score={book.score}
                 bookLogo={book.thumbnail}

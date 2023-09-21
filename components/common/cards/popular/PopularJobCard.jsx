@@ -4,6 +4,8 @@ import styles from "./popularjobcard.style";
 import { checkImageURL } from "../../../../utils";
 import CircularProgressBar from "../../../progressbar/CircularProgressBar";
 
+import { SIZES, FONT, COLORS } from "../../../../constants";
+
 const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
   return (
     <TouchableOpacity
@@ -23,9 +25,10 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
       />
       </TouchableOpacity>
       <TouchableOpacity style={styles.scoreContainer(selectedBook, book)}>
-      <CircularProgressBar 
+      <Text style={{color: "green", fontSize: SIZES.medium, fontFamily: FONT.bold}}>{Math.ceil(book.score[0])}%</Text>
+      {/* <CircularProgressBar 
         percentage={Math.ceil(book.score[0])}
-      />
+      /> */}
       </TouchableOpacity>
       </View>
 

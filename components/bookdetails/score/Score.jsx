@@ -62,6 +62,14 @@ const tabStyles = StyleSheet.create({
       color: COLORS.tertiary,
       paddingBottom: 7,
     },
+    scoreContainer: {
+      width: 100,
+      height: 100,
+      backgroundColor: "green",
+      borderRadius: SIZES.medium,
+      justifyContent: "center",
+      alignItems: "center",
+    },
   });
 
 const Score = ({ score }) => {
@@ -96,10 +104,14 @@ const Score = ({ score }) => {
 
   return (
     <View style={{justifyContent: "center", alignItems: "center", padding: 20}}>
-      <CircularProgressBar 
+      {/* <CircularProgressBar 
         percentage={score}
         big={true}
-      />
+      /> */}
+
+      <TouchableOpacity style={tabStyles.scoreContainer}>
+      <Text style={{color: COLORS.lightWhite, fontSize: SIZES.xxLarge, fontFamily: FONT.bold}}>{score}%</Text>
+      </TouchableOpacity>
       <View style={styles.container}>
 
         <Text style={tabStyles.header}>Score Breakdown</Text>
