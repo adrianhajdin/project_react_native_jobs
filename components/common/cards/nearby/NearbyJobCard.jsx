@@ -12,7 +12,7 @@ const NearbyJobCard = ({ book, handleNavigate }) => {
         source={
           checkImageURL(book.thumbnail)
           ? { uri: book.thumbnail }
-          : require('../../../../assets/images/logo2.png')
+          : require('../../../../assets/images/logo.png')
           }
         resizeMode='contain'
         style={styles.logImage}
@@ -24,9 +24,10 @@ const NearbyJobCard = ({ book, handleNavigate }) => {
           {book.title}
         </Text>
       </View>
-      <CircularProgressBar 
+      <Text>{Math.ceil(book.score[0])}</Text>
+      {/* <CircularProgressBar 
         percentage={Math.ceil(book.score[0])}
-      />
+      /> */}
     </TouchableOpacity>
   );
 };

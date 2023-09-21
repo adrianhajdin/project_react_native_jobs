@@ -16,7 +16,6 @@ import { DrawerToggleButton } from '@react-navigation/drawer';
 import { MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 
 
-
 const Page = () => {
   const router = useRouter();
   const [promiseValue, setPromiseValue] = useState(null);

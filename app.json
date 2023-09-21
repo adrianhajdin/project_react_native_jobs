@@ -1,14 +1,14 @@
 {
   "expo": {
     "ios": {
-      "buildNumber" : "6",
+      "buildNumber" : "7",
       "config": {
         "usesNonExemptEncryption": false
       },
       "bundleIdentifier": "com.asaravan.readai"
     },
     "splash": {
-      "image": "assets/images/splash.png"
+      "image": "assets/images/logo.png"
     },
     "scheme": "acme",
     "web": {
@@ -24,8 +24,8 @@
     "owner": "asaravan",
     "android": {
       "package": "com.asaravan.readai",
-      "versionCode": 6
+      "versionCode": 7
     },
-    "icon": "assets/images/logo2.png"
+    "icon": "assets/images/logo.png"
   }
 }

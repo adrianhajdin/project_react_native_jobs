@@ -36,7 +36,7 @@ const AboutPage = () => {
       <Avatar
             rounded
             size="xlarge"
-            source={require('../../../assets/images/logo2.png')}
+            source={require('../../../assets/images/logo.png')}
       />
       <View>
       

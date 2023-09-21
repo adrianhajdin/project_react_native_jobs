@@ -16,7 +16,7 @@ const Book = ({ score, bookLogo, title, subtitle, authors, rating, ratingsCount,
         source={
           checkImageURL(bookLogo)
           ? { uri: bookLogo }
-          : require('../../../assets/images/logo2.png')
+          : require('../../../assets/images/logo.png')
           }
         resizeMode='contain'
         style={styles.logoImage}
