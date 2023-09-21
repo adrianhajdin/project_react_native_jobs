@@ -108,7 +108,8 @@ const AboutPage = () => {
       <View style={styles.section}>
         <Text style={styles.subheading}>Why Read-AI?</Text>
         <Text style={styles.text}>
-          We started Read-AI to help people discover books for personal growth in a truly personalized manner.
+          We started Read-AI to help people discover books for personal growth in a truly personalized manner. We hope to one day expand our societal impact, getting people to start their journey to knowlegde/learning making the world a more educated place.
+
         </Text>
       </View>
 

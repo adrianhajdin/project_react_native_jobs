@@ -1,6 +1,7 @@
 import { Drawer } from 'expo-router/drawer';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useFonts } from "expo-font";
+import { COLORS } from '../../constants';
 
 
 export const unstable_settings = {
@@ -27,7 +28,7 @@ export default function Layout() {
                 drawerLabel: "Home",
                 title: "Home",
                 drawerIcon: ({size, color})=> {
-                    return <Ionicons name="md-home" size={size} color={color}/>
+                    return <Ionicons name="md-home" size={size} color={COLORS.secondary}/>
                 },
             }}
         ></Drawer.Screen>
@@ -38,7 +39,7 @@ export default function Layout() {
                 drawerLabel: "Favorites",
                 title: "Favorites",
                 drawerIcon: ({size, color})=> {
-                    return <Ionicons name="md-heart" size={size} color={color}/>
+                    return <Ionicons name="md-heart" size={size} color={COLORS.secondary}/>
                 },
             }}
         ></Drawer.Screen>
@@ -49,7 +50,7 @@ export default function Layout() {
                 drawerLabel: "About Us",
                 title: "About Us",
                 drawerIcon: ({size, color})=> {
-                    return <Ionicons name="md-people" size={size} color={color}/>
+                    return <Ionicons name="md-people" size={size} color={COLORS.secondary}/>
                 },
             }}
         ></Drawer.Screen>

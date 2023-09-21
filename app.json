@@ -1,7 +1,7 @@
 {
   "expo": {
     "ios": {
-      "buildNumber" : "4",
+      "buildNumber" : "6",
       "config": {
         "usesNonExemptEncryption": false
       },
@@ -24,7 +24,7 @@
     "owner": "asaravan",
     "android": {
       "package": "com.asaravan.readai",
-      "versionCode": 4
+      "versionCode": 6
     },
     "icon": "assets/images/logo2.png"
   }

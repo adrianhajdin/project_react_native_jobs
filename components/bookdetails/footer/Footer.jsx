@@ -34,7 +34,7 @@ const Footer = ({ url, id, favorite, handleBtnPress}) => { // if favorite is tru
         onPress={
           () => Linking.openURL(url)}
       >
-        <Text style={styles.applyBtnText}>Buy this book</Text>
+        <Text style={styles.applyBtnText}>View this book on Google</Text>
       </TouchableOpacity>
     </View>
   );

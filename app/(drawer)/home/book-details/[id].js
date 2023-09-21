@@ -281,8 +281,8 @@ const BookDetails = () => {
           ),
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => router.back()}
-            ><AntDesign name="sharealt" size={24} color={COLORS.lightWhite} style={{padding: 10}} /></TouchableOpacity>  
+              onPress={() => Linking.openURL(`https://www.amazon.com/s?k=${book?.title}`)}
+            ><AntDesign name="amazon" size={24} color={COLORS.lightWhite} style={{padding: 10}} /></TouchableOpacity>  
           ),
           headerTitle: "",
         }}

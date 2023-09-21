@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, Button, ScrollView, Text, TextInput, View, ActivityIndicator } from 'react-native';
-import { SimpleSurvey } from 'react-native-simple-survey';
 import { QCOLORS } from '../question/res/validColors';
 import {ButtonOutline, ButtonSolid} from 'react-native-ui-buttons';
 import { Icon } from 'react-native-vector-icons/MaterialIcons';
@@ -8,6 +7,7 @@ import useFetch from '../../../hook/useFetch';
 import * as SecureStore from 'expo-secure-store';
 import { COLORS, FONT, SIZES } from '../../../constants';
 import Header from './Header';
+import { SimpleSurvey } from './SimpleSurvey';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
@@ -270,38 +270,30 @@ export default class SurveyScreen extends Component {
 
     render() {
         const { topicIndex } = this.state;
-        const { survey, isLoading, error} = this.props;
-
-        if (isLoading) {
-            return <ActivityIndicator size='large' color={COLORS.primary} />;
-        }
-          
-        if (error) {
-            return <Text>Something went wrong</Text>;
-        }
+        const { survey } = this.props;
 
         return (
             <View>
-            <ScrollView style={{paddingRight: 10, paddingLeft: 10}}>
-                <Header topic={topics[topicIndex]}/>
-                <SimpleSurvey
-                        ref={(s) => { this.surveyRef = s; }}
-                        survey={survey}
-                        renderSelector={this.renderButton.bind(this)}
-                        containerStyle={styles.surveyContainer}
-                        selectionGroupContainerStyle={styles.selectionGroupContainer}
-                        navButtonContainerStyle={{ flexDirection: 'row', justifyContent: 'space-around' }}
-                        renderPrevious={this.renderPreviousButton.bind(this)}
-                        renderNext={this.renderNextButton.bind(this)}
-                        renderFinished={this.renderFinishedButton.bind(this)}
-                        renderQuestionText={this.renderQuestionText}
-                        onSurveyFinished={(answers) => this.onSurveyFinished(answers)}
-                        onAnswerSubmitted={(answer) => this.onAnswerSubmitted(answer)}
-                        renderTextInput={this.renderTextBox}
-                        renderNumericInput={this.renderNumericInput}
-                        renderInfo={this.renderInfoText}
-                    />
-            </ScrollView>
+                <ScrollView style={{paddingRight: 10, paddingLeft: 10}}>
+                    <Header topic={topics[topicIndex]}/>
+                    <SimpleSurvey
+                            ref={(s) => { this.surveyRef = s; }}
+                            survey={survey}
+                            renderSelector={this.renderButton.bind(this)}
+                            containerStyle={styles.surveyContainer}
+                            selectionGroupContainerStyle={styles.selectionGroupContainer}
+                            navButtonContainerStyle={{ flexDirection: 'row', justifyContent: 'space-around' }}
+                            renderPrevious={this.renderPreviousButton.bind(this)}
+                            renderNext={this.renderNextButton.bind(this)}
+                            renderFinished={this.renderFinishedButton.bind(this)}
+                            renderQuestionText={this.renderQuestionText}
+                            onSurveyFinished={(answers) => this.onSurveyFinished(answers)}
+                            onAnswerSubmitted={(answer) => this.onAnswerSubmitted(answer)}
+                            renderTextInput={this.renderTextBox}
+                            renderNumericInput={this.renderNumericInput}
+                            renderInfo={this.renderInfoText}
+                        />
+                </ScrollView>
             </View>
             // <View style={[styles.background, { backgroundColor: this.state.backgroundColor }]}>
             //     <View style={styles.container}>
