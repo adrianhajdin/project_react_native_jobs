@@ -23,10 +23,9 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
       />
       </TouchableOpacity>
       <TouchableOpacity style={styles.scoreContainer(selectedBook, book)}>
-      <Text>{Math.ceil(book.score[0])}</Text>
-      {/* <CircularProgressBar 
+      <CircularProgressBar 
         percentage={Math.ceil(book.score[0])}
-      /> */}
+      />
       </TouchableOpacity>
       </View>
 

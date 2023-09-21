@@ -98,7 +98,6 @@ const Score = ({ score }) => {
     <View style={{justifyContent: "center", alignItems: "center", padding: 20}}>
       <CircularProgressBar 
         percentage={score}
-        size={125}
         big={true}
       />
       <View style={styles.container}>

@@ -24,10 +24,9 @@ const NearbyJobCard = ({ book, handleNavigate }) => {
           {book.title}
         </Text>
       </View>
-      <Text>{Math.ceil(book.score[0])}</Text>
-      {/* <CircularProgressBar 
+      <CircularProgressBar 
         percentage={Math.ceil(book.score[0])}
-      /> */}
+      />
     </TouchableOpacity>
   );
 };

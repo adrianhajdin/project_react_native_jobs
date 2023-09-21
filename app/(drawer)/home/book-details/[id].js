@@ -25,7 +25,6 @@ import useFetch from "../../../../hook/useFetch";
 import styles from "../../../../components/bookdetails/book/book.style";
 import { checkImageURL } from "../../../../utils";
 import Stars from "../../../../components/bookdetails/stars/Stars";
-import CircularProgressBar from "../../../../components/progressbar/CircularProgressBar";
 
 import Score from "../../../../components/bookdetails/score/Score";
 
