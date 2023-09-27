@@ -52,6 +52,10 @@ const styles = StyleSheet.create({
         fontFamily: FONT.bold,
         fontSize: SIZES.medium,
         color: COLORS.primary
+    },
+    cardsContainer: {
+        marginTop: SIZES.medium,
+        gap: SIZES.small,
     }
 });
 

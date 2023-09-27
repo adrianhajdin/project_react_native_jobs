@@ -1,5 +1,5 @@
 import { Drawer } from 'expo-router/drawer';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import {Ionicons } from '@expo/vector-icons';
 import { useFonts } from "expo-font";
 import { COLORS } from '../../constants';
 
@@ -40,6 +40,17 @@ export default function Layout() {
                 title: "Favorites",
                 drawerIcon: ({size, color})=> {
                     return <Ionicons name="md-heart" size={size} color={COLORS.secondary}/>
+                },
+            }}
+        ></Drawer.Screen>
+
+        <Drawer.Screen
+            name="books-read"
+            options={{
+                drawerLabel: "Books Read",
+                title: "Books Read",
+                drawerIcon: ({size, color})=> {
+                    return <Ionicons name="book" size={size} color={COLORS.secondary}/>
                 },
             }}
         ></Drawer.Screen>

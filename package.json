@@ -7,10 +7,11 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.17.11",
+    "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/netinfo": "9.3.7",
     "@react-native-picker/picker": "2.4.8",
     "@react-navigation/drawer": "^6.6.3",
+    "@sentry/react-native": "4.15.2",
     "amazon-cognito-identity-js": "^6.3.1",
     "aws-amplify": "^5.3.6",
     "aws-amplify-react-native": "^7.0.2",
@@ -50,7 +51,10 @@
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-ui-buttons": "^2.1.1",
     "react-native-vector-icons": "^10.0.0",
-    "react-native-web": "~0.18.11"
+    "react-native-video": "^5.2.1",
+    "react-native-web": "~0.18.11",
+    "typescript": "^4.9.4",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

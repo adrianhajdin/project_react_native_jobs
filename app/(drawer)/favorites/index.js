@@ -112,7 +112,7 @@ export default function FavoritesPage() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadData} />
         }
-        contentContainerStyle={{ padding: SIZES.medium }}
+        contentContainerStyle={{ rowGap: SIZES.medium, padding: SIZES.medium}}
         ListHeaderComponent={() => (
           <>
             <View style={styles.container}>

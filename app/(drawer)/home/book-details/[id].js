@@ -16,8 +16,8 @@ import {
   JobAbout,
   JobFooter,
   JobTabs,
-  ScreenHeaderBtn,
   Specifics,
+  SimilarBooks
 } from "../../../../components";
 import { COLORS, icons, SIZES, FONT } from "../../../../constants";
 import useFetch from "../../../../hook/useFetch";
@@ -36,7 +36,9 @@ import { Rating } from "react-native-elements";
 
 import { StyleSheet } from "react-native";
 
-const tabs = ["General Info", "Score", "Description"];
+import Header from "../../../../components/home/question/Header";
+
+const tabs = ["General Info", "Score", "Description", "Similar Books"];
 
 const tabStyles = StyleSheet.create({
   container: {
@@ -190,8 +192,6 @@ const BookDetails = () => {
       case "General Info":
         return (
           <View style={tabStyles.container}>
-            
-
             <View style={tabStyles.section}>
               <Text style={tabStyles.header}>Authors</Text>
                   <FlatList
@@ -259,6 +259,15 @@ const BookDetails = () => {
           <View style={tabStyles.container}>
             <Text style={tabStyles.text}>Description: {book.description}</Text>
           </View>
+        );
+
+      case "Similar Books":
+        return (
+          <SimilarBooks
+            cat={cat}
+            gen={gen}
+            book_id={book.id}
+          />
         );
 
       default:
