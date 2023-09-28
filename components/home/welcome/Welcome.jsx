@@ -29,19 +29,9 @@ const Welcome = ({ handleClick, cat, gen, name}) => {
         <Text style={styles.welcomeMessage}>Find your perfect book</Text>
       </View>
 
-      <View style={styles.searchContainer}>
-        <SearchButton 
+      <SearchButton 
           onPress={handleClick}
-        />
-        {/* <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
-          <Text>Search for your book...WIP</Text>
-          <Image
-            source={icons.search}
-            resizeMode='contain'
-            style={styles.searchBtnImage}
-          />
-        </TouchableOpacity> */}
-      </View>
+      />
 
       <View style={styles.tabsContainer}>
         <FlatList

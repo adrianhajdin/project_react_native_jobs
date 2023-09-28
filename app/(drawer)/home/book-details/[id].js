@@ -32,12 +32,13 @@ import * as SecureStore from 'expo-secure-store';
 import { AntDesign, Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
+import AlreadyReadHeader from "../../../../components/bookdetails/header/AlreadyReadHeader";
+
 import { Rating } from "react-native-elements";
 
 import { StyleSheet } from "react-native";
 
 import Header from "../../../../components/home/question/Header";
-
 const tabs = ["General Info", "Score", "Description", "Similar Books"];
 
 const tabStyles = StyleSheet.create({
@@ -133,10 +134,15 @@ const BookDetails = () => {
   const router = useRouter();
   const quesParams = useLocalSearchParams();
 
+  
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [refreshing, setRefreshing] = useState(false);
+
   const [favorite, setFavorite] = useState(false); // if results show book to be favorite, then set
   const [favoriteIds, setFavoriteIds] = useState([]);
+
+  const [read, setRead] = useState(false);
+  const [booksReadIds, setBooksReadIds] = useState([])
 
   const { cat, gen } = quesParams;
 
@@ -150,6 +156,10 @@ const BookDetails = () => {
     await SecureStore.setItemAsync('favorites', ids.join(" "));
   };
 
+  const saveBooksRead = async (ids) => {
+    await SecureStore.setItemAsync('books-read', ids.join(" "));
+  };
+
   async function getValueFor(key) { // used to get current favorites
     let result = await SecureStore.getItemAsync(key);
     return result;
@@ -158,10 +168,19 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const value = await getValueFor("favorites");
-        const rawData = value ? value.split(" ") : [];
-        setFavoriteIds(rawData);
-        setFavorite(rawData.includes(book?.id.toString()));
+
+        const favorites = await getValueFor("favorites");
+        const rawFavoritesData = favorites ? favorites.split(" ") : [];
+
+        setFavoriteIds(rawFavoritesData);
+        setFavorite(rawFavoritesData.includes(book?.id.toString()));
+
+        const booksRead = await getValueFor("books-read");
+        const rawBooksRead = booksRead ? booksRead.split(" ") : [];
+
+        setBooksReadIds(rawBooksRead);
+        setRead(rawBooksRead.includes(book?.id.toString()));
+        
       } catch (error) {
         console.error("An error occurred:", error);
       }
@@ -169,7 +188,7 @@ const BookDetails = () => {
     fetchData();
   }, [book?.id]);
 
-  const handleBtnPress = useCallback( async (id, favorite) => { 
+  const handleFavoriteBtnPress = useCallback( async (id, favorite) => { 
     let updatedFavorites = [...favoriteIds];
     if (favorite) {
       updatedFavorites = updatedFavorites.filter(favId => favId !== id.toString());
@@ -181,11 +200,27 @@ const BookDetails = () => {
     setFavorite(!favorite);
   }, [favoriteIds]);
 
+  const handleBooksReadBtnPress = useCallback( async (id, read) => { 
+    let updatedBooksRead = [...booksReadIds];
+    if (read) {
+      updatedBooksRead = updatedBooksRead.filter(readId => readId !== id.toString());
+    } else {
+      updatedBooksRead.push(id.toString());
+    }
+    await saveBooksRead(updatedBooksRead);
+    setBooksReadIds(updatedBooksRead);
+    setRead(!read);
+  }, [booksReadIds]);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     refetch()
     setRefreshing(false)
   }, []);
+
+  
+
+
 
   const displayTabContent = () => {
     switch (activeTab) {
@@ -312,6 +347,11 @@ const BookDetails = () => {
           ) : (
             
             <View style={{ padding: SIZES.medium, paddingBottom: 100}}>
+              <AlreadyReadHeader 
+                id={book?.id}
+                read={read}
+                handleBtnPress={handleBooksReadBtnPress}
+              />
               <Book
                 score={book.score}
                 bookLogo={book.thumbnail}
@@ -343,7 +383,7 @@ const BookDetails = () => {
           }
           id={book?.id}
           favorite={favorite}
-          handleBtnPress={handleBtnPress}
+          handleBtnPress={handleFavoriteBtnPress}
         />
       </>
     </SafeAreaView>

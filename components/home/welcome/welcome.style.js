@@ -17,13 +17,6 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     marginTop: 2,
   },
-  searchContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    marginTop: SIZES.large,
-    height: 50,
-  },
   searchWrapper: {
     flex: 1,
     backgroundColor: COLORS.white,

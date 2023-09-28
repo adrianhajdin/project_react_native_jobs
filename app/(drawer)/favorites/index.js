@@ -59,6 +59,7 @@ export default function FavoritesPage() {
   };
 
   useEffect(() => {
+
     // Assuming `yourPromiseFunction` is the function that returns your Promise
     getValueFor("data")
     .then((value) => {

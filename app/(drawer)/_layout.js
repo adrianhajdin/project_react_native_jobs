@@ -21,6 +21,10 @@ export default function Layout() {
         return null;
       }
 
+      const handleDrawerPress = () => {
+        console.log("opened")
+      };
+
     return <Drawer screenOptions={{ headerShown: false }}>
         <Drawer.Screen
             name="home"
@@ -30,7 +34,12 @@ export default function Layout() {
                 drawerIcon: ({size, color})=> {
                     return <Ionicons name="md-home" size={size} color={COLORS.secondary}/>
                 },
+                drawerPress: (e) => {
+                    e.preventDefault();
+                    handleDrawerPress();
+                }
             }}
+            
         ></Drawer.Screen>
 
         <Drawer.Screen
@@ -51,6 +60,17 @@ export default function Layout() {
                 title: "Books Read",
                 drawerIcon: ({size, color})=> {
                     return <Ionicons name="book" size={size} color={COLORS.secondary}/>
+                },
+            }}
+        ></Drawer.Screen>
+
+        <Drawer.Screen
+            name="journey"
+            options={{
+                drawerLabel: "Journey",
+                title: "Journey",
+                drawerIcon: ({size, color})=> {
+                    return <Ionicons name="boat" size={size} color={COLORS.secondary}/>
                 },
             }}
         ></Drawer.Screen>
