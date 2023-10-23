@@ -10,71 +10,65 @@ import NearbyJobCard from "../../../components/common/cards/nearby/NearbyJobCard
 import { Ionicons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
 import * as SecureStore from 'expo-secure-store';
 
+import {fetchLocalData} from "../../../hook/storageHelpers"
+
 export default function FavoritesPage() {
 
   const router = useRouter();
 
-  const [favorites, setFavorites] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [cat, setCat] = useState("");
-  const [gen, setGen] = useState("");
   const [refreshing, setRefreshing] = useState(false);
 
+  const [favorites, setFavorites] = useState([]);
+  const [cat, setCat] = useState("");
+  const [gen, setGen] = useState("");
 
-  // TESTING
-  const testData = false;
+  const [uuidv4, setUuidv4] = useState("");
 
-  async function save(key, value) { // only used for test cases
-      await SecureStore.setItemAsync(key, value);
+  const fetchUuidv4 = async () => {
+    // Assuming uuidv4 is available in the function's scope. If not, it needs to be passed as a parameter.
+    if (uuidv4 === "") {
+      try {
+        // Await the fetchLocalData promise and store its result.
+        const localUuidv4 = await fetchLocalData("uuidv4");
+        setUuidv4(localUuidv4);
+        return localUuidv4;
+      } catch (error) {
+        // Handle or throw errors from fetchLocalData.
+        console.error('Error fetching local data:', error);
+        throw error; // Rethrow if you want this error to be catchable by the caller of fetchUuidv4.
+      }
+    } else {
+      return uuidv4;
+    }
   }
 
-  if (testData) {
-    save("favorites", "uNMjeFMorPgC Xh2rEAAAQBAJ R2cqDAAAQBAJ"); // if we would just like to see app working
-  }
-  // TESTING
-
-
-  async function getValueFor(key) { // used to get current favorites
-    let result = await SecureStore.getItemAsync(key);
-    return result;
-  }
-
-  const loadFavorites = () => {
-    getValueFor("favorites")
-      .then((rawData) => {
-        setFavorites(rawData ? rawData.split(" ") : []);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-        setIsLoading(false);
-      });
+  const loadData = async () => {
+    fetchUuidv4()
+    .then((uuidv4) => {
+      fetchLocalData(uuidv4)
+        .then((data) => {
+          setFavorites(data.favorites);
+          setCat(data.cat);
+          setGen(data.gen);
+        })
+    })
   };
 
-  const loadData = () => {
+  const refreshData = () => {
     setRefreshing(true);
-    // Fetch favorites
-    loadFavorites();
-    setRefreshing(false);
-  };
+    loadData()
+    .then(() => {
+      setRefreshing(false);
+    })
+  }
+
 
   useEffect(() => {
-
-    // Assuming `yourPromiseFunction` is the function that returns your Promise
-    getValueFor("data")
-    .then((value) => {
-        const data = value.split("*")[1];
-        setCat(data.substring(0,24));
-        setGen(data.substring(24))
-        setIsLoading(false);
+    loadData()
+    .then(() => {
+      console.log("Favorites data initially loaded.")
     })
-    .catch((error) => {
-        console.error("An error occurred:", error);
-        setIsLoading(false);
-    });
-
-     // Fetch favorites initially
-     loadFavorites();
   }, []);
   
   const { data, apiIsLoading, error } = useFetch("/getBooks", {
@@ -97,7 +91,7 @@ export default function FavoritesPage() {
         }}
       />
       <FlatList
-        data={data.filter((item) => favorites.includes(item.id))}
+        data={data.filter((item) => favorites?.includes(item.id))}
         renderItem={({ item }) => (
           <NearbyJobCard
             book={item}
@@ -111,7 +105,7 @@ export default function FavoritesPage() {
         )}
         keyExtractor={(book) => book.id}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+          <RefreshControl refreshing={refreshing} onRefresh={refreshData} />
         }
         contentContainerStyle={{ rowGap: SIZES.medium, padding: SIZES.medium}}
         ListHeaderComponent={() => (
@@ -133,6 +127,7 @@ export default function FavoritesPage() {
             </View>
           </>
         )}
+        ListEmptyComponent={<Text>No favorites found! Add to me!</Text>}
       />
     </SafeAreaView>
   );

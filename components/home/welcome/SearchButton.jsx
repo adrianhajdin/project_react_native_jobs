@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
-import { COLORS, SIZES } from '../../../constants';
+import { COLORS, FONT, SIZES } from '../../../constants';
 
 const SearchButton = ({ onPress, searchText}) => {
   return (
@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: SIZES.medium,
+    fontFamily: FONT.regular
   },icon: {
     marginRight: 10, // Add some margin to the right of the icon
   },

@@ -4,7 +4,7 @@ import { Text, View, StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 import { COLORS } from '../../constants';
 
-const Slide = ( { heading, lottieFile, description}) => {
+const Slide = ( { heading, lottieFile, description, size}) => {
   return (
     <View>
     <Text style={styles.baseText}>{heading}</Text>
@@ -12,8 +12,8 @@ const Slide = ( { heading, lottieFile, description}) => {
         autoPlay
         loop
         style={{
-          width: 375,
-          height: 375,
+          width: size ?? 375,
+          height: size ?? 375,
           backgroundColor: '#ffffff',
           alignContent: 'center',
         }}

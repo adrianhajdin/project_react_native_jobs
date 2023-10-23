@@ -3,24 +3,27 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SIZES, FONT, COLORS } from '../../../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const AlreadyReadHeader = ({ id, read, handleBtnPress }) => {
+const colors = ['grey', 'blue', 'green']
 
-  const onPressAlreadyRead = useCallback(() => handleBtnPress(id, read), [id, read]);
+const AlreadyReadHeader = ({id, bookState, text, handleBtnPress}) => {
 
+  const handleHeaderPress = useCallback(() => {
+    handleBtnPress(id, bookState); // toggle favorite status here
+  }, [id, bookState, text, handleBtnPress]); // added onFavoritePress to dependency array
   return (
       <TouchableOpacity 
-        style={styles.container(read)}
-        onPress={onPressAlreadyRead}
+        style={styles.container(bookState)}
+        onPress={handleHeaderPress}
       >
-        <Text style={styles.text}>{read ? "Already Read!" : "Haven't Read Yet"}</Text>
+        <Text style={styles.text}>{text}</Text>
       </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: (read) => ({
+  container: (bookState) => ({
     height: 60,
-    backgroundColor: read ? 'green' : 'gray',
+    backgroundColor: colors[bookState],
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

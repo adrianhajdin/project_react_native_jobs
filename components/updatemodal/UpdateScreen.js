@@ -9,8 +9,6 @@ import { COLORS, FONT, SIZES } from '../../../constants';
 import Header from './Header';
 import { SimpleSurvey } from './SimpleSurvey';
 
-import { fetchLocalData, updateUser } from '../../../hook/storageHelpers';
-
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
 const ORANGE = 'rgba(246,190,66,1)';
@@ -18,99 +16,27 @@ const ORANGE = 'rgba(246,190,66,1)';
 const tertiary = 'rgb(255, 119, 84)';
 const secondary = 'rgb(62, 75, 148)'
 
-const topics = ["Welcome", "Intro", "Name",
-    'Personal Growth', 'Personal Growth', 'Personal Growth', 'Personal Growth', 
-    'Leadership/Management', 'Leadership/Management', 'Leadership/Management', 'Leadership/Management', 
-    'Creativity', 'Creativity', 'Creativity', 'Creativity', 
-    'Finance/Wealth', 'Finance/Wealth', 'Finance/Wealth', 'Finance/Wealth', 
-    'Communication/Relationships', 'Communication/Relationships','Communication/Relationships','Communication/Relationships',
-    'Health/Wellness', 'Health/Wellness', 'Health/Wellness', 'Health/Wellness', 
-    'Mindfulness', 'Mindfulness', 'Mindfulness', 'Mindfulness', 
-    'Spirituality', 'Spirituality', 'Spirituality', 'Spirituality',
-    'General', 'General', 'General', 'General', 
-    'Thank You'
- ]
+async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+}
 
 
 export default class SurveyScreen extends Component {
-    static navigationOptions = () => {
-        return {
-            headerStyle: {
-                backgroundColor: GREEN,
-                height: 40,
-                elevation: 5,
-            },
-            headerTintColor: '#fff',
-            headerTitle: 'Sample Survey',
-            headerTitleStyle: {
-                flex: 1,
-            }
-        };
-    }
 
     constructor(props) {
         super(props);
-        this.state = { backgroundColor: PURPLE, answersSoFar: '', topicIndex: 0};
+        this.state = {answersSoFar: '', topicIndex: 0};
 
     }
 
     onSurveyFinished(answers) {
-        /** 
-         *  By using the spread operator, array entries with no values, such as info questions, are removed.
-         *  This is also where a final cleanup of values, making them ready to insert into your DB or pass along
-         *  to the rest of your code, can be done.
-         * 
-         *  Answers are returned in an array, of the form 
-         *  [
-         *  {questionId: string, value: any},
-         *  {questionId: string, value: any},
-         *  ...
-         *  ]
-         *  Questions of type selection group are more flexible, the entirity of the 'options' object is returned
-         *  to you.
-         *  
-         *  As an example
-         *  { 
-         *      questionId: "favoritePet", 
-         *      value: { 
-         *          optionText: "Dogs",
-         *          value: "dog"
-         *      }
-         *  }
-         *  This flexibility makes SelectionGroup an incredibly powerful component on its own. If needed it is a 
-         *  separate NPM package, react-native-selection-group, which has additional features such as multi-selection.
-         */
         const name = answers[0].value
         let data = "";
         for (const elem of answers.slice(1)) { data = data.concat(elem.value.value); }
-        
-        fetchLocalData("uuidv4")
-        .then((uuidv4) => {
-            // Construct the updates object
-            const updates = {
-                "name" : name,
-                "cat" : data.substring(0, 24),
-                "gen" : data.substring(24)
-            };
-            
-            // Update all fields in a single call
-            return updateUser(uuidv4, updates);
-        })
-        .then(() => {
-            console.log(`User (${name}) has finished survey and data (${data}) is now updated`);
-        })
-        .catch(error => {
-            console.error("Error updating user data:", error);
-        });
-
+        save("data", `${name}*${data.substring(0, 24)}${data.substring(24)}`);
         this.props.router.push("(drawer)/home");
     }
 
-    /**
-     *  After each answer is submitted this function is called. Here you can take additional steps in response to the 
-     *  user's answers. From updating a 'correct answers' counter to exiting out of an onboarding flow if the user is 
-     *  is restricted (age, geo-fencing) from your app.
-     */
     onAnswerSubmitted(answer) {
         this.topicIndex++;
         this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers(), 2) });
@@ -279,7 +205,6 @@ export default class SurveyScreen extends Component {
         return (
             <View>
                 <ScrollView style={{paddingRight: 10, paddingLeft: 10}}>
-                    <Header topic={topics[topicIndex]}/>
                     <SimpleSurvey
                             ref={(s) => { this.surveyRef = s; }}
                             survey={survey}

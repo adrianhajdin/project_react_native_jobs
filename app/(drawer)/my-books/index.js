@@ -132,10 +132,10 @@ const BooksReadPage = () => {
                 style={styles.icon} 
                 />
               <Text style={styles.searchTitle}>Books Read</Text>
-              <SearchButton 
+              {/* <SearchButton 
                 onPress={handleSearchClick}
                 searchText={"Search for a book you've read!"}
-              />
+              /> */}
             </View>
             <View style={styles.loaderContainer}>
               {isLoading ? (

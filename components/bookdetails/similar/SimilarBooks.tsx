@@ -35,10 +35,9 @@ const SimilarBooks = ( { cat, gen, book_id} ) => {
             <NearbyJobCard
               book={book}
               key={book.id}
-              handleNavigate={() => router.push({
-                pathname: `(drawer)/home/book-details/${book.id}`,
-                params: {cat: cat, gen: gen}
-            })}
+              handleNavigate={() => {
+                router.push(`(drawer)/home/book-details/${book.id}`);
+              }}
             />
           ))
         )}

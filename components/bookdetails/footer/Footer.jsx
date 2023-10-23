@@ -4,10 +4,11 @@ import React, { useCallback } from "react";
 import styles from "./footer.style";
 import { icons, COLORS } from "../../../constants";
 
-const Footer = ({ url, id, favorite, handleBtnPress}) => { // if favorite is true, then we know we have to go the other way
+const Footer = ({ url, id, favorite, onFavoritePress}) => { // if favorite is true, then we know we have to go the other way
   
-  const onPressFavorite = useCallback(() => handleBtnPress(id, favorite), [id, favorite]);
-
+  const handleFavoritePress = useCallback(() => {
+    onFavoritePress(id, favorite); // toggle favorite status here
+  }, [id, favorite, onFavoritePress]); // added onFavoritePress to dependency array
   // Move dynamic styling inside the component
   const likeBtnStyle = {
     ...styles.likeBtn,
@@ -21,7 +22,7 @@ const Footer = ({ url, id, favorite, handleBtnPress}) => { // if favorite is tru
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={likeBtnStyle} onPress={onPressFavorite}>
+      <TouchableOpacity style={likeBtnStyle} onPress={handleFavoritePress}>
         <Image
           source={icons.heartOutline}
           resizeMode='contain'

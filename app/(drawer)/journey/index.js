@@ -2,15 +2,30 @@ import React from 'react';
 import { Text, View, StyleSheet, ScrollView, Linking, TouchableOpacity, SafeAreaView } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
-import { Avatar, Button, Icon } from 'react-native-elements';
+import { Avatar, Button, Icon, Slider } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { COLORS, FONT, SIZES } from '../../../constants';
 import Slide from '../../../components/hero/Slide';
 
-
+import Stencil from '../../../components/journey/Stencil';
+import Path1 from '../../../components/journey/Path1';
+import Journey1 from '../../../components/journey/Journey1';
+import Journey2 from '../../../components/journey/Journey2';
+import Journey3 from '../../../components/journey/Journey3';
+import Journey from '../../../components/journey/Journey';
 
 const JourneyPage = () => {
   return (
+    // <ScrollView  showsVerticalScrollIndicator={false}>
+      
+    //   {/* <View style={styles.journeysContainer}>
+    //     <Journey3 />
+    //     <Journey1 /> 
+    //     <Journey2 />
+    //     <Journey1 /> 
+    //   </View> */}
+
+    // </ScrollView>
     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
       <Drawer.Screen options={{
         headerStyle: { backgroundColor: COLORS.secondary },
@@ -23,23 +38,9 @@ const JourneyPage = () => {
         title: "",
       }}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-      <View
-          style={{
-            flex: 1,
-            padding: SIZES.medium,
-          }}
-        >
-      <Slide style={styles.journeySlide}
-          heading={"Introducing your personalized reading journey."}
-          lottieFile={ require("../../../assets/lottie/journey.json")}
-          description={"We would set up a path of books to read, specific to your level of experience and interests, ultimately guiding you in the right direction. Additionally, we would create a rewards/points system that motivates you to keep reading and stay on your journey."}
-        />
-
-        {/* <Text>Let us know what you think! Your responses are very important to us, as we will use them to tailor how we build the feature. They are also anonymous, so be as honest as you would like!</Text> */}
-        
-      </View>
-    </ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <Journey />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -98,5 +99,22 @@ export default JourneyPage;
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#9DD6EB',
-  }
+  },
+  allJourneysContainer: {
+    alignItems: 'right',
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 0,
+    margin: 0,
+  },
+  journeysContainer: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+},
+journey: {
+    position: 'absolute',
+},
+
   });

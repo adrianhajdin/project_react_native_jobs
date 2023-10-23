@@ -1,5 +1,4 @@
 
-
 // home screen
 import Welcome from "./home/welcome/Welcome";
 import Nearbyjobs from "./home/nearby/Nearbyjobs";
@@ -15,6 +14,9 @@ import SimilarBooks from "./bookdetails/similar/SimilarBooks";
 //hero
 import SwiperComponent from "./hero/Hero";
 
+import InfoModal from "./infomodal/InfoModal";
+import UpdateModal from "./updatemodal/UpdateModal";
+
 
 
 export {
@@ -26,5 +28,7 @@ export {
   JobFooter,
   Question,
   SwiperComponent,
-  SimilarBooks
+  SimilarBooks,
+  InfoModal,
+  UpdateModal
 };

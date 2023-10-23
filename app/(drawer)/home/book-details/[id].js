@@ -33,13 +33,21 @@ import { AntDesign, Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import AlreadyReadHeader from "../../../../components/bookdetails/header/AlreadyReadHeader";
+import LikedReccomendationSlider from "../../../../components/bookdetails/slider/LikedReccomendationSlider";
 
 import { Rating } from "react-native-elements";
 
 import { StyleSheet } from "react-native";
 
+import * as StoreReview from 'expo-store-review';
+
+import {fetchLocalData, updateUser} from "../../../../hook/storageHelpers"
+
 import Header from "../../../../components/home/question/Header";
-const tabs = ["General Info", "Score", "Description", "Similar Books"];
+
+const tabs = ["General Info", "Score", "Similar Books"];
+
+const bookStates = ["Haven't Read", "Reading", "Read"]
 
 const tabStyles = StyleSheet.create({
   container: {
@@ -132,95 +140,165 @@ const getIcon = (category) => {
 const BookDetails = () => {
   const params = useSearchParams();
   const router = useRouter();
-  const quesParams = useLocalSearchParams();
 
-  
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  
+  const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   const [favorite, setFavorite] = useState(false); // if results show book to be favorite, then set
   const [favoriteIds, setFavoriteIds] = useState([]);
 
-  const [read, setRead] = useState(false);
-  const [booksReadIds, setBooksReadIds] = useState([])
+  const [bookState, setBookState] = useState();
+  const [booksReadIds, setBooksReadIds] = useState([]);
+  const [booksReadingIds, setBooksReadingIds] = useState([]);
+  
+  const [booksOpened, setBooksOpened] = useState(0);
 
-  const { cat, gen } = quesParams;
+  const [uuidv4, setUuidv4] = useState("");
 
-  const { data, isLoading, error, refetch } = useFetch(`/getBooks/${params.id}`, {
-    cat: cat,
-    gen: gen,
-  });
-  const book = data[0];
+  const [cat, setCat] = useState("");
+  const [gen, setGen] = useState("");
 
-  const saveFavorites = async (ids) => {
-    await SecureStore.setItemAsync('favorites', ids.join(" "));
-  };
+  const [book, setBook] = useState(null);
 
-  const saveBooksRead = async (ids) => {
-    await SecureStore.setItemAsync('books-read', ids.join(" "));
-  };
+// Buttons
 
-  async function getValueFor(key) { // used to get current favorites
-    let result = await SecureStore.getItemAsync(key);
-    return result;
+const handleBooksReadBtnPress = useCallback(async (id, bookState) => {
+  const newBookState = bookState === 2 ? 0 : bookState + 1;
+  setBookState(newBookState);
+
+  // Create new arrays, ensuring no duplicates.
+  let newBooksReadIds = newBookState === 2
+    ? [...new Set([...booksReadIds, id])]  // Add the id, remove duplicates.
+    : booksReadIds.filter(bookId => bookId !== id); // Remove the id if needed.
+
+  let newBooksReadingIds = newBookState === 1
+    ? [...new Set([...booksReadingIds, id])] // Add the id, remove duplicates.
+    : booksReadingIds.filter(bookId => bookId !== id); // Remove the id if needed.
+
+  // Update the state with the new values.
+  setBooksReadIds(newBooksReadIds);
+  setBooksReadingIds(newBooksReadingIds);
+
+  try {
+    // Use the new values directly here.
+    await updateUser(uuidv4, { "booksRead": newBooksReadIds, "booksReading": newBooksReadingIds });
+    console.log(`Updated bookState for book: ${book?.title}, ${bookStates[newBookState]}`);
+  } catch (error) {
+    console.error("Error updating user data:", error);
   }
+}, [uuidv4, booksReadIds, booksReadingIds, book, bookStates]); // Add 'bookStates' if it's not constant and used inside the callback.
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
 
-        const favorites = await getValueFor("favorites");
-        const rawFavoritesData = favorites ? favorites.split(" ") : [];
 
-        setFavoriteIds(rawFavoritesData);
-        setFavorite(rawFavoritesData.includes(book?.id.toString()));
 
-        const booksRead = await getValueFor("books-read");
-        const rawBooksRead = booksRead ? booksRead.split(" ") : [];
+  const handleFavoriteBtnPress = useCallback(async (id, currentFavoriteStatus) => {
+    // Toggle the 'favorite' state
+    const newFavoriteStatus = !currentFavoriteStatus;
+    setFavorite(newFavoriteStatus); 
 
-        setBooksReadIds(rawBooksRead);
-        setRead(rawBooksRead.includes(book?.id.toString()));
-        
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-    };
-    fetchData();
-  }, [book?.id]);
+    // Compute the new set of favorite IDs based on the new favorite status
+    const newFavoriteIds = newFavoriteStatus 
+      ? [...favoriteIds, id] // Add the new ID if it's now a favorite
+      : favoriteIds.filter(favId => favId !== id); // Remove the ID if it's no longer a favorite
 
-  const handleFavoriteBtnPress = useCallback( async (id, favorite) => { 
-    let updatedFavorites = [...favoriteIds];
-    if (favorite) {
-      updatedFavorites = updatedFavorites.filter(favId => favId !== id.toString());
-    } else {
-      updatedFavorites.push(id.toString());
+    // Set the newFavoriteIds state
+    console.log(currentFavoriteStatus)
+    setFavoriteIds(newFavoriteIds);
+
+    // Update the user's data with the new set of favorite IDs
+    try {
+      // Here, make sure 'updateUser' is a function that correctly handles your update logic
+      await updateUser(uuidv4, { "favorites": newFavoriteIds }); 
+      console.log(`Updated favorite for book: ${book?.title}`);
+    } catch (error) {
+      console.error("Error updating user data:", error);
     }
-    await saveFavorites(updatedFavorites);
-    setFavoriteIds(updatedFavorites);
-    setFavorite(!favorite);
-  }, [favoriteIds]);
+  }, [uuidv4, favoriteIds, book, updateUser]); // You might need to adjust dependencies based on your overall logic
 
-  const handleBooksReadBtnPress = useCallback( async (id, read) => { 
-    let updatedBooksRead = [...booksReadIds];
-    if (read) {
-      updatedBooksRead = updatedBooksRead.filter(readId => readId !== id.toString());
-    } else {
-      updatedBooksRead.push(id.toString());
+  const handleReview = () => {
+    if (booksOpened === 5) {
+      StoreReview.requestReview()
+        .then(() => {
+          console.log("Requested app store review.");
+        })
+        .catch((error) => {
+          console.error("Store review request failed", error);
+        });
     }
-    await saveBooksRead(updatedBooksRead);
-    setBooksReadIds(updatedBooksRead);
-    setRead(!read);
-  }, [booksReadIds]);
+
+    updateUser(uuidv4, { "booksOpened": booksOpened })
+    .then(() => {
+      console.log(`User opened a book, updated data. Total books opened: ${booksOpened}`);
+    })
+    .catch((error) => {
+      console.error("Error updating user data", error);
+    });
+  }
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetch()
-    setRefreshing(false)
+    refetch() // for API
+    setRefreshing(false);
   }, []);
 
-  
+  // Hooks
+  const { data, isLoading: apiIsLoading, error, refetch } = useFetch(`/getBooks/${params.id}`, { cat, gen });
+
+  // Load initial data and set states
+  const initializeData = useCallback(async () => {
+    try {
+      // Fetch UUID and local data
+      const uuid = await fetchLocalData("uuidv4");
+      setUuidv4(uuid); // Save the fetched uuid in state
+      const localData = await fetchLocalData(uuid); // Adjust this if fetchLocalData doesn't need uuid
+
+      // Set local data states
+      setFavoriteIds(localData.favorites);
+
+      setBooksReadIds(localData.booksRead);
+      setBooksReadingIds(localData.booksReading);
+
+      setBooksOpened(localData.booksOpened + 1);
+
+      setCat(localData.cat);
+      setGen(localData.gen);
 
 
+    } catch (error) {
+      console.error("An error occurred while initializing data:", error);
+      // Optionally set an error state to display an error message to the user
+    }
+  }, []); // If you use any external values in this function, they should be added to the dependency array
+
+  useEffect(() => {
+    initializeData();
+  }, [initializeData]); // Run this effect when the component mounts
+
+  useEffect(() => {
+    if (data?.length != 0) {
+      // When API is not loading and data is available, update the book data
+      setBook(data[0]);
+
+      // handling favorites
+      setFavorite(favoriteIds.includes(data[0].id.toString()));
+
+      // handling booksRead
+      if (booksReadIds.includes(data[0].id.toString())) {
+        setBookState(2); // Already Read the book
+      } else if (booksReadingIds.includes(data[0].id.toString())) {
+        setBookState(1); // Currently reading the book
+      } else {
+        setBookState(0); // Have not read yet
+      }
+
+      setIsLoading(false); // Set loading to false since data is loaded
+
+       // handling review
+       handleReview();
+    }
+  }, [apiIsLoading]); // This effect runs whenever the loading state or data from the API changes
 
   const displayTabContent = () => {
     switch (activeTab) {
@@ -272,13 +350,20 @@ const BookDetails = () => {
                     horizontal
                   />
             </View>
-                  
+
+            <View style={tabStyles.section}>
+              <Text style={tabStyles.header}>Description</Text>
+              <Text style={tabStyles.text}>{book.description}</Text>
+            </View>
+               
             <View style={tabStyles.section}>
               <Text style={tabStyles.header}>Details</Text>
               <Text style={tabStyles.text}>Number of Pages: {book.pageCount === 0 ? "Unknown" : book.pageCount}</Text>
               <Text style={tabStyles.text}>ISBN: {book.isbn13 === "N/A" ? "Unknown" : book.isbn13}</Text>
               <Text style={tabStyles.text}>Publisher/Date: {book.publisher  === "N/A" ? "Unknown" : book.publisher} {book.publishedDate  === "N/A" ? "Unknown" : book.publishedDate}</Text>
             </View>
+
+            
           </View>
         );
 
@@ -287,13 +372,6 @@ const BookDetails = () => {
           <Score 
             score={Math.ceil(book.score[0])}
           />
-        );
-
-      case "Description":
-        return (
-          <View style={tabStyles.container}>
-            <Text style={tabStyles.text}>Description: {book.description}</Text>
-          </View>
         );
 
       case "Similar Books":
@@ -310,6 +388,7 @@ const BookDetails = () => {
     }
   };
 
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
@@ -319,7 +398,9 @@ const BookDetails = () => {
           headerBackVisible: false,
           headerLeft: () => (
             <TouchableOpacity
-              onPress={() => router.back()}
+              onPress={() => {
+                router.back();
+              }}
             ><Ionicons name="arrow-back" size={24} color={COLORS.lightWhite} style={{padding: 10}} /></TouchableOpacity>
           ),
           headerRight: () => (
@@ -338,18 +419,16 @@ const BookDetails = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          {isLoading ? (
+          {isLoading || typeof book === "undefined"? (
             <ActivityIndicator size="large" color={COLORS.primary} />
           ) : error ? (
             <Text>Something went wrong</Text>
-          ) : typeof book === "undefined" ? (
-            <Text>No data available</Text>
           ) : (
-            
             <View style={{ padding: SIZES.medium, paddingBottom: 100}}>
               <AlreadyReadHeader 
-                id={book?.id}
-                read={read}
+                id={book.id}
+                bookState={bookState}
+                text={bookStates[bookState]}
                 handleBtnPress={handleBooksReadBtnPress}
               />
               <Book
@@ -368,6 +447,7 @@ const BookDetails = () => {
                 publishedDate={book.publishedDate}
                 country={book.country}
               />
+              {/* <LikedReccomendationSlider /> */}
               <JobTabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
               {displayTabContent()}
             </View>
@@ -383,7 +463,7 @@ const BookDetails = () => {
           }
           id={book?.id}
           favorite={favorite}
-          handleBtnPress={handleFavoriteBtnPress}
+          onFavoritePress={handleFavoriteBtnPress}
         />
       </>
     </SafeAreaView>

@@ -26,13 +26,26 @@ export default function Layout() {
       };
 
     return <Drawer screenOptions={{ headerShown: false }}>
+
+        <Drawer.Screen
+            name="journey"
+            options={{
+                drawerLabel: "Journey",
+                title: "Journey",
+                drawerIcon: ({size, color})=> {
+                    return <Ionicons name="boat" size={size} color={COLORS.secondary}/>
+                },
+            }}
+        ></Drawer.Screen>
+
+
         <Drawer.Screen
             name="home"
             options={{
-                drawerLabel: "Home",
-                title: "Home",
+                drawerLabel: "Explore",
+                title: "Explore",
                 drawerIcon: ({size, color})=> {
-                    return <Ionicons name="md-home" size={size} color={COLORS.secondary}/>
+                    return <Ionicons name="md-globe" size={size} color={COLORS.secondary}/> // globe may not exist
                 },
                 drawerPress: (e) => {
                     e.preventDefault();
@@ -54,23 +67,12 @@ export default function Layout() {
         ></Drawer.Screen>
 
         <Drawer.Screen
-            name="books-read"
+            name="my-books"
             options={{
-                drawerLabel: "Books Read",
-                title: "Books Read",
+                drawerLabel: "My Books",
+                title: "My Books",
                 drawerIcon: ({size, color})=> {
                     return <Ionicons name="book" size={size} color={COLORS.secondary}/>
-                },
-            }}
-        ></Drawer.Screen>
-
-        <Drawer.Screen
-            name="journey"
-            options={{
-                drawerLabel: "Journey",
-                title: "Journey",
-                drawerIcon: ({size, color})=> {
-                    return <Ionicons name="boat" size={size} color={COLORS.secondary}/>
                 },
             }}
         ></Drawer.Screen>
@@ -85,9 +87,6 @@ export default function Layout() {
                 },
             }}
         ></Drawer.Screen>
-
-        
-
 
     </Drawer>;
 }
