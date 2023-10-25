@@ -5,6 +5,8 @@ import BookIcon from "./bookicon/BookIcon";
 import logo from "../../assets/images/path.jpeg"
 import { useEffect, useState} from "react";
 
+import { Heading} from "@gluestack-ui/themed"
+
 import { COLORS } from "../../constants";
 
 import { fetchLocalData } from "../../hook/storageHelpers";
@@ -15,79 +17,29 @@ const { width, height } = Dimensions.get("window");
 
 const Journey = () => {
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [books, setBooks] = useState([]);
-
-    const [cat, setCat] = useState("");
-    const [gen, setGen] = useState("");
-    const [uuidv4, setUuidv4] = useState("");
-
-    const fetchUuidv4 = async () => {
-        if (uuidv4 == "") {
-            fetchLocalData("uuidv4")
-            .then((localUuidv4) => {
-                setUuidv4(localUuidv4);
-                return localUuidv4
-            })
-        } else {
-            return uuidv4
-        }
-        }
-
-        const loadData = async () => {
-        fetchUuidv4()
-        .then((uuidv4) => {
-            fetchLocalData(uuidv4)
-            .then((data) => {
-                setCat(data.cat);
-                setGen(data.gen);
-            })
-        })
-        };
-
-        useEffect(() => {
-        loadData()
-        .then(() => {
-            console.log("Data initially loaded.")
-        })
-        }, []);
-
-
-        const { data, apiIsLoading, error } = useFetch("/getBooks/journey", {
-        cat: "111111111111111111111111", // cat here
-        gen: "111", // gen here
-        });
-        
-        useEffect(() => {
-        setIsLoading(apiIsLoading);
-        setBooks(data);
-        }, [apiIsLoading]);
-
   return (
-    <View>
-    {isLoading ? (
-        <ActivityIndicator size='large' color={COLORS.primary} />
-      ) : error ? (
-        <Text>Something went wrong</Text>
-      ) : (
     <ImageBackground
         source={logo}
+        imageStyle={{ borderRadius: 20, opacity: 0.75}}
+        style={{flex: 1,
+          resizeMode: 'cover',
+          justifyContent: 'center'}}
     >
     <View style={styles.container}>
         {/* May have to change this data[...] */}
-        <View style={[styles.booksContainer, styles.alignLeft]}><BookIcon book={data[2]} /></View>
+        <View style={[styles.booksContainer, styles.alignLeft]}><BookIcon imgUri={"http://books.google.com/books/content?id=FzVjBgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/><Heading size="lg" color={COLORS.primary} >{"  The Alchemist"}</Heading></View>
         <View style={styles.pathContainer}><RightLeft /></View>
 
-        <View style={[styles.booksContainer, styles.alignRight]}><BookIcon book={data[1]}/></View>
+        <View style={[styles.booksContainer, styles.alignRight]}><BookIcon imgUri={"http://books.google.com/books/content?id=RWG13F93aKsC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/><Heading size="lg" color={COLORS.primary} >{"The Monk Who Sold His Ferrari"}</Heading></View>
         <View style={styles.pathContainer}><LeftRight /></View>
 
-        <View style={[styles.booksContainer, styles.alignLeft]}><BookIcon book={data[0]}/></View>
+        <View style={[styles.booksContainer, styles.alignLeft]}><BookIcon imgUri={"https://books.google.com/books/content?id=yng_CwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api%22,%20%22thumbnail%22:%20%22http://books.google.com/books/content?id=yng_CwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"}/><Heading size="lg" color={COLORS.primary} >{"The Subtle Art of Not Giving a F*ck"}</Heading></View>
         <View style={styles.pathContainer}><RightLeft /></View>
+
+        <View style={[styles.booksContainer, styles.alignRight]}><Heading size="lg" color={COLORS.primary} >{"Atomic Habits  "}</Heading><BookIcon imgUri={"http://books.google.com/books/content?id=lFhbDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/></View>
 
     </View>
     </ImageBackground>
-      )}
-    </View>
   )
 };
 
@@ -111,6 +63,7 @@ const styles = StyleSheet.create({
   },
   alignRight: {
     justifyContent: "flex-end", // aligns content to the right
+    marginRight: 20
   },
   alignLeft: {
     justifyContent: "flex-start", // aligns content to the left (start)

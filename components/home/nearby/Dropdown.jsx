@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
+import { COLORS, FONT } from '../../../constants';
 
 const data = [
   { label: 'Personal Growth', value: 'Personal Growth' },
@@ -77,12 +78,16 @@ const styles = StyleSheet.create({
   textItem: {
     flex: 1,
     fontSize: 16,
+    fontFamily: FONT.regular,
+    color: COLORS.primary
   },
   placeholderStyle: {
     fontSize: 16,
   },
   selectedTextStyle: {
     fontSize: 16,
+    fontFamily: FONT.bold,
+    color: COLORS.secondary
   },
   iconStyle: {
     width: 20,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, Linking, TouchableOpacity, SafeAreaView } from "react-native";
+import {View, StyleSheet, ScrollView, Linking, TouchableOpacity, SafeAreaView } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import { Avatar, Button, Icon, Slider } from 'react-native-elements';
@@ -14,6 +14,12 @@ import Journey2 from '../../../components/journey/Journey2';
 import Journey3 from '../../../components/journey/Journey3';
 import Journey from '../../../components/journey/Journey';
 
+import { GluestackUIStyledProvider } from "@gluestack-ui/themed"
+import { config } from "@gluestack-ui/config"
+
+import {Heading, Text, Divider} from '@gluestack-ui/themed';
+
+
 const JourneyPage = () => {
   return (
     // <ScrollView  showsVerticalScrollIndicator={false}>
@@ -26,6 +32,7 @@ const JourneyPage = () => {
     //   </View> */}
 
     // </ScrollView>
+    <GluestackUIStyledProvider config={config}>
     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
       <Drawer.Screen options={{
         headerStyle: { backgroundColor: COLORS.secondary },
@@ -39,9 +46,17 @@ const JourneyPage = () => {
       }}
       />
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <Journey />
+      <Slide style={styles.journeySlide}
+          heading={"Introducing your personalized reading journey."}
+          lottieFile={ require("../../../assets/lottie/journey.json")}
+          description={"We would set up a path of books to read, specific to your level of experience and interests, ultimately guiding you in the right direction. Additionally, we would create a rewards/points system that motivates you to keep reading and stay on your journey."}
+        />
+        <Heading size="2xl" style={styles.baseText}>What we envision.</Heading>
+        <View style={{padding: 10}}><Journey /></View>
+        <Text style={styles.lowerText}>Let us know what you think! Your ideas are very important to us, as we will use them to tailor how we build the feature. Email us at <Text style={styles.underlineText} onPress={() => Linking.openURL('mailto:readai.company@gmail.com')}>readai.company@gmail.com</Text> if you are interested! </Text>
       </ScrollView>
     </SafeAreaView>
+    </GluestackUIStyledProvider>
   );
 };
 
@@ -116,5 +131,25 @@ export default JourneyPage;
 journey: {
     position: 'absolute',
 },
+baseText: {
+  fontWeight: 'bold',
+  fontSize: 30,
+  color: COLORS.tertiary,
+  paddingLeft: 10,
+  paddingTop: 10,
+},
+lowerText: {
+  fontSize: 20,
+  color: COLORS.primary,
+  paddingLeft: 10,
+  paddingTop: 10,
+},
+underlineText: {
+  fontSize: 20,
+  color: 'blue',
+  paddingLeft: 10,
+  paddingTop: 10,
+  textDecorationLine: 'underline'
+}
 
   });

@@ -1,4 +1,7 @@
 import React from 'react';
+import {ScrollView, View, Text, TouchableOpacity, Linking } from "react-native";
+import {AntDesign } from '@expo/vector-icons';
+import {COLORS} from "../../constants"
 
 const InfoModal = () => {
   return (

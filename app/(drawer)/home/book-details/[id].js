@@ -1,4 +1,4 @@
-import { Stack, useRouter, useSearchParams, useLocalSearchParams } from "expo-router";
+import { Stack, useRouter, useLocalSearchParams } from "expo-router";
 import { useCallback, useState, useEffect } from "react";
 import {
   View,
@@ -138,7 +138,7 @@ const getIcon = (category) => {
 };
 
 const BookDetails = () => {
-  const params = useSearchParams();
+  const params = useLocalSearchParams();
   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -189,9 +189,6 @@ const handleBooksReadBtnPress = useCallback(async (id, bookState) => {
     console.error("Error updating user data:", error);
   }
 }, [uuidv4, booksReadIds, booksReadingIds, book, bookStates]); // Add 'bookStates' if it's not constant and used inside the callback.
-
-
-
 
   const handleFavoriteBtnPress = useCallback(async (id, currentFavoriteStatus) => {
     // Toggle the 'favorite' state
@@ -244,7 +241,9 @@ const handleBooksReadBtnPress = useCallback(async (id, bookState) => {
   }, []);
 
   // Hooks
+
   const { data, isLoading: apiIsLoading, error, refetch } = useFetch(`/getBooks/${params.id}`, { cat, gen });
+  
 
   // Load initial data and set states
   const initializeData = useCallback(async () => {

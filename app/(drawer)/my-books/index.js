@@ -1,97 +1,87 @@
-import { Text, View, SafeAreaView, ScrollView, FlatList, ActivityIndicator, RefreshControl } from "react-native";
+import { Text, View, SafeAreaView, ScrollView, FlatList, SectionList, ActivityIndicator, RefreshControl } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import { COLORS, icons, images, SIZES } from "../../../constants";
 import useFetch from "../../../hook/useFetch";
 import styles from "../../../styles/search";
 import { useRouter} from "expo-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import NearbyJobCard from "../../../components/common/cards/nearby/NearbyJobCard";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
 import * as SecureStore from 'expo-secure-store';
 import SearchButton from "../../../components/home/welcome/SearchButton";
 // const AnimatedIcon = Animatable.createAnimatableComponent(Icon);
 
+import {fetchLocalData} from "../../../hook/storageHelpers"
+import AlreadyReadHeader from "../../../components/bookdetails/header/AlreadyReadHeader";
+
 const BooksReadPage = () => {
-
   const router = useRouter();
-
-  const [booksRead, setBooksRead] = useState([]);
+  
   const [isLoading, setIsLoading] = useState(true);
-  const [cat, setCat] = useState("");
-  const [gen, setGen] = useState("");
   const [refreshing, setRefreshing] = useState(false);
 
 
-  const handleSearchClick = () => {
-    router.push({
-      pathname: "(drawer)/home/search",
-      params: {cat: cat, gen: gen}
-    });
-  }
+  const [booksReadIds, setBooksReadIds] = useState([]);
+  const [booksReadingIds, setBooksReadingIds] = useState([]);
+  const [myBooks, setMyBooks] = useState([])
 
-  // TESTING
-  const testData = false;
 
-  async function save(key, value) { // only used for test cases
-      await SecureStore.setItemAsync(key, value);
-  }
+  const [cat, setCat] = useState("");
+  const [gen, setGen] = useState("");
 
-  if (testData) {
-    save("books-read", "uNMjeFMorPgC Xh2rEAAAQBAJ R2cqDAAAQBAJ"); // if we would just like to see app working
-  }
-  // TESTING
-
-  async function getValueFor(key) { // used to get current books read
-    let result = await SecureStore.getItemAsync(key);
-    return result;
-  }
-
-  const loadBooksRead = () => {
-    getValueFor("books-read")
-      .then((rawData) => {
-        setBooksRead(rawData ? rawData.split(" ") : []);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-        setIsLoading(false);
-      });
-  };
-
-  const loadData = () => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
-    // Fetch Books Read
-    loadBooksRead();
+    refetch() // do not need to refetch data, but favoriteIds!
+    initializeData();
     setRefreshing(false);
-  };
-
-  useEffect(() => {
-    // Assuming `yourPromiseFunction` is the function that returns your Promise
-    getValueFor("data")
-    .then((value) => {
-        const data = value.split("*")[1];
-        setCat(data.substring(0,24));
-        setGen(data.substring(24))
-        setIsLoading(false);
-    })
-    .catch((error) => {
-        console.error("An error occurred:", error);
-        setIsLoading(false);
-    });
-
-     // Fetch books read initially
-     loadBooksRead();
   }, []);
+
+  // Hooks
+
+  const { data, isLoading: apiIsLoading, error, refetch } = useFetch('/getBooks', { cat, gen });
   
-  const { data, apiIsLoading, error } = useFetch("/getBooks", {
-    cat: cat,
-    gen: gen,
-  });
-  
+
+  // Load initial data and set states
+  const initializeData = useCallback(async () => {
+    try {
+      // Fetch UUID and local data
+      const uuid = await fetchLocalData("uuidv4");
+      const localData = await fetchLocalData(uuid); // Adjust this if fetchLocalData doesn't need uuid
+
+      // Set local data states
+      setBooksReadIds(localData.booksRead);
+      setBooksReadingIds(localData.booksReading);
+
+      setCat(localData.cat);
+      setGen(localData.gen);
+
+    } catch (error) {
+      console.error("An error occurred while initializing data:", error);
+      // Optionally set an error state to display an error message to the user
+    }
+  }, []); // If you use any external values in this function, they should be added to the dependency array
+
   useEffect(() => {
-    setIsLoading(apiIsLoading);
-  }, [apiIsLoading]);
+    initializeData();
+  }, [initializeData]); // Run this effect when the component mounts
+
+  useEffect(() => {
+    if (data?.length != 0) {
+
+      setMyBooks([ {
+        "title" : "Read",
+        "data" : data.filter((item) => booksReadIds.includes(item.id)),
+        },
+      {
+        "title" : "Reading",
+        "data" : data.filter((item) => booksReadingIds.includes(item.id)),
+      }])
+
+      setIsLoading(false); // Set loading to false since data is loaded
+
+    }
+  }, [apiIsLoading]); // This effect runs whenever the loading state or data from the API changes
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -103,8 +93,8 @@ const BooksReadPage = () => {
           title: '',
         }}
       />
-      <FlatList
-        data={data.filter((item) => booksRead.includes(item.id))}
+      <SectionList
+        sections={myBooks}
         renderItem={({ item }) => (
           <NearbyJobCard
             book={item}
@@ -119,9 +109,15 @@ const BooksReadPage = () => {
         )}
         keyExtractor={(book) => book.id}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={loadData} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         contentContainerStyle={{ rowGap: SIZES.medium, padding: SIZES.medium}}
+        renderSectionHeader={({section: {title}}) => (
+          <AlreadyReadHeader 
+            text={title}
+            bookState={title == "Read" ? 2 : 1}
+          />
+        )}
         ListHeaderComponent={() => (
           <>
             <View style={styles.container}>
@@ -131,7 +127,7 @@ const BooksReadPage = () => {
                 color={COLORS.primary}
                 style={styles.icon} 
                 />
-              <Text style={styles.searchTitle}>Books Read</Text>
+              <Text style={styles.searchTitle}>My Books</Text>
               {/* <SearchButton 
                 onPress={handleSearchClick}
                 searchText={"Search for a book you've read!"}

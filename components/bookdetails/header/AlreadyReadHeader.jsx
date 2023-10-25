@@ -3,12 +3,14 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SIZES, FONT, COLORS } from '../../../constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const colors = ['grey', 'blue', 'green']
+const colors = ['silver', 'indianred', 'green']
 
 const AlreadyReadHeader = ({id, bookState, text, handleBtnPress}) => {
 
   const handleHeaderPress = useCallback(() => {
-    handleBtnPress(id, bookState); // toggle favorite status here
+    if (typeof id !== "undefined") {
+      handleBtnPress(id, bookState); // toggle favorite status here
+    }
   }, [id, bookState, text, handleBtnPress]); // added onFavoritePress to dependency array
   return (
       <TouchableOpacity 
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors[bookState],
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: 15,
   }),
   text: {
     color: 'white',

@@ -2,6 +2,7 @@ import { Drawer } from 'expo-router/drawer';
 import {Ionicons } from '@expo/vector-icons';
 import { useFonts } from "expo-font";
 import { COLORS } from '../../constants';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 export const unstable_settings = {
@@ -25,7 +26,9 @@ export default function Layout() {
         console.log("opened")
       };
 
-    return <Drawer screenOptions={{ headerShown: false }}>
+    return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+    <Drawer screenOptions={{ headerShown: false }}>
 
         <Drawer.Screen
             name="journey"
@@ -88,5 +91,8 @@ export default function Layout() {
             }}
         ></Drawer.Screen>
 
-    </Drawer>;
+    </Drawer>
+    </GestureHandlerRootView>
+    
+    );
 }
