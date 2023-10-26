@@ -27,9 +27,7 @@ export default function Layout() {
       };
 
     return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-    <Drawer screenOptions={{ headerShown: false }}>
-
+    <Drawer screenOptions={{ headerShown: false}}>
         <Drawer.Screen
             name="journey"
             options={{
@@ -91,8 +89,6 @@ export default function Layout() {
             }}
         ></Drawer.Screen>
 
-    </Drawer>
-    </GestureHandlerRootView>
-    
+    </Drawer> 
     );
 }

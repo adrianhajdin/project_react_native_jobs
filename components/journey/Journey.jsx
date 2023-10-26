@@ -2,10 +2,9 @@ import LeftRight from "./LeftRight";
 import RightLeft from "./RightLeft";
 import { View, StyleSheet, Dimensions, Image, ImageBackground, ActivityIndicator, Text } from "react-native";
 import BookIcon from "./bookicon/BookIcon";
-import logo from "../../assets/images/path.jpeg"
 import { useEffect, useState} from "react";
 
-import { Heading} from "@gluestack-ui/themed"
+import { Heading } from "@gluestack-ui/themed"
 
 import { COLORS } from "../../constants";
 
@@ -19,23 +18,27 @@ const Journey = () => {
 
   return (
     <ImageBackground
-        source={logo}
+        source={require("../../assets/images/path.jpeg")}
         imageStyle={{ borderRadius: 20, opacity: 0.75}}
         style={{flex: 1,
           resizeMode: 'cover',
           justifyContent: 'center'}}
     >
-    <View style={styles.container}>
-        {/* May have to change this data[...] */}
-        <View style={[styles.booksContainer, styles.alignLeft]}><BookIcon imgUri={"http://books.google.com/books/content?id=FzVjBgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/><Heading size="lg" color={COLORS.primary} >{"  The Alchemist"}</Heading></View>
+      <View style={styles.container}>
+        <View style={[styles.booksContainer, styles.alignLeft]}>
+          <BookIcon imgUri={"http://books.google.com/books/content?id=FzVjBgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/>
+          <Heading size="lg" color={COLORS.primary} >{"  The Alchemist"}</Heading></View>
         <View style={styles.pathContainer}><RightLeft /></View>
-
-        <View style={[styles.booksContainer, styles.alignRight]}><BookIcon imgUri={"http://books.google.com/books/content?id=RWG13F93aKsC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/><Heading size="lg" color={COLORS.primary} >{"The Monk Who Sold His Ferrari"}</Heading></View>
+        
+        <View style={[styles.booksContainer, styles.alignRight]}>
+          <BookIcon imgUri={"http://books.google.com/books/content?id=RWG13F93aKsC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/>
+          <Heading size="lg" color={COLORS.primary} >{"The Monk Who Sold His Ferrari"}</Heading>
+        </View>
         <View style={styles.pathContainer}><LeftRight /></View>
-
+        
         <View style={[styles.booksContainer, styles.alignLeft]}><BookIcon imgUri={"https://books.google.com/books/content?id=yng_CwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api%22,%20%22thumbnail%22:%20%22http://books.google.com/books/content?id=yng_CwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"}/><Heading size="lg" color={COLORS.primary} >{"The Subtle Art of Not Giving a F*ck"}</Heading></View>
         <View style={styles.pathContainer}><RightLeft /></View>
-
+        
         <View style={[styles.booksContainer, styles.alignRight]}><Heading size="lg" color={COLORS.primary} >{"Atomic Habits  "}</Heading><BookIcon imgUri={"http://books.google.com/books/content?id=lFhbDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"}/></View>
 
     </View>

@@ -5,8 +5,8 @@ import { COLORS } from '../../../constants';
 
 const BookIcon = ({imgUri}) => {
   return (
-    <TouchableOpacity onPress={null}>
-        <Image
+    <TouchableOpacity>
+      <Image
         size="lg"
         borderRadius="$xl"
         source={{uri: imgUri}}

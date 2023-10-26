@@ -1,11 +1,17 @@
 import { Redirect, useRouter } from "expo-router";
 
-export default function Page() {
+import { StyleSheet, View } from 'react-native';
 
-    if (true) {
-        return <Redirect href="/(drawer)/home" />;
-    } else {
-        return <Redirect href="hero" />;
-    }
-    
+export default function App() {
+    return (
+        <View style={styles.container}>
+            <Redirect href="/(drawer)/home" />
+        </View>
+    );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    }
+});

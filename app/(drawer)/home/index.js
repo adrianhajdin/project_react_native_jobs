@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button, Linking } from "react-native";
-import { Stack, useRouter, Link, useLocalSearchParams, Redirect } from "expo-router";
+import { Stack, useRouter, Link, useLocalSearchParams, Redirect} from "expo-router";
 
 import { COLORS, icons, images, SIZES } from "../../../constants";
 import {
