@@ -28,7 +28,6 @@
     "expo-store-review": "~6.4.0",
     "lodash": "^4.17.21",
     "lottie-react-native": "5.1.6",
-    "metro-config": "^0.80.0",
     "patch-package": "^8.0.0",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
