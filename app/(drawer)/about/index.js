@@ -8,7 +8,6 @@ import { COLORS, FONT, SIZES } from '../../../constants';
 import { GluestackUIProvider, Avatar, AvatarFallbackText, AvatarImage, Image, ButtonIcon, ButtonText, Button, MailIcon} from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 
-// const AnimatedIcon = Animatable.createAnimatableComponent(Icon);
 
 const AboutPage = () => {
   return (
@@ -91,7 +90,7 @@ const AboutPage = () => {
       <Avatar bgColor='$amber600' size="xl" borderRadius="$full" >
           <AvatarFallbackText>Ashok Saravanan</AvatarFallbackText>
           <AvatarImage 
-            source={{uri: "https://media.licdn.com/dms/image/D5635AQHeU_KznnAX3Q/profile-framedphoto-shrink_400_400/0/1694809614536?e=1698843600&v=beta&t=To3Wa2TH8_nSdGUs0xuGslJjPnMHVcSOL2weiKkot1U"}}
+            source={{uri: "https://media.licdn.com/dms/image/D5603AQGCf7AoRM6K3w/profile-displayphoto-shrink_400_400/0/1693908631125?e=1704326400&v=beta&t=O_jvlCX0ldLJWm3-c4buGZ7RUuvftAUL7EmXaB2xc-Y"}}
             alt="Image of Book Logo"
           />
       </Avatar>

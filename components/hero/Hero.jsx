@@ -46,7 +46,7 @@ export default class SwiperComponent extends Component {
           description={"With hundreds of books to choose from, ReadAI can find the ones necessary for your journey."}
         />
         <Slide style={styles.slide3}
-          heading={"We don't want your money. We want your well being."}
+          heading={"No Shortcuts."}
           lottieFile={ require("./../../assets/lottie/weight.json")}
           description={"We know that nothing worth it comes easy: our goal is to reduce that friction. Just 27 questions to find your next life-changing book."}
         />

@@ -1,7 +1,7 @@
 import { Drawer } from 'expo-router/drawer';
 import {Ionicons } from '@expo/vector-icons';
 import { useFonts } from "expo-font";
-import { COLORS } from '../../constants';
+import { COLORS } from '../constants';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
@@ -13,9 +13,9 @@ export const unstable_settings = {
 export default function Layout() {
 
     const [fontsLoaded] = useFonts({
-        DMBold: require("../../assets/fonts/DMSans-Bold.ttf"),
-        DMMedium: require("../../assets/fonts/DMSans-Medium.ttf"),
-        DMRegular: require("../../assets/fonts/DMSans-Regular.ttf"),
+        DMBold: require("../assets/fonts/DMSans-Bold.ttf"),
+        DMMedium: require("../assets/fonts/DMSans-Medium.ttf"),
+        DMRegular: require("../assets/fonts/DMSans-Regular.ttf"),
       });
     
       if (!fontsLoaded) {
@@ -28,20 +28,9 @@ export default function Layout() {
 
     return (
     <Drawer screenOptions={{ headerShown: false}}>
-        <Drawer.Screen
-            name="journey"
-            options={{
-                drawerLabel: "Journey",
-                title: "Journey",
-                drawerIcon: ({size, color})=> {
-                    return <Ionicons name="boat" size={size} color={COLORS.secondary}/>
-                },
-            }}
-        ></Drawer.Screen>
-
 
         <Drawer.Screen
-            name="home"
+            name="(drawer)/home"
             options={{
                 drawerLabel: "Explore",
                 title: "Explore",
@@ -57,7 +46,18 @@ export default function Layout() {
         ></Drawer.Screen>
 
         <Drawer.Screen
-            name="favorites"
+            name="(drawer)/journey"
+            options={{
+                drawerLabel: "Journey",
+                title: "Journey",
+                drawerIcon: ({size, color})=> {
+                    return <Ionicons name="boat" size={size} color={COLORS.secondary}/>
+                },
+            }}
+        ></Drawer.Screen>
+
+        <Drawer.Screen
+            name="(drawer)/favorites"
             options={{
                 drawerLabel: "Favorites",
                 title: "Favorites",
@@ -68,7 +68,7 @@ export default function Layout() {
         ></Drawer.Screen>
 
         <Drawer.Screen
-            name="my-books"
+            name="(drawer)/my-books"
             options={{
                 drawerLabel: "My Books",
                 title: "My Books",
@@ -79,7 +79,7 @@ export default function Layout() {
         ></Drawer.Screen>
 
         <Drawer.Screen
-            name="about"
+            name="(drawer)/about"
             options={{
                 drawerLabel: "About Us",
                 title: "About Us",
@@ -88,6 +88,35 @@ export default function Layout() {
                 },
             }}
         ></Drawer.Screen>
+
+        <Drawer.Screen
+        // Name of the route to hide.
+            name="index"
+            options={{
+                drawerItemStyle: {width: 0},
+                drawerLabel: () => null,
+            href: null,
+            }}
+        />
+        <Drawer.Screen
+        // Name of the route to hide.
+            name="hero/index"
+            
+            options={{
+                drawerItemStyle: {width: 0},
+                drawerLabel: () => null,
+            href: null,
+            }}
+        />
+        <Drawer.Screen
+        // Name of the route to hide.
+            name="questionnare/index"
+            options={{
+                drawerItemStyle: {width: 0},
+                drawerLabel: () => null,
+            href: null,
+            }}
+        />
 
     </Drawer> 
     );

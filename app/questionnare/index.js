@@ -1,18 +1,9 @@
-import { useState } from "react";
-import { SafeAreaView, ScrollView, View} from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { SafeAreaView} from "react-native";
+import { useRouter } from "expo-router";
 
-import { COLORS, icons, images, SIZES } from "../../constants";
-import {
-  Nearbyjobs,
-  Popularjobs,
-  Welcome,
-  Question,
-} from "../../components";
-import { FlatList, ActivityIndicator, Text} from "react-native";
+import { COLORS } from "../../constants";
+import {ActivityIndicator, Text} from "react-native";
 import useFetch from "../../hook/useFetch";
-import { Drawer } from "expo-router/drawer";
-import Header from "../../components/home/question/Header";
 import SurveyScreen from "../../components/home/question/SurveyScreen";
 
 const Questionnare = () => {

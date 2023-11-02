@@ -70,13 +70,13 @@ const BooksReadPage = () => {
     if (data?.length != 0) {
 
       setMyBooks([ {
-        "title" : "Read",
-        "data" : data.filter((item) => booksReadIds.includes(item.id)),
-        },
-      {
         "title" : "Reading",
         "data" : data.filter((item) => booksReadingIds.includes(item.id)),
-      }])
+      },{
+        "title" : "Read",
+        "data" : data.filter((item) => booksReadIds.includes(item.id)),
+        }
+      ])
 
       setIsLoading(false); // Set loading to false since data is loaded
 
