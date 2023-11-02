@@ -2,7 +2,7 @@
   "expo": {
     "name": "readai",
     "slug": "readai",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "scheme": "acme",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,9 +16,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "3",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.asaravan.readai"
     },
     "android": {
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
