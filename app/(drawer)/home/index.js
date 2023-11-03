@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button, Linking } from "react-native";
 import { Stack, useRouter, Link, useLocalSearchParams, Redirect} from "expo-router";
 
@@ -27,50 +27,51 @@ const Page = () => {
   const [cat, setCat] = useState("");
   const [gen, setGen] = useState("");
 
-  const [updates, setUpdates] = useState(null)
+  const [updates, setUpdates] = useState(null);
 
-  useFocusEffect(
-    useCallback(() => {
-      // will remove this code once all users are migrated
-      legacyUser()
-        .then((promiseValue) => { // checking if data needs to be migrated
-          setUpdates(promiseValue);
-          return (promiseValue != null)
+  const completedQuestionnare = useLocalSearchParams();
+
+  useEffect(() => {
+    // will remove this code once all users are migrated
+    legacyUser()
+    .then((promiseValue) => { // checking if data needs to be migrated
+      setUpdates(promiseValue);
+      return (promiseValue != null)
+    })
+    .then((isLegacyUser) => {
+      if (isLegacyUser) {
+        console.log("Deteced legacy user, pushing to updates to hero page.")
+        router.push({
+          pathname: "hero",
+          params: {legacyUser: true, updates: updates}
+        });
+      } else {
+        fetchLocalData("uuidv4") // original logic, if null go to hero
+        .then((uuidv4) => {
+            if (uuidv4 == null) {
+              console.log("Hero push here new user")
+              router.push({
+                pathname: "hero",
+                params: {legacyUser: false, updates: null}
+              });
+            } else {
+                fetchLocalData(uuidv4)
+                .then((data) => {
+                  setName(data.name);
+                  setCat(data.cat);
+                  setGen(data.gen);
+                  console.log("Loading false here")
+                  setIsLoading(false);
+                })
+            }
         })
-        .then((isLegacyUser) => {
-          if (isLegacyUser) {
-            console.log("Deteced legacy user, pushing to hero/update page.")
-            router.push({
-              pathname: "hero",
-              params: {legacyUser: true, updates: updates}
-            });
-          } else {
-            fetchLocalData("uuidv4") // original logic, if null go to hero
-            .then((uuidv4) => {
-                if (uuidv4 == null) {
-                  router.push({
-                    pathname: "hero",
-                    params: {legacyUser: false, updates: null}
-                  });
-                } else {
-                    fetchLocalData(uuidv4)
-                    .then((data) => {
-                      setName(data.name);
-                      setCat(data.cat);
-                      setGen(data.gen)
-                      setIsLoading(false);
-                    })
-                }
-            })
-          }
-        })
-    }, [router])
-  );
+      }
+    })
+  }, [completedQuestionnare]);
 
     return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-      <View>
-        <Drawer.Screen options={{
+      <Drawer.Screen options={{
           headerStyle: { backgroundColor: COLORS.secondary },
           headerShadowVisible: false,
           headerLeft: () => (
@@ -90,11 +91,9 @@ const Page = () => {
           title: "",
         }}
         />
-      </View>
-      {isLoading ? 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
-      </View> : 
+      {isLoading ? (
+          <ActivityIndicator size='large' color={COLORS.primary} />
+        ) : (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -196,7 +195,7 @@ const Page = () => {
 
         </View>
       </ScrollView>
-    }
+    )}
     </SafeAreaView>
   )};
 

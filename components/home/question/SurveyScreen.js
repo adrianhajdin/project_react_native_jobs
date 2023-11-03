@@ -100,7 +100,10 @@ export default class SurveyScreen extends Component {
         .catch(error => {
             console.error("Error updating user data:", error);
         });
-        this.props.router.push("(drawer)/home");
+        this.props.router.push({
+            pathname: "(drawer)/home",
+            params: {questionnareDone: true}
+          });
     }
 
     /**
