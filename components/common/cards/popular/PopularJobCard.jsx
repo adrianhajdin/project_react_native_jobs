@@ -2,9 +2,8 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./popularjobcard.style";
 import { checkImageURL } from "../../../../utils";
-import CircularProgressBar from "../../../progressbar/CircularProgressBar";
 
-import { SIZES, FONT, COLORS } from "../../../../constants";
+import { SIZES, FONT } from "../../../../constants";
 
 const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
   return (
@@ -18,7 +17,7 @@ const PopularJobCard = ({ book, selectedBook, handleCardPress }) => {
         source={
           checkImageURL(book.thumbnail)
           ? { uri: book.thumbnail }
-          : require('../../../../assets/images/logo.png')
+          : require('../../../../assets/icon.png')
           }
         resizeMode='contain'
         style={styles.logoImage}

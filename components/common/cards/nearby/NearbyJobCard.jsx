@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./nearbyjobcard.style";
 import { checkImageURL } from "../../../../utils";
-import CircularProgressBar from "../../../progressbar/CircularProgressBar";
 import { FONT, SIZES } from "../../../../constants";
 
 const NearbyJobCard = ({ book, handleNavigate }) => {
@@ -13,7 +12,7 @@ const NearbyJobCard = ({ book, handleNavigate }) => {
         source={
           checkImageURL(book.thumbnail)
           ? { uri: book.thumbnail }
-          : require('../../../../assets/images/logo.png')
+          : require('../../../../assets/icon.png')
           }
         resizeMode='contain'
         style={styles.logImage}

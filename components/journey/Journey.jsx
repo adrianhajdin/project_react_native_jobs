@@ -1,16 +1,12 @@
 import LeftRight from "./LeftRight";
 import RightLeft from "./RightLeft";
-import { View, StyleSheet, Dimensions, Image, ImageBackground, ActivityIndicator, Text } from "react-native";
+import { View, StyleSheet, Dimensions, ImageBackground} from "react-native";
 import BookIcon from "./bookicon/BookIcon";
-import { useEffect, useState} from "react";
 
 import { Heading } from "@gluestack-ui/themed"
 
 import { COLORS } from "../../constants";
 
-import { fetchLocalData } from "../../hook/storageHelpers";
-
-import useFetch from "../../hook/useFetch";
 
 const { width, height } = Dimensions.get("window");
 
@@ -18,7 +14,7 @@ const Journey = () => {
 
   return (
     <ImageBackground
-        source={require("../../assets/images/path.jpeg")}
+        source={require("../../assets/path.jpeg")}
         imageStyle={{ borderRadius: 20, opacity: 0.75}}
         style={{flex: 1,
           resizeMode: 'cover',

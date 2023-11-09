@@ -2,16 +2,10 @@ import React from 'react';
 import {View, StyleSheet, ScrollView, Linking, TouchableOpacity, SafeAreaView } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
-import { Avatar, Button, Icon, Slider } from 'react-native-elements';
-import * as Animatable from 'react-native-animatable';
+
 import { COLORS, FONT, SIZES } from '../../../constants';
 import Slide from '../../../components/hero/Slide';
 
-import Stencil from '../../../components/journey/Stencil';
-import Path1 from '../../../components/journey/Path1';
-import Journey1 from '../../../components/journey/Journey1';
-import Journey2 from '../../../components/journey/Journey2';
-import Journey3 from '../../../components/journey/Journey3';
 import Journey from '../../../components/journey/Journey';
 
 import { GluestackUIStyledProvider } from "@gluestack-ui/themed"

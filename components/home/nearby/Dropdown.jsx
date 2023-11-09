@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { COLORS, FONT } from '../../../constants';

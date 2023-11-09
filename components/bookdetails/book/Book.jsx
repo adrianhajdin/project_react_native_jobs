@@ -1,12 +1,10 @@
 import React from "react";
-import { View, Text, Image, BackHandler } from "react-native";
+import { View, Text, Image } from "react-native";
 
 import styles from "./book.style";
-import { COLORS, icons } from "../../../constants";
+import { COLORS } from "../../../constants";
 import { checkImageURL } from "../../../utils";
 import StarRating from "react-native-star-rating";
-
-
 
 const Book = ({ score, bookLogo, title, subtitle, authors, rating, ratingsCount, description, genre, pageCount, isbn, publisher, publishedDate, country }) => { // chnage to only show title or whatever you think looks good (remove unused props)
   return (
@@ -16,7 +14,7 @@ const Book = ({ score, bookLogo, title, subtitle, authors, rating, ratingsCount,
         source={
           checkImageURL(bookLogo)
           ? { uri: bookLogo }
-          : require('../../../assets/images/logo.png')
+          : require('../../../assets/icon.png')
           }
         resizeMode='contain'
         style={styles.logoImage}

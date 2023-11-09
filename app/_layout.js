@@ -2,7 +2,6 @@ import { Drawer } from 'expo-router/drawer';
 import {Ionicons } from '@expo/vector-icons';
 import { useFonts } from "expo-font";
 import { COLORS } from '../constants';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 export const unstable_settings = {

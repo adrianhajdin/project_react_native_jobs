@@ -37,7 +37,7 @@ const clearLocalData = async (key) => {
 // Check if the user exists in the backend
 const userExistsOnBackend = async (key) => {
     try {
-        // console.log(`Calling ${API_ENDPOINT}/user/${key}`);
+        console.log(`Calling ${API_ENDPOINT}/user/${key}`);
         const response = await fetch(`${API_ENDPOINT}/user/${key}`);
         const data = await response.json();
         return !!data;
@@ -50,7 +50,7 @@ const userExistsOnBackend = async (key) => {
 // Update backend database
 const updateBackend = async (key, data) => {
     try {
-        // console.log(`Calling ${API_ENDPOINT}/update/${key}`);
+        console.log(`Calling ${API_ENDPOINT}/update/${key}`);
         const response = await fetch(`${API_ENDPOINT}/update/${key}`, {
             method: 'POST',
             headers: {

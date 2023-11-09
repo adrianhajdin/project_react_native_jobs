@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Button, ScrollView, Text, TextInput, View, ActivityIndicator } from 'react-native';
 import { QCOLORS } from '../question/res/validColors';
 import {ButtonOutline, ButtonSolid} from 'react-native-ui-buttons';
-import { Icon } from 'react-native-vector-icons/MaterialIcons';
-import useFetch from '../../../hook/useFetch';
-import * as SecureStore from 'expo-secure-store';
+
 import { COLORS, FONT, SIZES } from '../../../constants';
 import Header from './Header';
 import { SimpleSurvey } from './SimpleSurvey';
@@ -102,8 +100,9 @@ export default class SurveyScreen extends Component {
         .catch(error => {
             console.error("Error updating user data:", error);
         });
-
-        this.props.router.push("(drawer)/home");
+        this.props.router.push({
+            pathname: "(drawer)/home",
+          });
     }
 
     /**

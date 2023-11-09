@@ -62,10 +62,6 @@ const Hero = () => {
     router.push("questionnare");
   };
 
-  const displayUpdates = () => {
-    
-  }
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
         <Drawer.Screen

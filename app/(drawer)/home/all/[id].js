@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import { Text, SafeAreaView } from 'react-native';
-import axios from 'axios';
 import useFetch from '../../../../hook/useFetch';
 
 import NearbyJobCard from '../../../../components/common/cards/nearby/NearbyJobCard';

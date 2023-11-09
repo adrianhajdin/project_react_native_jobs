@@ -7,8 +7,7 @@ import styles from "../../../styles/search";
 import { useRouter} from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import NearbyJobCard from "../../../components/common/cards/nearby/NearbyJobCard";
-import { Ionicons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
-import * as SecureStore from 'expo-secure-store';
+import { Ionicons } from '@expo/vector-icons';
 
 import {fetchLocalData} from "../../../hook/storageHelpers"
 

@@ -1,8 +1,8 @@
 import React, {useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, SafeAreaView , ActivityIndicator, Platform, TouchableOpacity} from "react-native";
-import { ListItem, SearchBar } from "react-native-elements";
+import { SearchBar } from "react-native-elements";
 import useFetch from "../../../../hook/useFetch";
-import { Stack, useRouter, useSearchParams, useLocalSearchParams } from 'expo-router'
+import { Stack, useRouter, useLocalSearchParams } from 'expo-router'
 
 import NearbyJobCard from "../../../../components/common/cards/nearby/NearbyJobCard";
 import { COLORS, icons, SIZES } from '../../../../constants'

@@ -22,28 +22,18 @@ import {
 import { COLORS, icons, SIZES, FONT } from "../../../../constants";
 import useFetch from "../../../../hook/useFetch";
 
-import styles from "../../../../components/bookdetails/book/book.style";
-import { checkImageURL } from "../../../../utils";
-import Stars from "../../../../components/bookdetails/stars/Stars";
-
 import Score from "../../../../components/bookdetails/score/Score";
 
-import * as SecureStore from 'expo-secure-store';
 import { AntDesign, Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import AlreadyReadHeader from "../../../../components/bookdetails/header/AlreadyReadHeader";
-import LikedReccomendationSlider from "../../../../components/bookdetails/slider/LikedReccomendationSlider";
-
-import { Rating } from "react-native-elements";
 
 import { StyleSheet } from "react-native";
 
 import * as StoreReview from 'expo-store-review';
 
 import {fetchLocalData, updateUser} from "../../../../hook/storageHelpers"
-
-import Header from "../../../../components/home/question/Header";
 
 const tabs = ["General Info", "Score", "Similar Books"];
 

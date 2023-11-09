@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button, Linking } from "react-native";
 import { Stack, useRouter, Link, useLocalSearchParams, Redirect} from "expo-router";
 
@@ -13,6 +13,8 @@ import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import { MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 
+import { useFocusEffect } from "expo-router";
+
 import {fetchLocalData, legacyUser} from "../../../hook/storageHelpers"
 
 const Page = () => {
@@ -25,9 +27,9 @@ const Page = () => {
   const [cat, setCat] = useState("");
   const [gen, setGen] = useState("");
 
-  const [updates, setUpdates] = useState(null)
+  const [updates, setUpdates] = useState(null);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     // will remove this code once all users are migrated
     legacyUser()
     .then((promiseValue) => { // checking if data needs to be migrated
@@ -36,7 +38,7 @@ const Page = () => {
     })
     .then((isLegacyUser) => {
       if (isLegacyUser) {
-        console.log("Deteced legacy user, pushing to hero/update page.")
+        console.log("Deteced legacy user, pushing to updates to hero page.")
         router.push({
           pathname: "hero",
           params: {legacyUser: true, updates: updates}
@@ -54,28 +56,18 @@ const Page = () => {
                 .then((data) => {
                   setName(data.name);
                   setCat(data.cat);
-                  setGen(data.gen)
+                  setGen(data.gen);
                   setIsLoading(false);
                 })
             }
         })
       }
     })
-  }, []);
-
-  
-  if (isLoading) {
-    return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-    </View>
-    );
-  }
+  },);
 
     return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-      <View>
-        <Drawer.Screen options={{
+      <Drawer.Screen options={{
           headerStyle: { backgroundColor: COLORS.secondary },
           headerShadowVisible: false,
           headerLeft: () => (
@@ -95,7 +87,9 @@ const Page = () => {
           title: "",
         }}
         />
-      </View>
+      {isLoading ? (
+          <ActivityIndicator size='large' color={COLORS.primary} />
+        ) : (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -197,6 +191,7 @@ const Page = () => {
 
         </View>
       </ScrollView>
+    )}
     </SafeAreaView>
   )};
 

@@ -1,16 +1,13 @@
-import { Text, View, SafeAreaView, ScrollView, FlatList, SectionList, ActivityIndicator, RefreshControl } from "react-native";
+import { Text, View, SafeAreaView, SectionList, ActivityIndicator, RefreshControl } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
-import { COLORS, icons, images, SIZES } from "../../../constants";
+import { COLORS, SIZES } from "../../../constants";
 import useFetch from "../../../hook/useFetch";
 import styles from "../../../styles/search";
 import { useRouter} from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import NearbyJobCard from "../../../components/common/cards/nearby/NearbyJobCard";
-import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import the Ionicons from @expo/vector-icons
-import * as SecureStore from 'expo-secure-store';
-import SearchButton from "../../../components/home/welcome/SearchButton";
-// const AnimatedIcon = Animatable.createAnimatableComponent(Icon);
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {fetchLocalData} from "../../../hook/storageHelpers"
 import AlreadyReadHeader from "../../../components/bookdetails/header/AlreadyReadHeader";

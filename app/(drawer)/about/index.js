@@ -2,12 +2,12 @@ import React from 'react';
 import { Text, View, StyleSheet, ScrollView, Linking, TouchableOpacity, SafeAreaView } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
-import * as Animatable from 'react-native-animatable';
 import { COLORS, FONT, SIZES } from '../../../constants';
 
 import { GluestackUIProvider, Avatar, AvatarFallbackText, AvatarImage, Image, ButtonIcon, ButtonText, Button, MailIcon} from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 
+// const AnimatedIcon = Animatable.createAnimatableComponent(Icon);
 
 const AboutPage = () => {
   return (
@@ -37,7 +37,7 @@ const AboutPage = () => {
       <Image
         size="xl"
         borderRadius="$xl"
-        source={require('../../../assets/images/logo.png')}
+        source={require('../../../assets/icon.png')}
         alt="Image of Book Logo"
       />
       <View>
