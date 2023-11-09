@@ -102,7 +102,6 @@ export default class SurveyScreen extends Component {
         });
         this.props.router.push({
             pathname: "(drawer)/home",
-            params: {questionnareDone: true}
           });
     }
 

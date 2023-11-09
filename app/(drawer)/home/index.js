@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { SafeAreaView, ScrollView, View, ActivityIndicator, Modal, Text, TouchableOpacity, StyleSheet, Button, Linking } from "react-native";
 import { Stack, useRouter, Link, useLocalSearchParams, Redirect} from "expo-router";
 
@@ -13,7 +13,7 @@ import { Drawer } from "expo-router/drawer";
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import { MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from "expo-router";
 
 import {fetchLocalData, legacyUser} from "../../../hook/storageHelpers"
 
@@ -29,9 +29,7 @@ const Page = () => {
 
   const [updates, setUpdates] = useState(null);
 
-  const completedQuestionnare = useLocalSearchParams();
-
-  useEffect(() => {
+  useFocusEffect(() => {
     // will remove this code once all users are migrated
     legacyUser()
     .then((promiseValue) => { // checking if data needs to be migrated
@@ -49,7 +47,6 @@ const Page = () => {
         fetchLocalData("uuidv4") // original logic, if null go to hero
         .then((uuidv4) => {
             if (uuidv4 == null) {
-              console.log("Hero push here new user")
               router.push({
                 pathname: "hero",
                 params: {legacyUser: false, updates: null}
@@ -60,14 +57,13 @@ const Page = () => {
                   setName(data.name);
                   setCat(data.cat);
                   setGen(data.gen);
-                  console.log("Loading false here")
                   setIsLoading(false);
                 })
             }
         })
       }
     })
-  }, [completedQuestionnare]);
+  },);
 
     return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
